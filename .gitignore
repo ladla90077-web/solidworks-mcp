@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+
+# Generated docs cache (re-fetched on demand)
+src/sw_mcp/resources/cache/
+
+# SolidWorks temp macros / logs / screenshots live in the OS temp dir, but
+# ignore any that land here
+*.swb
+*.bmp
+
+# Session artifacts
+.claude/
+
+# Third-party reference material used during development - NOT republished
+# (YouTube tutorial captions, reference VBA, skill package)
+transcripts.txt
+sample to follow for coding features.txt
+solidworks-vba.skill
