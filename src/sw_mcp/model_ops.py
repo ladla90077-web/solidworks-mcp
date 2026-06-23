@@ -22,6 +22,15 @@ def _byref_long(v=0):
     return win32com.client.VARIANT(pythoncom.VT_BYREF | pythoncom.VT_I4, v)
 
 
+def _null_dispatch():
+    """A null IDispatch VARIANT (COM equivalent of VBA `Nothing`).
+
+    ModelDocExtension.SaveAs declares ImportExportData as IDispatch*. Passing
+    Python `None` marshals as VT_EMPTY/VT_NULL, which SolidWorks rejects with a
+    "Type mismatch" (0x80020005); a VT_DISPATCH null is accepted."""
+    return win32com.client.VARIANT(pythoncom.VT_DISPATCH, None)
+
+
 def new_document(app: Any, doc_type: str = "part") -> dict:
     key = doc_type.lower()
     if key not in _TPL_FOR:
@@ -55,7 +64,7 @@ def save_model(app: Any, path: Optional[str] = None) -> dict:
         return {"ok": False, "error": "no active document"}
     errs, warns = _byref_long(), _byref_long()
     if path:
-        ok = bool(model.Extension.SaveAs(path, 0, 1, None, errs, warns))
+        ok = bool(model.Extension.SaveAs(path, 0, 1, _null_dispatch(), errs, warns))
     else:
         ok = bool(model.Save3(1, errs, warns))
     code = int(errs.value or 0)
@@ -70,7 +79,7 @@ def export_file(app: Any, path: str) -> dict:
     if model is None:
         return {"ok": False, "error": "no active document"}
     errs, warns = _byref_long(), _byref_long()
-    ok = bool(model.Extension.SaveAs(path, 0, 0, None, errs, warns))
+    ok = bool(model.Extension.SaveAs(path, 0, 0, _null_dispatch(), errs, warns))
     code = int(errs.value or 0)
     return {"ok": ok, "path": path if ok else None,
             "save_errors": decode_save_error(code)}

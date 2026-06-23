@@ -1,0 +1,573 @@
+[
+  {
+    "id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_data_interface_name": "IWizardHoleFeatureData2",
+    "identifier": "ifeatman-holewizard5",
+    "creation_or_modification": "creation",
+    "description": "Create Hole Wizard holes or slots using IFeatureManager::HoleWizard5 method. This method accepts parameters for different hole/slot types (simple, tapered, counterbored, countersunk, etc.) and creates the feature directly.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~HoleWizard5.md",
+      "sldworksapi/Table_of_Wizard_Hole_Types_and_Valid_Properties.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~HoleWizard4.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~HoleWizard2.md"
+    ]
+  },
+  {
+    "id": "c666e39831332013aa2cf24c1ff6eed1a29473d6b3e1accdccb84bbf15727b91",
+    "feature_data_interface_name": "IWizardHoleFeatureData2",
+    "identifier": "ifeature-getdefinition",
+    "creation_or_modification": "modification",
+    "description": "Modify Hole Wizard features by retrieving the IWizardHoleFeatureData2 object from an existing IFeature using GetDefinition or IGetDefinition, modifying its properties, and the changes are applied to the feature.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IWizardHoleFeatureData2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IWizardHoleFeatureData2_members.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "80bc04647aec89d8397a0b16d44186dadd007c8e507199b1756f9b8fba22f573",
+    "feature_data_interface_name": "ISplitBodyFeatureData",
+    "identifier": "ifeatman-postsplitbody2",
+    "creation_or_modification": "creation",
+    "description": "Creates a Split feature by calling IFeatureManager::PostSplitBody2 after calling IFeatureManager::PreSplitBody2 to get the bodies resulting from the split operation. This method takes arrays of bodies to mark, a consume flag, body origins, save paths, and optional template name override.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~PostSplitBody2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~PreSplitBody2.md",
+      "sldworksapi/Create_Split-body_Feature_Example_CSharp.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~PostSplitBody.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~PreSplitBody.md"
+    ]
+  },
+  {
+    "id": "cf1ed2f704082d1196c8165cbd147946304e229cd6cd12137c9373f1af202bf1",
+    "feature_data_interface_name": "ISplitBodyFeatureData",
+    "identifier": "ifeature-getdefinition-modifydefinition",
+    "creation_or_modification": "modification",
+    "description": "Modifies a Split feature by calling IFeature::GetDefinition to get the ISplitBodyFeatureData object, modifying its properties (such as Consume, TemplatePath, OverrideDefaultTemplateSettings, or split bodies via SetSplitBodies2), and then calling IFeature::ModifyDefinition to apply the changes. For selection-based modifications, AccessSelections must be called first.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISplitBodyFeatureData.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISplitBodyFeatureData~AccessSelections.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISplitBodyFeatureData~SetSplitBodies2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISplitBodyFeatureData~Consume.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_data_interface_name": "IRevolveFeatureData2",
+    "identifier": "ifeatman-feature-revolve2",
+    "creation_or_modification": "creation",
+    "description": "Creates a revolve feature by calling IFeatureManager::FeatureRevolve2() with parameters specifying the type of revolve (solid/cut, thin/solid), direction (single or dual), end conditions (blind, mid-plane, up-to surface, offset from surface), and angles. Returns an IFeature object whose definition can be accessed via IFeature::GetDefinition() to get IRevolveFeatureData2. Required selections: sketch (Mark 0), axis of revolution (Mark 4 or 16), optional up-to or offset surface (Mark 32), and optional affected bodies/components (Mark 1 if using feature scope).",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureRevolve2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IRevolveFeatureData2.md",
+      "sldworksapi/Create_Revolve_Features_Example_CSharp.md",
+      "sldworksapi/Create_360-degree_Revolve_Feature_Example_CSharp.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureRevolve.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureRevolveCut.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureRevolveCut2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureRevolveThin.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureRevolveThinCut.md"
+    ]
+  },
+  {
+    "id": "0373aa5d85368626673d7c50b51dde871fbd15e05e15dc3e663c4786f0683f03",
+    "feature_data_interface_name": "IRevolveFeatureData2",
+    "identifier": "irevolvefeaturedata2-modify-definition",
+    "creation_or_modification": "modification",
+    "description": "Modifies a revolve feature by accessing its definition via IFeature::GetDefinition() to get IRevolveFeatureData2, then calling AccessSelections() to gain access to the feature's selections, modifying properties (Type, Axis, ReverseDirection, SetRevolutionAngle, SetWallThickness, Contours, etc.), and finally calling IFeature::ModifyDefinition() to apply the changes. For multibody parts, can also use feature scope properties (FeatureScope, FeatureScopeBodies, AutoSelect, Merge).",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IRevolveFeatureData2~AccessSelections.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IRevolveFeatureData2~Type.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IRevolveFeatureData2~SetRevolutionAngle.md",
+      "sldworksapi/Create_360-degree_Revolve_Feature_Example_CSharp.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "7e5e7203000b30604a30c079fd612ece6f5bf1567e6131f639248b343f902cec",
+    "feature_data_interface_name": "IShellFeatureData",
+    "identifier": "imodeldoc2-insertfeatureshell",
+    "creation_or_modification": "creation",
+    "description": "Direct creation method using IModelDoc2::InsertFeatureShell. This method creates a shell feature by removing selected faces and applying a uniform thickness to the resulting solid. Faces must be pre-selected using IModelDocExtension::SelectByID2 with Mark=1 before calling this method. The method takes two parameters: Thickness (in meters) and Outward (boolean indicating direction - True for outward shell, False for inward shell).",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~InsertFeatureShell.md",
+      "sldworksapi/Create_Shell_Feature_Example_CSharp.md",
+      "sldworksapi/Get_Shell_Feature_Data_Example_VB.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc~InsertFeatureShell.md"
+    ]
+  },
+  {
+    "id": "51fcbe35525f9097ec7751949179cfddcbf441759b6fa96c6e3771cc93a44140",
+    "feature_data_interface_name": "IShellFeatureData",
+    "identifier": "ifeature-getdefinition",
+    "creation_or_modification": "modification",
+    "description": "Modification method using IFeature::GetDefinition. After a shell feature has been created using InsertFeatureShell, this method retrieves the IShellFeatureData object which allows modification of the feature's properties (Thickness, Direction, FacesRemoved, MultipleThicknessFaces). Changes are applied by calling IFeature::ModifyDefinition after modifying the data object properties.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature_members.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IShellFeatureData.md",
+      "sldworksapi/Create_Shell_Feature_Example_CSharp.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "b36a77f1e8c652c266188f94f160cb46e71e9cd6cb703ebe63f9b13ad0fbbdd6",
+    "feature_data_interface_name": "IShellFeatureData",
+    "identifier": "imodeldoc2-insertfeatureshelladdthickness",
+    "creation_or_modification": "creation",
+    "description": "Multi-thickness shell creation method using IModelDoc2::InsertFeatureShellAddThickness in conjunction with IModelDoc2::InsertFeatureShell. This method allows creation of shells with different thicknesses on different faces. The workflow is: (1) Select faces to remove with Mark=1, (2) Select faces with alternate thicknesses using Mark=2, (3) Call InsertFeatureShellAddThickness once for each face with alternate thickness, (4) Call InsertFeatureShell to create the final multi-thickness shell feature.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~InsertFeatureShellAddThickness.md",
+      "sldworksapi/Create_a_Multi-thickness_Shell_Example_VB.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc~InsertFeatureShellAddThickness.md"
+    ]
+  },
+  {
+    "id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_data_interface_name": "ISimpleFilletFeatureData2",
+    "identifier": "ifeatman-createdefinition-fillettype",
+    "creation_or_modification": "creation",
+    "description": "Create a simple fillet feature data object using IFeatureManager::CreateDefinition with swFmFillet enum value. Initialize the fillet type using ISimpleFilletFeatureData2::Initialize, configure selection and parameters, then call IFeatureManager::CreateFeature to create the feature.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISimpleFilletFeatureData2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISimpleFilletFeatureData2~Initialize.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureFillet2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~IFeatureFillet2.md"
+    ]
+  },
+  {
+    "id": "18a5266e85af0ccf30b1a93d1efef392cb7c1a038057b297f2b834d56c5d6c24",
+    "feature_data_interface_name": "ISimpleFilletFeatureData2",
+    "identifier": "ifeature-getdefinition-filletdata",
+    "creation_or_modification": "modification",
+    "description": "Modify an existing simple fillet feature by calling IFeature::GetDefinition to retrieve the ISimpleFilletFeatureData2 object, then modify properties and call IFeatureManager::CreateFeature to apply changes.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISimpleFilletFeatureData2.md",
+      "sldworksapi/Get_Data_for_Simple_Fillet_Example_VB.md",
+      "sldworksapi/Get_Simple_Fillet_Feature_Data_Example_VB.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "089fdb3dd5847a2548cd1d6987dfbcdf82f1e021e5bc6a7219c4ee00586aed60",
+    "feature_data_interface_name": "IMirrorPatternFeatureData",
+    "identifier": "ifeatman-insertmirrorfeature2",
+    "creation_or_modification": "creation",
+    "description": "Creates a mirror pattern feature using IFeatureManager::InsertMirrorFeature2. This method creates a mirror feature directly without requiring explicit creation of a feature data object. It automatically handles mirror patterns by pre-selecting entities (features with mark value 1, faces with mark 128, planes/planar faces with mark 2) and applying mirror operations based on parameters (BMirrorBody, BGeometryPattern, BMerge, BKnit). The feature data can then be accessed via Feature::GetDefinition().",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~InsertMirrorFeature2.md",
+      "sldworksapi/Get_Mirror_Pattern_Feature_Data_Example_CSharp.md",
+      "sldworksapi/Get_Mirror_Pattern_Feature_Data_Example_VBNET.md",
+      "sldworksapi/Get_Mirror_Feature_Data_Example_VB.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~InsertMirrorFeature.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IPartDoc~InsertMirrorFeature.md"
+    ]
+  },
+  {
+    "id": "c0b05947f45d7b5e823e76ac31ce0c37627247fce409b662d2dd60102ff62992",
+    "feature_data_interface_name": "IMirrorPatternFeatureData",
+    "identifier": "ifeature-getdefinition",
+    "creation_or_modification": "modification",
+    "description": "Modifies an existing mirror pattern feature by getting its feature data via Feature::GetDefinition(), which returns an IMirrorPatternFeatureData interface. This allows access to and modification of mirror pattern properties such as GeometryPattern, MirrorFaceArray, PatternFeatureArray, Plane, and FeatureScope. After modification, the feature data is updated via Feature::ModifyDefinition().",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IMirrorPatternFeatureData.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IMirrorPatternFeatureData~AccessSelections.md",
+      "sldworksapi/Get_Mirror_Pattern_Feature_Data_Example_CSharp.md",
+      "sldworksapi/Get_Mirror_Pattern_Feature_Data_Example_VBNET.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_data_interface_name": "ILoftFeatureData",
+    "identifier": "ifeatman-insertprotrusionblend2",
+    "creation_or_modification": "creation",
+    "description": "Creates a lofted protrusion (boss) feature from selected profiles, guide curves (optional), and centerline (optional) using IFeatureManager.InsertProtrusionBlend2(). This method creates a solid boss/protrusion by lofting through multiple cross-sectional profiles. Returns an IFeature object whose definition can be accessed via GetDefinition() to get the ILoftFeatureData.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~InsertProtrusionBlend2.md",
+      "sldworksapi/Insert_Protrusion_Blend_Example_VBNET.md",
+      "sldworksapi/Insert_Protrusion_Blend_Example_CSharp.md",
+      "sldworksapi/Insert_Protrusion_Blend_Example_VB.htm"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~InsertProtrusionBlend.md"
+    ]
+  },
+  {
+    "id": "96276073234a8f5c94f4c45d1ac93c62491913d6d1cddedb082bd6cabfcff5ae",
+    "feature_data_interface_name": "ILoftFeatureData",
+    "identifier": "ifeatman-insertcutblend",
+    "creation_or_modification": "creation",
+    "description": "Creates a lofted cut feature from selected profiles, guide curves (optional), and centerline (optional) using IFeatureManager.InsertCutBlend(). This method creates a cut/cavity by lofting through multiple cross-sectional profiles. Returns an IFeature object whose definition can be accessed via GetDefinition() to get the ILoftFeatureData.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~InsertCutBlend.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "2adacb868b3fd822f1fa07e38e49f43856def0a60f58be37d4d88310b5e88417",
+    "feature_data_interface_name": "ILoftFeatureData",
+    "identifier": "ifeature-modifydefinition",
+    "creation_or_modification": "modification",
+    "description": "Modifies an existing loft feature by calling IFeature.ModifyDefinition() with a modified ILoftFeatureData object. The workflow is: (1) Get the feature via selection or tree, (2) Call IFeature.GetDefinition() to obtain the ILoftFeatureData, (3) Modify properties on the ILoftFeatureData, (4) Call IFeature.ModifyDefinition() to apply changes. Must call AccessSelections() before modifying selections and ReleaseSelectionAccess() after modifying.",
+    "relevant_documents": [
+      "sldworksapi/Get_Loft's_Pick_Points_Example_CSharp.md",
+      "sldworksapi/Get_Guide_Curves_in_Loft_Feature_Example_CSharp.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ILoftFeatureData.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "8f850088e51fe164d4e86911f91e07ab0848c567895c92895e45f4f3580b409f",
+    "feature_data_interface_name": "IChamferFeatureData2",
+    "identifier": "ifeatman-insertfeaturechamfer",
+    "creation_or_modification": "creation",
+    "description": "Creates a chamfer feature directly using IFeatureManager::InsertFeatureChamfer. This method accepts pre-selected edges or vertices and chamfer parameters (type, dimensions, angle, etc.) as arguments, and returns an IFeature object. The chamfer type is specified via swChamferType_e enum (swChamferAngleDistance, swChamferDistanceDistance, swChamferEqualDistance, or swChamferVertex), with options controlled via swFeatureChamferOption_e bitmask. This method supports creating all four chamfer types in one call.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~InsertFeatureChamfer.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~FeatureChamferType.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc~FeatureChamferType.md"
+    ]
+  },
+  {
+    "id": "5b74cbc90141b6d48d01439f4063b79857cdc82edb421f6469b2eb7358398f6b",
+    "feature_data_interface_name": "IChamferFeatureData2",
+    "identifier": "imodeldoc2-featurechamfer",
+    "creation_or_modification": "creation",
+    "description": "Creates a chamfer feature using IModelDoc2::FeatureChamfer for angle-distance chamfers with pre-selected edges. This method accepts width, angle, and flip parameters and creates the feature directly. This method is simpler but less flexible than InsertFeatureChamfer as it only supports angle-distance chamfers.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~FeatureChamfer.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc~FeatureChamfer.md"
+    ]
+  },
+  {
+    "id": "df6d0563c90ca5fce1cedf06e67875462c4a8248a888dda08f5fac739c74a2c6",
+    "feature_data_interface_name": "IChamferFeatureData2",
+    "identifier": "ifeatman-simplefilletfeaturedata2-chamfer",
+    "creation_or_modification": "creation",
+    "description": "Creates a chamfer feature using IFeatureManager::CreateDefinition with swFmFillet enum, initializing ISimpleFilletFeatureData2, and specializing it to a chamfer via the ConicTypeForCrossSectionProfile property set to swFeatureFilletConicRhoZeroChamfer. This method is used for constant radius and partial edge chamfers, offering more control over chamfer properties.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~CreateDefinition.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~CreateFeature.md",
+      "sldworksapi/Create_Partial_Chamfer_Example_CSharp.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "a95dd8fab2c1afa5a9ec3cf5e5a51a52099b5aecc7613743dc59a0b784df6909",
+    "feature_data_interface_name": "IChamferFeatureData2",
+    "identifier": "ifeature-getdefinition",
+    "creation_or_modification": "modification",
+    "description": "Modifies an existing chamfer feature by calling IFeature::GetDefinition to retrieve the IChamferFeatureData2 object, modifying its properties (Type, EdgeChamferAngle, distances via SetEdgeChamferDistance/SetVertexChamferDistance, Edges, Faces, Loops, etc.), and then calling IFeature::ModifyDefinition to apply the changes.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~GetDefinition.md",
+      "sldworksapi/Get_Edge_Chamfer_Distances_Example_VB.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IChamferFeatureData2~Type.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IChamferFeatureData2~EdgeChamferAngle.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "016e930ce3c7743aae9286e78bbeae5a8dc64ff27a184781ed21ba94ea0111fa",
+    "feature_data_interface_name": "ISimpleHoleFeatureData2",
+    "identifier": "ifeatman-simplehole2",
+    "creation_or_modification": "creation",
+    "description": "Creates a simple hole feature using IFeatureManager::SimpleHole2, which accepts parameters for hole diameter, end conditions, depth, draft angles, and scope options. This method directly returns a Feature object and supports single-ended and double-ended holes with various end condition types (blind, through-all, up-to-surface, offset-from-surface, etc.). The method allows configuration of draft angles and offset directions for both ends.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~SimpleHole2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISimpleHoleFeatureData2.md",
+      "sldworksapi/Insert_Sketch_Text_and_Hole_Example_CSharp.md",
+      "sldworksapi/Insert_Sketch_Text_and_Hole_Example_VBNET.md",
+      "sldworksapi/Insert_Sketch_Text_and_Hole_Example_VB.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~SimpleHole.md"
+    ]
+  },
+  {
+    "id": "765be0df2d85f431ee331a16f830e01e8f7f1a6f837c1bda00f0b92e5e319cf6",
+    "feature_data_interface_name": "ISimpleHoleFeatureData2",
+    "identifier": "ifeature-getdefinition-modify",
+    "creation_or_modification": "modification",
+    "description": "Modifies an existing simple hole feature by calling IFeature::GetDefinition to obtain the ISimpleHoleFeatureData2 object, modifying its properties (such as Type for end condition, Depth, Diameter, draft angles, end condition references, etc.), and then calling IFeature::ModifyDefinition to apply the changes. This method allows accessing and modifying selections via AccessSelections and ReleaseSelectionAccess.",
+    "relevant_documents": [
+      "sldworksapi/Set_New_End_Condition_for_Simple_Hole_Example_CSharp.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISimpleHoleFeatureData2_members.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISimpleHoleFeatureData2_properties.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISimpleHoleFeatureData2~Type.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISimpleHoleFeatureData2~Depth.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISimpleHoleFeatureData2~Diameter.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_data_interface_name": "IRefPlaneFeatureData",
+    "identifier": "ifeatman-insertrefplane",
+    "creation_or_modification": "creation",
+    "description": "Creates a constraint-based reference plane using IFeatureManager::InsertRefPlane method with selected reference entities and constraint types. Returns an IRefPlane object.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~InsertRefPlane.md",
+      "sldworksapi/Insert_Reference_Plane_Example_CSharp.md",
+      "sldworksapi/Insert_Reference_Plane_Example_VB.md",
+      "sldworksapi/Insert_Reference_Plane_Example_VBNET.md",
+      "swconst/SolidWorks.Interop.swconst~SolidWorks.Interop.swconst.swRefPlaneReferenceConstraints_e.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~CreatePlaneAtAngle3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~CreatePlaneAtOffset3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~CreatePlaneAtSurface3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~CreatePlaneFixed2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~CreatePlanePerCurveAndPassPoint3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~CreatePlaneThru3Points3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~CreatePlaneThruLineAndPt.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~CreatePlaneThruPtParallelToPlane.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~ICreatePlaneAtAngle3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~ICreatePlaneAtOffset3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~ICreatePlaneAtSurface3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~ICreatePlaneFixed2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~ICreatePlanePerCurveAndPassPoint3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~ICreatePlaneThru3Points3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~ICreatePlaneThruLineAndPt.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~ICreatePlaneThruPtParallelToPlane.md"
+    ]
+  },
+  {
+    "id": "cc5190b1728764ecc3dd49d67d9edfa3328dafb4fd2df80dcf76e41e69be14e6",
+    "feature_data_interface_name": "IRefPlaneFeatureData",
+    "identifier": "ifeature-getdefinition",
+    "creation_or_modification": "modification",
+    "description": "Retrieves IRefPlaneFeatureData from an existing reference plane feature via IFeature::GetDefinition or IFeature::IGetDefinition. Allows modification of reference plane properties such as constraints, distances, and angles.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IRefPlaneFeatureData.md",
+      "sldworksapi/Insert_Reference_Plane_Example_CSharp.md",
+      "sldworksapi/Insert_Reference_Plane_Example_VB.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "98aeed9a2f545277de874ac28d910977733b35a71a94ae66dfc581e5c47e7e1f",
+    "feature_data_interface_name": "IRefAxisFeatureData",
+    "identifier": "ifeature-getdefinition",
+    "creation_or_modification": "modification",
+    "description": "Get the feature data definition of an existing reference axis feature using IFeature::GetDefinition() or IFeature::IGetDefinition(), then modify its properties (Type) and selections",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IRefAxisFeatureData.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IRefAxisFeatureData_members.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IRefAxisFeatureData~Type.md",
+      "sldworksapi/Get_Selections_for_Reference_Axis_Feature_Example_CSharp.md",
+      "sldworksapi/Get_Reference_Axis_Data_Example_CSharp.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "05c0ef41407006a20d7cdda0adb796c77a9f280c471be6f42d21c1a366026da8",
+    "feature_data_interface_name": "ILinearPatternFeatureData",
+    "identifier": "ifeatman-createdefinition-createfeature",
+    "creation_or_modification": "creation",
+    "description": "Creates a linear pattern feature by calling IFeatureManager::CreateDefinition(swFmLPattern) to create a feature data object, optionally configuring its properties, and then calling IFeatureManager::CreateFeature() with the configured feature data object.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~CreateDefinition.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~CreateFeature.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ILinearPatternFeatureData.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureLinearPattern.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureLinearPattern2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureLinearPattern3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureLinearPattern4.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureLinearPattern5.md"
+    ]
+  },
+  {
+    "id": "3202c67e893caba0b3c0eee833338a40d048bcd17fd6ad759aa354540b720b62",
+    "feature_data_interface_name": "ILinearPatternFeatureData",
+    "identifier": "ifeature-getdefinition-modifydefinition",
+    "creation_or_modification": "modification",
+    "description": "Modifies a linear pattern feature by calling IFeature::GetDefinition() to retrieve the associated ILinearPatternFeatureData object, modifying its properties, and then calling IFeature::ModifyDefinition() to update the feature with the new values.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~GetDefinition.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~ModifyDefinition.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ILinearPatternFeatureData.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "946f444ca74237c3bc454dbc62c0458deda2ce2b1baa6fb184fc0389eeb4d81e",
+    "feature_data_interface_name": "ICircularPatternFeatureData",
+    "identifier": "ifeatman-createdefinition-createfeature",
+    "creation_or_modification": "creation",
+    "description": "Create a circular pattern feature by first calling IFeatureManager.CreateDefinition(swFmCirPattern) with pre-selected entities, then calling IFeatureManager.CreateFeature() with the returned feature data object",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~CreateDefinition.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~CreateFeature.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ICircularPatternFeatureData.md",
+      "sldworksapi/Create_Bidirectional_Circular_Pattern_Feature_Example_CSharp.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureCircularPattern.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureCircularPattern2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureCircularPattern3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureCircularPattern4.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureCircularPattern5.md"
+    ]
+  },
+  {
+    "id": "c6aeca4b8f8e6f0de0808ea73ea7a14921e13fb823ce05fe140ea97c53192ff0",
+    "feature_data_interface_name": "ICircularPatternFeatureData",
+    "identifier": "ifeature-modifydefinition",
+    "creation_or_modification": "modification",
+    "description": "Modify an existing circular pattern feature by calling IFeature.GetDefinition() to retrieve the feature data, modifying its properties, and then calling IFeature.ModifyDefinition() to apply the changes",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~GetDefinition.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~ModifyDefinition.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ICircularPatternFeatureData.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_data_interface_name": "ISweepFeatureData",
+    "identifier": "ifeatman-createdefinition-sweep",
+    "creation_or_modification": "creation",
+    "description": "Create a sweep feature (boss, cut, or surface) by calling IFeatureManager::CreateDefinition with a sweep-related enum value (swFmSweep, swFmSweepCut, or swFmRefSurface), configuring the ISweepFeatureData properties, and then calling IFeatureManager::CreateFeature to instantiate the feature.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~CreateDefinition.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISweepFeatureData.md",
+      "sldworksapi/Insert_Swept-boss_Feature_Example_VB.md",
+      "sldworksapi/Insert_Swept_Cut_Feature_Example_VB.md",
+      "sldworksapi/Insert_Swept-surface_Feature_Example_VB.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "55a6a656d5dac517fe0609e9a5fc4479238f73c57baa4a77bb4e7667bd8bb08c",
+    "feature_data_interface_name": "ISweepFeatureData",
+    "identifier": "ifeature-getdefinition-modify",
+    "creation_or_modification": "modification",
+    "description": "Modify an existing sweep feature by calling IFeature::GetDefinition to retrieve the ISweepFeatureData object, modifying its properties, and then calling IFeature::ModifyDefinition to apply the changes.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~GetDefinition.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~ModifyDefinition.md",
+      "sldworksapi/Insert_Swept-cut_Feature_Using_Circular_Profile_Example_VB.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_data_interface_name": "IDraftFeatureData2",
+    "identifier": "ifeatman-insertmultifacedraft",
+    "creation_or_modification": "creation",
+    "description": "Creates a multiface draft feature using IFeatureManager::InsertMultiFaceDraft. This method directly creates a draft feature without using the CreateDefinition/CreateFeature pattern. Requires pre-selections using SelectByID2 before calling this method.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~InsertMultiFaceDraft.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IDraftFeatureData2.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~InsertMfDraft.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModelDoc2~InsertMfDraft2.md"
+    ]
+  },
+  {
+    "id": "65eba446d9a256f737ca4aafb4b3dbb10a7947a8fe842f2c494518a4b0ac6d4b",
+    "feature_data_interface_name": "IDraftFeatureData2",
+    "identifier": "ifeature-getdefinition-modifydefinition",
+    "creation_or_modification": "modification",
+    "description": "Modifies an existing draft feature by retrieving its definition using IFeature::GetDefinition to get an IDraftFeatureData2 object, modifying its properties, and then calling IFeature::ModifyDefinition to apply the changes.",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~GetDefinition.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IDraftFeatureData2_members.md",
+      "sldworksapi/Get_Faces_Affected_by_Draft_Feature_Example_CSharp.md"
+    ],
+    "obsolete_function_documents": []
+  },
+  {
+    "id": "355b3937a07aa7ad3bdbfe3b6879c00e709e7526ab2e973645eb586df7f11ce6",
+    "feature_data_interface_name": "IExtrudeFeatureData2",
+    "identifier": "ifeatman-featureextrusion3",
+    "creation_or_modification": "creation",
+    "description": "Creates an extruded boss or base feature with support for single-ended or double-ended extrusions, configurable end conditions, draft angles, and start conditions using IFeatureManager::FeatureExtrusion3",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureExtrusion3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IExtrudeFeatureData2.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureExtrusion2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureExtrusion.md"
+    ]
+  },
+  {
+    "id": "c240808fa8e84d938c838d7e6fd13b28eabea6e1df332b27bc54589438eb13bb",
+    "feature_data_interface_name": "IExtrudeFeatureData2",
+    "identifier": "ifeatman-featureextrusionthin2",
+    "creation_or_modification": "creation",
+    "description": "Creates an extruded thin (with thickness) boss or base feature with support for single-ended or double-ended extrusions, wall thickness, cap ends, and draft angles using IFeatureManager::FeatureExtrusionThin2",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureExtrusionThin2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IExtrudeFeatureData2.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureExtrusionThin.md"
+    ]
+  },
+  {
+    "id": "0e15112f7fa26335eef20db0c9aaffb22e2c11535e290cedb4f840af964f7823",
+    "feature_data_interface_name": "IExtrudeFeatureData2",
+    "identifier": "ifeatman-featurecut4",
+    "creation_or_modification": "creation",
+    "description": "Creates a cut extrude feature with support for single-ended or double-ended cuts, flip side to cut, configurable end conditions, draft angles, normal cuts for sheet metal, and assembly feature options using IFeatureManager::FeatureCut4",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureCut4.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IExtrudeFeatureData2.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureCut3.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureCut2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureCut.md"
+    ]
+  },
+  {
+    "id": "9cd4af2e00af4396744f43702781feeac1d41d8045e2d201412b6c46094e379d",
+    "feature_data_interface_name": "IExtrudeFeatureData2",
+    "identifier": "ifeatman-featurecutthin2",
+    "creation_or_modification": "creation",
+    "description": "Creates a thin cut extrude feature with support for single-ended or double-ended cuts, flip side to cut, wall thickness, cap ends, and draft angles using IFeatureManager::FeatureCutThin2",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureCutThin2.md",
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IExtrudeFeatureData2.md"
+    ],
+    "obsolete_function_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeatureManager~FeatureCutThin.md"
+    ]
+  },
+  {
+    "id": "cfe2b70661aaa3a5c135dcb14c7a079357e1ec205d8e8584355fb614b122dc24",
+    "feature_data_interface_name": "IExtrudeFeatureData2",
+    "identifier": "ifeature-getdefinition",
+    "creation_or_modification": "modification",
+    "description": "Accesses the IExtrudeFeatureData2 object for an existing extrude feature via IFeature::GetDefinition() or IFeature::IGetDefinition() to allow modification of its properties",
+    "relevant_documents": [
+      "sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IExtrudeFeatureData2.md",
+      "sldworksapi/Create_Extrude_Feature_Using_Sketch_Contours_Example_CSharp.md"
+    ],
+    "obsolete_function_documents": []
+  }
+]

@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 from . import diagnostics, knowledge, macro_runner
+from .performance import fast_mode
 from .util import new_work_path
 
 
@@ -75,12 +76,15 @@ def run_inline_and_verify(app: Any, code: str, log_path: Optional[str] = None,
     lp = Path(log_path)
     if lp.exists():
         lp.unlink()
-    run = macro_runner.run_inline_vba(app, code, proc=proc, module=module,
-                                      keep_file=True)
+    with fast_mode(app):
+        run = macro_runner.run_inline_vba(app, code, proc=proc, module=module,
+                                          keep_file=True)
     log_steps = read_log(log_path)
     model = app.ActiveDoc
     if rebuild and model is not None:
-        diagnostics.rebuild(model, force=True)
+        # Rebuild now, inspect once in _verdict (the old path walked the entire
+        # feature tree here and then immediately walked it a second time).
+        diagnostics.rebuild(model, force=True, inspect=False)
     verdict = _verdict(run, log_steps, model)
     verdict["log_path"] = log_path
     return verdict
@@ -88,8 +92,9 @@ def run_inline_and_verify(app: Any, code: str, log_path: Optional[str] = None,
 
 def run_file_and_verify(app: Any, path: str, module: str = "", proc: str = "main",
                         rebuild: bool = True) -> dict:
-    run = macro_runner.run_macro_file(app, path, module=module, proc=proc)
+    with fast_mode(app):
+        run = macro_runner.run_macro_file(app, path, module=module, proc=proc)
     model = app.ActiveDoc
     if rebuild and model is not None:
-        diagnostics.rebuild(model, force=True)
+        diagnostics.rebuild(model, force=True, inspect=False)
     return _verdict(run, [], model)

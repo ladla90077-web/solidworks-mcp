@@ -1,0 +1,1279 @@
+[
+  {
+    "enum_id": "swBalloonFit_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Balloons",
+      "Document Properties > Annotations > Location Label",
+      "Document Properties > Annotations > Notes",
+      "Document Properties > Sheet Metal MBD"
+    ]
+  },
+  {
+    "enum_id": "swBalloonLayoutType_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Balloons"
+    ]
+  },
+  {
+    "enum_id": "swBalloonStyle_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Balloons",
+      "Document Properties > Annotations > Location Label",
+      "Document Properties > Annotations > Notes",
+      "Document Properties > Sheet Metal",
+      "Document Properties > Sheet Metal MBD"
+    ]
+  },
+  {
+    "enum_id": "swBalloonTextContent_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Balloons"
+    ]
+  },
+  {
+    "enum_id": "swDetailingStandard_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Balloons",
+      "Document Properties > Annotations > Datums",
+      "Document Properties > Annotations > Geometric Tolerances",
+      "Document Properties > Annotations > Location Label",
+      "Document Properties > Annotations > Notes",
+      "Document Properties > Annotations > Revision Clouds",
+      "Document Properties > Annotations > Surface Finishes",
+      "Document Properties > Annotations > Weld Symbols",
+      "Document Properties > Dimensions > Angle",
+      "Document Properties > Dimensions > Angular Running",
+      "Document Properties > Dimensions > Arc Length",
+      "Document Properties > Dimensions > Chamfer",
+      "Document Properties > Dimensions > Diameter",
+      "Document Properties > Dimensions > Hole Callout",
+      "Document Properties > Dimensions > Linear",
+      "Document Properties > Dimensions > Ordinate",
+      "Document Properties > Dimensions > Radius",
+      "Document Properties > Drafting Standard",
+      "Document Properties > Tables > Hole",
+      "Document Properties > Tables > Punch",
+      "Document Properties > Views > Auxiliary",
+      "Document Properties > Views > Detail",
+      "Document Properties > Views > Orthographic",
+      "Document Properties > Views > Other",
+      "Document Properties > Views > Section"
+    ]
+  },
+  {
+    "enum_id": "swLeaderStyle_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Balloons",
+      "Document Properties > Annotations > Geometric Tolerances",
+      "Document Properties > Annotations > Notes",
+      "Document Properties > Annotations > Surface Finishes",
+      "Document Properties > Sheet Metal",
+      "Document Properties > Sheet Metal MBD"
+    ]
+  },
+  {
+    "enum_id": "swLineStyles_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Balloons",
+      "Document Properties > Annotations > Datums",
+      "Document Properties > Annotations > Geometric Tolerances",
+      "Document Properties > Annotations > Location Label",
+      "Document Properties > Annotations > Notes",
+      "Document Properties > Annotations > Revision Clouds",
+      "Document Properties > Annotations > Surface Finishes",
+      "Document Properties > Annotations > Weld Symbols",
+      "Document Properties > Borders (*drawings only*)",
+      "Document Properties > Dimensions > Angle",
+      "Document Properties > Dimensions > Angular Running",
+      "Document Properties > Dimensions > Arc Length",
+      "Document Properties > Dimensions > Chamfer",
+      "Document Properties > Dimensions > Diameter",
+      "Document Properties > Dimensions > Hole Callout",
+      "Document Properties > Dimensions > Linear",
+      "Document Properties > Dimensions > Ordinate",
+      "Document Properties > Dimensions > Radius",
+      "Document Properties > Line Font",
+      "Document Properties > Sheet Metal",
+      "Document Properties > Sheet Metal MBD",
+      "Document Properties > Views > Auxiliary",
+      "Document Properties > Views > Detail",
+      "Document Properties > Views > Section"
+    ]
+  },
+  {
+    "enum_id": "swLineWeights_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Balloons",
+      "Document Properties > Annotations > Datums",
+      "Document Properties > Annotations > Geometric Tolerances",
+      "Document Properties > Annotations > Location Label",
+      "Document Properties > Annotations > Notes",
+      "Document Properties > Annotations > Revision Clouds",
+      "Document Properties > Annotations > Surface Finishes",
+      "Document Properties > Annotations > Weld Symbols",
+      "Document Properties > Borders (*drawings only*)",
+      "Document Properties > Dimensions > Angle",
+      "Document Properties > Dimensions > Angular Running",
+      "Document Properties > Dimensions > Arc Length",
+      "Document Properties > Dimensions > Chamfer",
+      "Document Properties > Dimensions > Diameter",
+      "Document Properties > Dimensions > Hole Callout",
+      "Document Properties > Dimensions > Linear",
+      "Document Properties > Dimensions > Ordinate",
+      "Document Properties > Dimensions > Radius",
+      "Document Properties > Line Font",
+      "Document Properties > Sheet Metal",
+      "Document Properties > Sheet Metal MBD",
+      "Document Properties > Tables > Bend",
+      "Document Properties > Tables > Bill of Materials",
+      "Document Properties > Tables > General",
+      "Document Properties > Tables > Hole",
+      "Document Properties > Tables > Punch",
+      "Document Properties > Tables > Revision",
+      "Document Properties > Tables > Title Block",
+      "Document Properties > Tables > Weld",
+      "Document Properties > Views > Auxiliary",
+      "Document Properties > Views > Detail",
+      "Document Properties > Views > Section",
+      "Sketch Ink Toolbar"
+    ]
+  },
+  {
+    "enum_id": "swUserPreferenceOption_e",
+    "settings_ids": [
+      "Document Properties > Annotations",
+      "Document Properties > Annotations > Balloons",
+      "Document Properties > Annotations > Datums",
+      "Document Properties > Annotations > Geometric Tolerances",
+      "Document Properties > Annotations > Location Label",
+      "Document Properties > Annotations > Notes",
+      "Document Properties > Annotations > Revision Clouds",
+      "Document Properties > Annotations > Surface Finishes",
+      "Document Properties > Annotations > Weld Symbols",
+      "Document Properties > Borders (*drawings only*)",
+      "Document Properties > Centerlines/Center Marks",
+      "Document Properties > Colors > Advanced Properties",
+      "Document Properties > Colors > Curvature",
+      "Document Properties > Configurations",
+      "Document Properties > Detailing",
+      "Document Properties > DimXpert",
+      "Document Properties > DimXpert > Chain Dimension",
+      "Document Properties > DimXpert > Chamfer Controls",
+      "Document Properties > DimXpert > Display Options",
+      "Document Properties > DimXpert > Geometric Tolerance",
+      "Document Properties > DimXpert > Location Dimension",
+      "Document Properties > DimXpert > Size Dimension",
+      "Document Properties > Dimensions",
+      "Document Properties > Dimensions > Angle",
+      "Document Properties > Dimensions > Angular Running",
+      "Document Properties > Dimensions > Arc Length",
+      "Document Properties > Dimensions > Chamfer",
+      "Document Properties > Dimensions > Diameter",
+      "Document Properties > Dimensions > Dimension Tolerance",
+      "Document Properties > Dimensions > Hole Callout",
+      "Document Properties > Dimensions > Linear",
+      "Document Properties > Dimensions > Ordinate",
+      "Document Properties > Dimensions > Radius",
+      "Document Properties > Drafting Standard",
+      "Document Properties > Drawing Sheets",
+      "Document Properties > Grip/Snap",
+      "Document Properties > Image Quality",
+      "Document Properties > Line Font",
+      "Document Properties > Line Thickness",
+      "Document Properties > Material Properties",
+      "Document Properties > Mates",
+      "Document Properties > Miscellaneous",
+      "Document Properties > Model Display",
+      "Document Properties > Performance",
+      "Document Properties > Plane Display",
+      "Document Properties > Sheet Metal",
+      "Document Properties > Sheet Metal MBD",
+      "Document Properties > Tables",
+      "Document Properties > Tables > Bend",
+      "Document Properties > Tables > Bill of Materials",
+      "Document Properties > Tables > General",
+      "Document Properties > Tables > Hole",
+      "Document Properties > Tables > Punch",
+      "Document Properties > Tables > Revision",
+      "Document Properties > Tables > Title Block",
+      "Document Properties > Tables > Weld",
+      "Document Properties > Units",
+      "Document Properties > Views",
+      "Document Properties > Views > Auxiliary",
+      "Document Properties > Views > Detail",
+      "Document Properties > Views > Orthographic",
+      "Document Properties > Views > Other",
+      "Document Properties > Views > Section",
+      "Document Properties > Virtual Sharps",
+      "Document Properties >Weldments",
+      "Insert > Mate (*assemblies only*)",
+      "Route Properties PropertyManager",
+      "System Options > Export > STEP",
+      "Twisted Pair Parameters",
+      "View > Hide / Show",
+      "Window > Viewport"
+    ]
+  },
+  {
+    "enum_id": "swDatumDisplayType_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Datums"
+    ]
+  },
+  {
+    "enum_id": "swDatumGbLeaderStyle_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Datums"
+    ]
+  },
+  {
+    "enum_id": "swuserPreferenceOption_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Datums",
+      "Document Properties > Annotations > Geometric Tolerances",
+      "Document Properties > Annotations > Notes",
+      "Document Properties > Annotations > Surface Finishes",
+      "Document Properties > Annotations > Weld Symbols",
+      "Document Properties > Material Properties"
+    ]
+  },
+  {
+    "enum_id": "swDetailingGtolMaterialConditionSymbolPlacement_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Geometric Tolerances"
+    ]
+  },
+  {
+    "enum_id": "swGtolDecimalSeparatorType_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Geometric Tolerances"
+    ]
+  },
+  {
+    "enum_id": "swLeaderSide_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Geometric Tolerances",
+      "Document Properties > Annotations > Notes",
+      "Document Properties > Annotations > Weld Symbols",
+      "Document Properties > Sheet Metal",
+      "Document Properties > Sheet Metal MBD"
+    ]
+  },
+  {
+    "enum_id": "swLocationLabelText_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Location Label"
+    ]
+  },
+  {
+    "enum_id": "swTextJustification_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Notes",
+      "Document Properties > Dimensions > Angle",
+      "Document Properties > Dimensions > Angular Running",
+      "Document Properties > Dimensions > Arc Length",
+      "Document Properties > Dimensions > Chamfer",
+      "Document Properties > Dimensions > Diameter",
+      "Document Properties > Dimensions > Hole Callout",
+      "Document Properties > Dimensions > Linear",
+      "Document Properties > Dimensions > Ordinate",
+      "Document Properties > Dimensions > Radius",
+      "Document Properties > Sheet Metal",
+      "Document Properties > Sheet Metal MBD"
+    ]
+  },
+  {
+    "enum_id": "swDetailingSFSymbolStandard_e",
+    "settings_ids": [
+      "Document Properties > Annotations > Surface Finishes"
+    ]
+  },
+  {
+    "enum_id": "swArrowStyle_e",
+    "settings_ids": [
+      "Document Properties > Annotations",
+      "Document Properties > Dimensions",
+      "Document Properties > Views > Section"
+    ]
+  },
+  {
+    "enum_id": "swDetailingDimTrailingZero_e",
+    "settings_ids": [
+      "Document Properties > Annotations",
+      "Document Properties > Dimensions",
+      "Document Properties > Dimensions > Angle",
+      "Document Properties > Dimensions > Angular Running",
+      "Document Properties > Tables > Bend",
+      "Document Properties > Tables > Bill of Materials",
+      "Document Properties > Tables > General",
+      "Document Properties > Tables > Hole",
+      "Document Properties > Tables > Punch",
+      "Document Properties > Tables > Weld"
+    ]
+  },
+  {
+    "enum_id": "swDetailingLeadingZero_e",
+    "settings_ids": [
+      "Document Properties > Annotations",
+      "Document Properties > Dimensions",
+      "Document Properties > Tables > Bend",
+      "Document Properties > Tables > Bill of Materials",
+      "Document Properties > Tables > General",
+      "Document Properties > Tables > Hole",
+      "Document Properties > Tables > Punch"
+    ]
+  },
+  {
+    "enum_id": "swCenterLineMarkOrient_e",
+    "settings_ids": [
+      "Document Properties > Centerlines/Center Marks"
+    ]
+  },
+  {
+    "enum_id": "swDefaultBOMPartNumberSource_e",
+    "settings_ids": [
+      "Document Properties > Configurations"
+    ]
+  },
+  {
+    "enum_id": "swDimXpertBlockPrecision_e",
+    "settings_ids": [
+      "Document Properties > DimXpert > Chain Dimension",
+      "Document Properties > DimXpert > Chamfer Controls",
+      "Document Properties > DimXpert > Location Dimension",
+      "Document Properties > DimXpert > Size Dimension"
+    ]
+  },
+  {
+    "enum_id": "swDimXpertTolType_e",
+    "settings_ids": [
+      "Document Properties > DimXpert > Chain Dimension",
+      "Document Properties > DimXpert > Chamfer Controls",
+      "Document Properties > DimXpert > Location Dimension",
+      "Document Properties > DimXpert > Size Dimension"
+    ]
+  },
+  {
+    "enum_id": "swDimXpertDisplayDatumGtolLinearDimAttachmentType_e",
+    "settings_ids": [
+      "Document Properties > DimXpert > Display Options"
+    ]
+  },
+  {
+    "enum_id": "swDimXpertDisplayDatumGtolSurfaceAttachmentType_e",
+    "settings_ids": [
+      "Document Properties > DimXpert > Display Options"
+    ]
+  },
+  {
+    "enum_id": "swDimXpertDisplayGtolLinearDimAttachmentType_e",
+    "settings_ids": [
+      "Document Properties > DimXpert > Display Options"
+    ]
+  },
+  {
+    "enum_id": "swDimXpertDisplayHoleDimensionType_e",
+    "settings_ids": [
+      "Document Properties > DimXpert > Display Options"
+    ]
+  },
+  {
+    "enum_id": "swDimXpertDisplaySlotDimensionType_e",
+    "settings_ids": [
+      "Document Properties > DimXpert > Display Options"
+    ]
+  },
+  {
+    "enum_id": "swPartDimXpertDisplaySlotDimensionType_e",
+    "settings_ids": [
+      "Document Properties > DimXpert > Display Options"
+    ]
+  },
+  {
+    "enum_id": "swBasicDimType_e",
+    "settings_ids": [
+      "Document Properties > DimXpert > Geometric Tolerance"
+    ]
+  },
+  {
+    "enum_id": "swDimXpertGeneralTolClass_e",
+    "settings_ids": [
+      "Document Properties > DimXpert"
+    ]
+  },
+  {
+    "enum_id": "swDetailingToleranceTextSizing_e",
+    "settings_ids": [
+      "Document Properties > Dimensions > Dimension Tolerance"
+    ]
+  },
+  {
+    "enum_id": "swFitTolDisplay_e",
+    "settings_ids": [
+      "Document Properties > Dimensions > Dimension Tolerance",
+      "Document Properties > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swTolType_e",
+    "settings_ids": [
+      "Document Properties > Dimensions > Dimension Tolerance",
+      "Document Properties > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swDimensionPrecisionSettings_e",
+    "settings_ids": [
+      "Document Properties > Dimensions",
+      "Document Properties > Dimensions > Angle",
+      "Document Properties > Dimensions > Angular Running",
+      "Document Properties > Dimensions > Arc Length",
+      "Document Properties > Dimensions > Chamfer",
+      "Document Properties > Dimensions > Diameter",
+      "Document Properties > Dimensions > Hole Callout",
+      "Document Properties > Dimensions > Linear",
+      "Document Properties > Dimensions > Ordinate",
+      "Document Properties > Dimensions > Radius"
+    ]
+  },
+  {
+    "enum_id": "swDisplayDimensionLeaderText_e",
+    "settings_ids": [
+      "Document Properties > Dimensions > Angle",
+      "Document Properties > Dimensions > Angular Running",
+      "Document Properties > Dimensions > Arc Length",
+      "Document Properties > Dimensions > Diameter",
+      "Document Properties > Dimensions > Hole Callout",
+      "Document Properties > Dimensions > Linear",
+      "Document Properties > Dimensions > Radius",
+      "Document Properties > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swTextAlignmentVertical_e",
+    "settings_ids": [
+      "Document Properties > Dimensions > Angle",
+      "Document Properties > Dimensions > Angular Running",
+      "Document Properties > Dimensions > Arc Length",
+      "Document Properties > Dimensions > Chamfer",
+      "Document Properties > Dimensions > Diameter",
+      "Document Properties > Dimensions > Hole Callout",
+      "Document Properties > Dimensions > Linear",
+      "Document Properties > Dimensions > Ordinate",
+      "Document Properties > Dimensions > Radius"
+    ]
+  },
+  {
+    "enum_id": "swDetailingDualDimPosition_e",
+    "settings_ids": [
+      "Document Properties > Dimensions",
+      "Document Properties > Dimensions > Arc Length",
+      "Document Properties > Dimensions > Chamfer",
+      "Document Properties > Dimensions > Diameter",
+      "Document Properties > Dimensions > Linear",
+      "Document Properties > Dimensions > Ordinate",
+      "Document Properties > Dimensions > Radius",
+      "Document Properties > Miscellaneous",
+      "Document Properties > Tables > Hole",
+      "Document Properties > Tables > Punch"
+    ]
+  },
+  {
+    "enum_id": "swDetailingChamferDimLeaderStyle_e",
+    "settings_ids": [
+      "Document Properties > Dimensions > Chamfer"
+    ]
+  },
+  {
+    "enum_id": "swDetailingChamferDimXStyle_e",
+    "settings_ids": [
+      "Document Properties > Dimensions > Chamfer"
+    ]
+  },
+  {
+    "enum_id": "swDetailingForeshortenedDiameterStyle_e",
+    "settings_ids": [
+      "Document Properties > Dimensions > Diameter"
+    ]
+  },
+  {
+    "enum_id": "swCollinearChainDimArrowHeadStyle_e",
+    "settings_ids": [
+      "Document Properties > Dimensions > Linear"
+    ]
+  },
+  {
+    "enum_id": "swDetailingLinearForeshortened_e",
+    "settings_ids": [
+      "Document Properties > Dimensions > Linear"
+    ]
+  },
+  {
+    "enum_id": "swArrowPlacement_e",
+    "settings_ids": [
+      "Document Properties > Dimensions > Radius"
+    ]
+  },
+  {
+    "enum_id": "swDetailingDimFractionScaleIndex_e",
+    "settings_ids": [
+      "Document Properties > Dimensions"
+    ]
+  },
+  {
+    "enum_id": "swDetailingDimFractionStyle_e",
+    "settings_ids": [
+      "Document Properties > Dimensions"
+    ]
+  },
+  {
+    "enum_id": "swDimensionArrowsSide_e",
+    "settings_ids": [
+      "Document Properties > Dimensions"
+    ]
+  },
+  {
+    "enum_id": "swDetailingDimXpertChamferInstanceStyle_e",
+    "settings_ids": [
+      "Document Properties > DimXpert"
+    ]
+  },
+  {
+    "enum_id": "swDetailingDimXpertChamferStyle_e",
+    "settings_ids": [
+      "Document Properties > DimXpert"
+    ]
+  },
+  {
+    "enum_id": "swDetailingDimXpertFilletInstanceStyle_e",
+    "settings_ids": [
+      "Document Properties > DimXpert"
+    ]
+  },
+  {
+    "enum_id": "swDetailingDimXpertSlotStyle_e",
+    "settings_ids": [
+      "Document Properties > DimXpert"
+    ]
+  },
+  {
+    "enum_id": "swDrawingSheetsZonesLetterLayout_e",
+    "settings_ids": [
+      "Document Properties > Drawing Sheets"
+    ]
+  },
+  {
+    "enum_id": "swDrawingSheetsZonesOrigin_e",
+    "settings_ids": [
+      "Document Properties > Drawing Sheets"
+    ]
+  },
+  {
+    "enum_id": "swImageQualityShaded_e",
+    "settings_ids": [
+      "Document Properties > Image Quality"
+    ]
+  },
+  {
+    "enum_id": "swImageQualityWireframe_e",
+    "settings_ids": [
+      "Document Properties > Image Quality"
+    ]
+  },
+  {
+    "enum_id": "swLineEndCaps_e",
+    "settings_ids": [
+      "Document Properties > Line Font"
+    ]
+  },
+  {
+    "enum_id": "swAreaHatchFillStyle_e",
+    "settings_ids": [
+      "Document Properties > Material Properties",
+      "System Options > Drawings > Area Hatch/Fill"
+    ]
+  },
+  {
+    "enum_id": "swMatesDefaultMisalignment_e",
+    "settings_ids": [
+      "Document Properties > Mates"
+    ]
+  },
+  {
+    "enum_id": "swConfigTreeSortType_e",
+    "settings_ids": [
+      "Document Properties > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swDetailingChamferDimLeaderTextStyle_e",
+    "settings_ids": [
+      "Document Properties > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swUserPreferenceDouble_e",
+    "settings_ids": [
+      "Document Properties > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swUserPreferenceInteger_e",
+    "settings_ids": [
+      "Document Properties > Miscellaneous",
+      "System Options > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swUserPreferenceString_e",
+    "settings_ids": [
+      "Document Properties > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swBendNoteStyle_e",
+    "settings_ids": [
+      "Document Properties > Sheet Metal"
+    ]
+  },
+  {
+    "enum_id": "swSheetMetalBendNotesBorderSize_e",
+    "settings_ids": [
+      "Document Properties > Sheet Metal"
+    ]
+  },
+  {
+    "enum_id": "swSheetMetalMBDBendNotesStyle_e",
+    "settings_ids": [
+      "Document Properties > Sheet Metal MBD"
+    ]
+  },
+  {
+    "enum_id": "swBendTableTagStyle_e",
+    "settings_ids": [
+      "Document Properties > Tables > Bend"
+    ]
+  },
+  {
+    "enum_id": "swZeroQuantityDisplay_e",
+    "settings_ids": [
+      "Document Properties > Tables > Bill of Materials"
+    ]
+  },
+  {
+    "enum_id": "swHoleTableTagStyle_e",
+    "settings_ids": [
+      "Document Properties > Tables > Hole"
+    ]
+  },
+  {
+    "enum_id": "swPunchTableTagStyle_e",
+    "settings_ids": [
+      "Document Properties > Tables > Punch"
+    ]
+  },
+  {
+    "enum_id": "swRevisionTableMultipleSheetStyle_e",
+    "settings_ids": [
+      "Document Properties > Tables > Revision"
+    ]
+  },
+  {
+    "enum_id": "swRevisionTableSymbolShape_e",
+    "settings_ids": [
+      "Document Properties > Tables > Revision"
+    ]
+  },
+  {
+    "enum_id": "swRevisionTableTagStyle_e",
+    "settings_ids": [
+      "Document Properties > Tables > Revision"
+    ]
+  },
+  {
+    "enum_id": "swAngleUnit_e",
+    "settings_ids": [
+      "Document Properties > Units"
+    ]
+  },
+  {
+    "enum_id": "swFractionDisplay_e",
+    "settings_ids": [
+      "Document Properties > Units"
+    ]
+  },
+  {
+    "enum_id": "swLengthUnit_e",
+    "settings_ids": [
+      "Document Properties > Units",
+      "System Options > Export > 3MF",
+      "System Options > Export > ACIS",
+      "System Options > Export > AMF",
+      "System Options > Export > IFC",
+      "System Options > Export > PLY",
+      "System Options > Export > STL",
+      "System Options > Export > VRML",
+      "System Options > Import > 3MF",
+      "System Options > Import > STL/OBJ/OFF/PLY/PLY2",
+      "System Options > Import > VRML or 3MF"
+    ]
+  },
+  {
+    "enum_id": "swUnitSystem_e",
+    "settings_ids": [
+      "Document Properties > Units"
+    ]
+  },
+  {
+    "enum_id": "swUnitsDecimalRounding_e",
+    "settings_ids": [
+      "Document Properties > Units"
+    ]
+  },
+  {
+    "enum_id": "swUnitsEnergyUnit_e",
+    "settings_ids": [
+      "Document Properties > Units"
+    ]
+  },
+  {
+    "enum_id": "swUnitsForce_e",
+    "settings_ids": [
+      "Document Properties > Units"
+    ]
+  },
+  {
+    "enum_id": "swUnitsMassPropMass_e",
+    "settings_ids": [
+      "Document Properties > Units"
+    ]
+  },
+  {
+    "enum_id": "swUnitsMassPropVolume_e",
+    "settings_ids": [
+      "Document Properties > Units"
+    ]
+  },
+  {
+    "enum_id": "swUnitsPowerUnit_e",
+    "settings_ids": [
+      "Document Properties > Units"
+    ]
+  },
+  {
+    "enum_id": "swUnitsTimeUnit_e",
+    "settings_ids": [
+      "Document Properties > Units"
+    ]
+  },
+  {
+    "enum_id": "swDetailingViewLabelsDelimiter_e",
+    "settings_ids": [
+      "Document Properties > Views > Auxiliary",
+      "Document Properties > Views > Detail",
+      "Document Properties > Views > Orthographic",
+      "Document Properties > Views > Other",
+      "Document Properties > Views > Section"
+    ]
+  },
+  {
+    "enum_id": "swDetailingViewLabelsLabel_e",
+    "settings_ids": [
+      "Document Properties > Views > Auxiliary",
+      "Document Properties > Views > Detail",
+      "Document Properties > Views > Section"
+    ]
+  },
+  {
+    "enum_id": "swDetailingViewLabelsName_e",
+    "settings_ids": [
+      "Document Properties > Views > Auxiliary",
+      "Document Properties > Views > Detail",
+      "Document Properties > Views > Orthographic",
+      "Document Properties > Views > Other",
+      "Document Properties > Views > Section"
+    ]
+  },
+  {
+    "enum_id": "swDetailingViewLabelsScale_e",
+    "settings_ids": [
+      "Document Properties > Views > Auxiliary",
+      "Document Properties > Views > Detail",
+      "Document Properties > Views > Orthographic",
+      "Document Properties > Views > Other",
+      "Document Properties > Views > Section"
+    ]
+  },
+  {
+    "enum_id": "swDetailingViewRotation_e",
+    "settings_ids": [
+      "Document Properties > Views > Auxiliary",
+      "Document Properties > Views > Section"
+    ]
+  },
+  {
+    "enum_id": "swViewIndication_e",
+    "settings_ids": [
+      "Document Properties > Views > Auxiliary"
+    ]
+  },
+  {
+    "enum_id": "swDetailingHalfSectionArrow_e",
+    "settings_ids": [
+      "Document Properties > Views > Section"
+    ]
+  },
+  {
+    "enum_id": "swDetailingSectionViewLineStyle_e",
+    "settings_ids": [
+      "Document Properties > Views > Section"
+    ]
+  },
+  {
+    "enum_id": "swDetailingVirtualSharp_e",
+    "settings_ids": [
+      "Document Properties > Virtual Sharps"
+    ]
+  },
+  {
+    "enum_id": "swBBoxDescriptionApplyMethod_e",
+    "settings_ids": [
+      "Document Properties >Weldments"
+    ]
+  },
+  {
+    "enum_id": "swImportStlVrmlModelType_e",
+    "settings_ids": [
+      "System Options > Import > 3MF",
+      "System Options > Import > STL/OBJ/OFF/PLY/PLY2",
+      "System Options > Import > VRML or 3MF"
+    ]
+  },
+  {
+    "enum_id": "swUserPerferenceIntegerValue_e",
+    "settings_ids": [
+      "System Options > Import > 3MF",
+      "System Options > Import > VRML or 3MF"
+    ]
+  },
+  {
+    "enum_id": "swGeneralImportFreePointCurveEntityOptions_e",
+    "settings_ids": [
+      "System Options > Import > General"
+    ]
+  },
+  {
+    "enum_id": "swGeneralImportSurfaceSolidEntityOptions_e",
+    "settings_ids": [
+      "System Options > Import > General"
+    ]
+  },
+  {
+    "enum_id": "swGeneralImportUnitsOptions_e",
+    "settings_ids": [
+      "System Options > Import > General"
+    ]
+  },
+  {
+    "enum_id": "swImportNeutralAssemblyStructureMapping_e",
+    "settings_ids": [
+      "System Options > Import > STEP/IGES/ACIS"
+    ]
+  },
+  {
+    "enum_id": "swImportNeutralKnitOption_e",
+    "settings_ids": [
+      "System Options > Import > STEP/IGES/ACIS"
+    ]
+  },
+  {
+    "enum_id": "swImportNeutralUnits_e",
+    "settings_ids": [
+      "System Options > Import > STEP/IGES/ACIS"
+    ]
+  },
+  {
+    "enum_id": "swPageSetupDrawingColor_e",
+    "settings_ids": [
+      "File > Page Setup"
+    ]
+  },
+  {
+    "enum_id": "swPageSetupOrientation_e",
+    "settings_ids": [
+      "File > Page Setup"
+    ]
+  },
+  {
+    "enum_id": "swSaveAsmAsPartOptions_e",
+    "settings_ids": [
+      "File > Save As"
+    ]
+  },
+  {
+    "enum_id": "sw3DPDFAccuracy_e",
+    "settings_ids": [
+      "System Options > Export > 3DPDF"
+    ]
+  },
+  {
+    "enum_id": "swSTLQuality_e",
+    "settings_ids": [
+      "System Options > Export > 3MF",
+      "System Options > Export > AMF",
+      "System Options > Export > STL"
+    ]
+  },
+  {
+    "enum_id": "swAcisOutputGeometryPreference_e",
+    "settings_ids": [
+      "System Options > Export > ACIS",
+      "System Options > Export > STEP"
+    ]
+  },
+  {
+    "enum_id": "swAcisOutputVersion_e",
+    "settings_ids": [
+      "System Options > Export > ACIS"
+    ]
+  },
+  {
+    "enum_id": "swDxfFormat_e",
+    "settings_ids": [
+      "File > Save As > Save as type > Dxf or Dwg > Options"
+    ]
+  },
+  {
+    "enum_id": "swDxfMultiSheet_e",
+    "settings_ids": [
+      "File > Save As > Save as type > Dxf or Dwg > Options"
+    ]
+  },
+  {
+    "enum_id": "swSaveAsOptions_e",
+    "settings_ids": [
+      "File > Save As > Save as type > Dxf or Dwg > Options"
+    ]
+  },
+  {
+    "enum_id": "swSaveAsVersion_e",
+    "settings_ids": [
+      "File > Save As > Save as type > Dxf or Dwg > Options"
+    ]
+  },
+  {
+    "enum_id": "swUserPreferenceStringListValue_e",
+    "settings_ids": [
+      "File > Save As > Save as type > Dxf or Dwg > Options"
+    ]
+  },
+  {
+    "enum_id": "swIFCExportSaveType_e",
+    "settings_ids": [
+      "System Options > Export > IFC"
+    ]
+  },
+  {
+    "enum_id": "swIGESCurveRepresentation_e",
+    "settings_ids": [
+      "System Options > Export > IGES 5.3"
+    ]
+  },
+  {
+    "enum_id": "swIGESPreferredSystem_e",
+    "settings_ids": [
+      "System Options > Export > IGES 5.3"
+    ]
+  },
+  {
+    "enum_id": "swIGESRepresentation_e",
+    "settings_ids": [
+      "System Options > Export > IGES 5.3"
+    ]
+  },
+  {
+    "enum_id": "swParasolidOutputVersion_e",
+    "settings_ids": [
+      "System Options > Export > Parasolid"
+    ]
+  },
+  {
+    "enum_id": "swPLYQuality_e",
+    "settings_ids": [
+      "System Options > Export > PLY"
+    ]
+  },
+  {
+    "enum_id": "swDwgPaperSizes_e",
+    "settings_ids": [
+      "System Options > Export > TIF/PSD/JPG/PNG"
+    ]
+  },
+  {
+    "enum_id": "swTiffCompressionScheme_e",
+    "settings_ids": [
+      "System Options > Export > TIF/PSD/JPG/PNG"
+    ]
+  },
+  {
+    "enum_id": "swTiffImageType_e",
+    "settings_ids": [
+      "System Options > Export > TIF/PSD/JPG/PNG"
+    ]
+  },
+  {
+    "enum_id": "swVrmlOutputVersion_e",
+    "settings_ids": [
+      "System Options > Export > VRML"
+    ]
+  },
+  {
+    "enum_id": "swSpeedpakUpdate_e",
+    "settings_ids": [
+      "System Options > Assemblies"
+    ]
+  },
+  {
+    "enum_id": "swAutoSaveIntervalMode_e",
+    "settings_ids": [
+      "System Options > Backup/Recover"
+    ]
+  },
+  {
+    "enum_id": "swCollabCheckReadOnlyModifiedInterval_e",
+    "settings_ids": [
+      "System Options > Collaboration"
+    ]
+  },
+  {
+    "enum_id": "swColorsBackgroundAppearance_e",
+    "settings_ids": [
+      "System Options > Colors"
+    ]
+  },
+  {
+    "enum_id": "swInterfaceBrightnessTheme_e",
+    "settings_ids": [
+      "System Options > Colors"
+    ]
+  },
+  {
+    "enum_id": "swPropertyManagerColorScheme_e",
+    "settings_ids": [
+      "System Options > Colors"
+    ]
+  },
+  {
+    "enum_id": "swSystemColorsCurrentColorScheme_e",
+    "settings_ids": [
+      "System Options > Colors"
+    ]
+  },
+  {
+    "enum_id": "swSystemColorsEnvelopes_e",
+    "settings_ids": [
+      "System Options > Colors"
+    ]
+  },
+  {
+    "enum_id": "swSystemColorsIconColor_e",
+    "settings_ids": [
+      "System Options > Colors"
+    ]
+  },
+  {
+    "enum_id": "swEdgesHiddenEdgeDisplay_e",
+    "settings_ids": [
+      "System Options > Display"
+    ]
+  },
+  {
+    "enum_id": "swEdgesShadedModeDisplay_e",
+    "settings_ids": [
+      "System Options > Display"
+    ]
+  },
+  {
+    "enum_id": "swEdgesTangentEdgeDisplay_e",
+    "settings_ids": [
+      "System Options > Display"
+    ]
+  },
+  {
+    "enum_id": "swInContextEditTransparencyType_e",
+    "settings_ids": [
+      "System Options > Display"
+    ]
+  },
+  {
+    "enum_id": "swSystemOptionDisplayAntiAliasing_e",
+    "settings_ids": [
+      "System Options > Display"
+    ]
+  },
+  {
+    "enum_id": "swDisplayMode_e",
+    "settings_ids": [
+      "System Options > Drawings > Display Style"
+    ]
+  },
+  {
+    "enum_id": "swDisplayTangentEdges_e",
+    "settings_ids": [
+      "System Options > Drawings > Display Style"
+    ]
+  },
+  {
+    "enum_id": "swZoomLevelOnOpenType_e",
+    "settings_ids": [
+      "System Options > Drawings"
+    ]
+  },
+  {
+    "enum_id": "swExternalReferencesUpdateOutOfDateLinkedDesignTable_e",
+    "settings_ids": [
+      "System Options > External References"
+    ]
+  },
+  {
+    "enum_id": "swLoadExternalReferences_e",
+    "settings_ids": [
+      "System Options > External References"
+    ]
+  },
+  {
+    "enum_id": "swOpenDocOptions_e",
+    "settings_ids": [
+      "System Options > External References"
+    ]
+  },
+  {
+    "enum_id": "swAutoHideShowResponse_e",
+    "settings_ids": [
+      "System Options > FeatureManager",
+      "System Options > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swComponentIdentifier_e",
+    "settings_ids": [
+      "System Options > FeatureManager"
+    ]
+  },
+  {
+    "enum_id": "swFeatureManagerTreeViewCADFamily_e",
+    "settings_ids": [
+      "System Options > FeatureManager"
+    ]
+  },
+  {
+    "enum_id": "swUserPreferencesLanguages_e",
+    "settings_ids": [
+      "System Options > FeatureManager"
+    ]
+  },
+  {
+    "enum_id": "swPerformanceFeedback_e",
+    "settings_ids": [
+      "System Options > General"
+    ]
+  },
+  {
+    "enum_id": "swStopContinuePrompt_e",
+    "settings_ids": [
+      "System Options > General",
+      "System Options > Messages/Errors/Warnings"
+    ]
+  },
+  {
+    "enum_id": "swDisplayCircularReferencesInEquations_e",
+    "settings_ids": [
+      "System Options > Messages/Errors/Warnings"
+    ]
+  },
+  {
+    "enum_id": "swDisplayPotentialCircularReferencesInEquations_e",
+    "settings_ids": [
+      "System Options > Messages/Errors/Warnings"
+    ]
+  },
+  {
+    "enum_id": "swFeatureManagerDisplayWarnings_e",
+    "settings_ids": [
+      "System Options > Messages/Errors/Warnings"
+    ]
+  },
+  {
+    "enum_id": "swBOMConfigurationAnchorType_e",
+    "settings_ids": [
+      "System Options > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swBOMConfigurationWhatToShow_e",
+    "settings_ids": [
+      "System Options > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swBOMControlMissingRowDisplay_e",
+    "settings_ids": [
+      "System Options > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swBOMControlSplitDirection_e",
+    "settings_ids": [
+      "System Options > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swDisplayStateCreationChoices_e",
+    "settings_ids": [
+      "System Options > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swPMContainer_e",
+    "settings_ids": [
+      "System Options > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swPromptAlwaysNever_e",
+    "settings_ids": [
+      "System Options - Performance",
+      "System Options > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swRebuildOnActivation_e",
+    "settings_ids": [
+      "System Options > Miscellaneous"
+    ]
+  },
+  {
+    "enum_id": "swAssemblyLoadComponents_e",
+    "settings_ids": [
+      "System Options - Performance"
+    ]
+  },
+  {
+    "enum_id": "swCheckOutOfDate_e",
+    "settings_ids": [
+      "System Options - Performance"
+    ]
+  },
+  {
+    "enum_id": "swSearchIndexingPerformance_e",
+    "settings_ids": [
+      "System Options > Search"
+    ]
+  },
+  {
+    "enum_id": "swButtonSize_e",
+    "settings_ids": [
+      "Tools > Customize > Toolbars"
+    ]
+  }
+]

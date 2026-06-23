@@ -8,6 +8,11 @@ work offline after the first fetch.
 
 This feeds verified API signatures straight into the auto-fix loop, replacing
 the manual "Claude in Chrome" step the solidworks-vba skill describes.
+
+The web render is now the *fallback*, not the default: lookups first try the
+installed CHM docs via `local_docs` (offline, instant, token-trimmed) and only
+hit Chromium when a topic is genuinely absent locally. Pass prefer="web" to
+force a fresh online render.
 """
 from __future__ import annotations
 
@@ -151,7 +156,33 @@ def fetch(url: str, refresh: bool = False) -> dict:
     return data
 
 
-def lookup_method(interface: str, method: str, refresh: bool = False) -> dict:
+def lookup_method(interface: str, method: str, refresh: bool = False,
+                  prefer: str = "local") -> dict:
+    cosmon = None
+    if prefer != "web" and not refresh:
+        try:
+            from . import cosmon_resources
+            cosmon = cosmon_resources.search(
+                f"I{interface.lstrip('I')}::{method}", "function_docs", 3
+            )
+        except Exception:  # noqa: BLE001
+            cosmon = None
+    if prefer != "web" and not refresh:
+        try:
+            from . import local_docs
+            loc = local_docs.local_method(interface, method)
+            if loc and loc.get("syntax"):
+                loc["cosmon_references"] = (cosmon or {}).get("hits", [])
+                loc["documentation_priority"] = ["local-solidworks-chm", "bundled-cosmon"]
+                return loc
+        except Exception:  # noqa: BLE001 - never let local issues block web
+            pass
+    if cosmon and cosmon.get("hits"):
+        return {
+            "interface": interface, "method": method, "source": "bundled-cosmon",
+            "references": cosmon["hits"], "cached": True, "unrendered": False,
+            "note": "Local CHM topic was unavailable; use these bundled Cosmon references.",
+        }
     url = method_url(interface, method)
     data = fetch(url, refresh=refresh)
     s = data.get("sections", {})
@@ -170,7 +201,31 @@ def lookup_method(interface: str, method: str, refresh: bool = False) -> dict:
     }
 
 
-def lookup_enum(enum_name: str, refresh: bool = False) -> dict:
+def lookup_enum(enum_name: str, refresh: bool = False,
+                prefer: str = "local") -> dict:
+    cosmon = None
+    if prefer != "web" and not refresh:
+        try:
+            from . import cosmon_resources
+            cosmon = cosmon_resources.search(enum_name, "function_docs", 3)
+        except Exception:  # noqa: BLE001
+            cosmon = None
+    if prefer != "web" and not refresh:
+        try:
+            from . import local_docs
+            loc = local_docs.local_enum(enum_name)
+            if loc and loc.get("members"):
+                loc["cosmon_references"] = (cosmon or {}).get("hits", [])
+                loc["documentation_priority"] = ["local-solidworks-chm", "bundled-cosmon"]
+                return loc
+        except Exception:  # noqa: BLE001
+            pass
+    if cosmon and cosmon.get("hits"):
+        return {
+            "enum": enum_name, "source": "bundled-cosmon",
+            "references": cosmon["hits"], "cached": True, "unrendered": False,
+            "note": "Local CHM topic was unavailable; use these bundled Cosmon references.",
+        }
     url = enum_url(enum_name)
     data = fetch(url, refresh=refresh)
     return {

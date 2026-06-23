@@ -1,0 +1,36 @@
+# csc.exe response file for user code compilation (executables)
+# This file is the source of truth for user code compilation flags.
+# Placeholder tokens are replaced at runtime by Python.
+
+/nowarn:1701,1702
+/nostdlib+
+/warn:4
+/define:DEBUG;TRACE
+/debug+
+/debug:full
+/optimize-
+/filealign:512
+/langversion:7
+/target:exe
+/utf8output
+
+# Assembly name and output
+/out:"__OUTPUT_PATH__"
+
+# Reference assemblies (.NET Framework 4.7.2)
+/reference:"__REF_ASSEMBLIES__\mscorlib.dll"
+/reference:"__REF_ASSEMBLIES__\System.dll"
+/reference:"__REF_ASSEMBLIES__\System.Core.dll"
+/reference:"__REF_ASSEMBLIES__\System.Web.Extensions.dll"
+/reference:"__REF_ASSEMBLIES__\Microsoft.CSharp.dll"
+
+# SolidWorks API references
+/reference:"__SOLIDWORKS_API_PATH__\SolidWorks.Interop.sldworks.dll"
+/reference:"__SOLIDWORKS_API_PATH__\SolidWorks.Interop.swconst.dll"
+
+# __GLOBAL_CODE_LIBRARY_START__
+/reference:"__GLOBAL_CODE_LIBRARY_PATH__"
+# __GLOBAL_CODE_LIBRARY_END__
+
+# Source file
+"__SOURCE_FILE__"

@@ -1,0 +1,100 @@
+// Global code library template for SolidWorks C# MCP Server
+// This library contains reusable helper functions, classes, and standard exception types.
+// Jinja2 template variables: helper_functions, global_classes, using_directives
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Web.Script.Serialization;
+using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.swconst;
+
+// USING_DIRECTIVES_START
+{{ using_directives }}
+// USING_DIRECTIVES_END
+
+// ========================================================================
+// Standard Exception Types - Always available for error handling
+// ========================================================================
+
+/// <summary>
+/// Custom exception wrapper that signals the inner exception should be handled gracefully
+/// and returned to Python. This is purely a signal - the inner exception details are what
+/// get returned, not the ReportedException itself.
+///
+/// Usage: throw new ReportedException("Error description", innerException);
+/// </summary>
+[Serializable]
+public sealed class ReportedException : Exception
+{
+    public ReportedException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
+
+    // For remoting/serialization (e.g., across AppDomains or when logged/rehydrated)
+    private ReportedException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    {
+    }
+}
+
+/// <summary>
+/// Exception thrown when execution timeout is detected via graceful interrupt signal.
+/// Allows user code to clean up resources before process termination.
+/// </summary>
+[Serializable]
+public sealed class ExecutionTimeoutException : Exception
+{
+    public ExecutionTimeoutException(string message)
+        : base(message)
+    {
+    }
+
+    private ExecutionTimeoutException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    {
+    }
+}
+
+// ========================================================================
+// Compile-time Configuration
+// ========================================================================
+
+/// <summary>
+/// Compile-time configuration baked in by Python during compilation.
+/// Contains the SolidWorks API path and ROT moniker that were detected at
+/// build time, ensuring compile-time references and runtime resolution are
+/// always consistent.
+/// </summary>
+public static class CompileTimeConfig
+{
+    public const string SolidWorksApiPath = @"{{ solidworks_api_path }}";
+    public const string RotMoniker = "{{ rot_moniker }}";
+    // {{ cache_buster }}
+}
+
+// ========================================================================
+// Global Classes - User-defined classes at namespace level
+// ========================================================================
+{{ global_classes }}
+
+// ========================================================================
+// Global Helper Functions - Static methods accessible via 'using static'
+// ========================================================================
+{% if helper_functions and helper_functions.strip() %}
+/// <summary>
+/// Global helper functions for SolidWorks C# scripts.
+/// Access these methods from the main executable using 'using static GlobalHelpers;'
+/// NOTE: All helper functions must be declared as 'public static' to be accessible.
+/// </summary>
+public static class GlobalHelpers
+{
+{{ helper_functions | indent(4, first=True) }}
+}
+{% endif %}

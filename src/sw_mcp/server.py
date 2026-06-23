@@ -11,25 +11,124 @@ run_and_verify again until `success` is true.
 """
 from __future__ import annotations
 
+import re
+import time
 from typing import Optional
 
 from mcp.server.fastmcp import FastMCP
 
-from . import (diagnostics, docs_pipeline, executor, feature_tools, knowledge,
-               model_ops)
+from . import (cosmon_resources, design_library, diagnostics, docs_pipeline,
+               executor, feature_tools, knowledge, model_ops, skills)
 from .com_worker import call
 from .sw_connection import SWConnection
 from .util import new_work_path
 
-mcp = FastMCP("solidworks")
+mcp = FastMCP(
+    "solidworks",
+    instructions=(
+        "Operate as a session-first engineering-aware SOLIDWORKS agent. Start every modeling "
+        "request with prepare_modeling_context. If it reports start_solidworks, ask the user "
+        "to open SOLIDWORKS; if it reports select_session, ask them to choose one of the listed "
+        "process IDs and call sw_select_session. Never model against an unselected process. "
+        "Use bundled Cosmon references and local CHM documentation before generating code or "
+        "using the web. Load the matched skill and design guidance returned by the context tool. "
+        "Execute through run_and_verify, inspect the structured verdict, correct failures, and "
+        "repeat until success. Record genuinely new "
+        "fixes with learn_rule. Prefer explicit dimensions, design intent, manufacturability, "
+        "and shop-ready drawings over visually plausible but under-defined geometry."
+    ),
+)
 
 
 # === Connection ============================================================
 @mcp.tool()
 def sw_status() -> dict:
-    """Connect to (launching if needed) SolidWorks and report version, the
-    active document, and process info. Call this first to confirm the link."""
-    return call(lambda app: SWConnection.get().info())
+    """Report the selected SOLIDWORKS session without launching the application.
+    A sole running session is selected automatically; zero sessions returns
+    action=start_solidworks, and multiple sessions returns action=select_session."""
+    return call(lambda: SWConnection.get().session_status(), needs_app=False)
+
+
+@mcp.tool()
+def sw_list_sessions() -> dict:
+    """List every running SOLIDWORKS ROT session with process ID, version and
+    active document. This never launches SOLIDWORKS or changes the selection."""
+    sessions = call(lambda: SWConnection.get().list_sessions(), needs_app=False)
+    return {"sessions": sessions, "count": len(sessions)}
+
+
+@mcp.tool()
+def sw_select_session(process_id: int) -> dict:
+    """Bind all subsequent MCP geometry operations to one exact running
+    SOLIDWORKS process. Required when more than one session is running."""
+    return call(lambda: SWConnection.get().select_session(process_id), needs_app=False)
+
+
+@mcp.tool()
+def sw_disconnect_session() -> dict:
+    """Release the MCP's session selection without closing SOLIDWORKS."""
+    return call(lambda: SWConnection.get().clear_selection(), needs_app=False)
+
+
+def _matching_skills(query: str, limit: int = 4) -> list[dict]:
+    terms = set(re.findall(r"[a-z0-9]+", query.casefold()))
+    ranked = []
+    for item in skills.list_skills():
+        haystack = f"{item['slug']} {item['name']} {item['description']}".casefold()
+        score = sum(1 for term in terms if term in haystack)
+        if score:
+            ranked.append((score, item))
+    ranked.sort(key=lambda pair: (-pair[0], pair[1]["name"]))
+    return [item for _, item in ranked[:limit]]
+
+
+@mcp.tool()
+def prepare_modeling_context(request: str, process_id: int = 0,
+                             reference_limit: int = 8) -> dict:
+    """THE fast session-first preflight. Call once before generating geometry.
+    It selects the requested process (or auto-selects the sole session), blocks
+    safely with an actionable response when no/ambiguous sessions exist, and
+    returns matching skills, professional design guidance, bundled Cosmon/local
+    documentation hits, plus the required execution workflow in one round trip."""
+    started = time.perf_counter()
+    conn = SWConnection.get()
+    if process_id:
+        call(lambda: conn.select_session(process_id), needs_app=False)
+    session = call(lambda: conn.session_status(), needs_app=False)
+    if not session.get("ready"):
+        return {
+            "ready": False,
+            "session": session,
+            "action": session.get("action"),
+            "message": session.get("message"),
+            "elapsed_ms": round((time.perf_counter() - started) * 1000, 1),
+        }
+
+    references = cosmon_resources.search(request, "all", reference_limit)
+    try:
+        from . import local_docs
+        local = local_docs.search(request, limit=min(reference_limit, 8))
+    except Exception as exc:  # noqa: BLE001
+        local = {"available": False, "hits": [], "error": str(exc)}
+    matched = _matching_skills(request)
+    return {
+        "ready": True,
+        "session": session,
+        "matched_skills": matched,
+        "design_guidance": design_library.get_guidance(request),
+        "documentation": {
+            "priority": ["bundled-cosmon", "local-solidworks-chm", "web-fallback"],
+            "cosmon": references,
+            "local": local,
+        },
+        "workflow": [
+            "Load the most relevant matched skill with get_skill.",
+            "Use the returned design guidance and documentation before writing code.",
+            "Generate the complete feature sequence for the selected session.",
+            "Execute once with run_and_verify; repair only if its verdict fails.",
+        ],
+        "elapsed_ms": round((time.perf_counter() - started) * 1000, 1),
+    }
 
 
 # === Macro execution & verification ========================================
@@ -73,6 +172,111 @@ def run_and_verify(code: str = "", macro_path: str = "", procedure: str = "main"
         return {"success": False, "error": "provide either code or macro_path"}
     return call(lambda app: executor.run_inline_and_verify(app, code, proc=procedure,
                                                            module=module, rebuild=True))
+
+
+# === Professional design knowledge (proactive) ============================
+@mcp.tool()
+def get_design_guidance(query: str = "") -> dict:
+    """Consult this BEFORE modeling so the build tools (run_and_verify, create_*)
+    produce a real engineered component instead of a bare block or cylinder.
+
+    Pass a part description or topic (e.g. 'deep-groove ball bearing',
+    'mounting base plate with bolt circle', 'hollow exhaust manifold',
+    'thin-wall bottle', 'shaft tolerance / GD&T'). Returns the matching
+    professional archetype recipe(s) — ordered feature sequence, design-intent
+    practices and key dimensions — plus the relevant universal design principles
+    (and the GD&T reference for tolerancing queries). Distilled from real
+    SolidWorks tutorials. With an empty query it returns the full principle set
+    and the recipe index. Use the returned feature sequence to drive the VBA you
+    send to run_and_verify."""
+    return design_library.get_guidance(query)
+
+
+@mcp.tool()
+def list_design_recipes() -> dict:
+    """List the professional archetype recipes available via get_design_guidance
+    (name, archetype, keywords, one-line summary, source tutorial)."""
+    return {"recipes": design_library.list_recipes()}
+
+
+# === Engineering resources and skills =====================================
+@mcp.tool()
+def engineering_resources_status() -> dict:
+    """Inventory the Cosmon-derived SOLIDWORKS resource layer: portable guides,
+    quick references, feature/function databases, C# execution templates and
+    persistent-service source. Also reports whether the full Cosmon installation
+    is connected. Set COSMON_RESOURCES_DIR to override its location."""
+    result = cosmon_resources.status()
+    result["skills"] = {"count": len(skills.list_skills()), "items": skills.list_skills()}
+    return result
+
+
+@mcp.tool()
+def list_engineering_resources(collection: str = "all", limit: int = 500) -> dict:
+    """List SOLIDWORKS reference resources. collection: all, guides, quickrefs,
+    feature_docs, function_docs, service, or code_execution. The returned
+    logical paths can be passed to get_engineering_resource."""
+    return cosmon_resources.list_resources(collection, limit)
+
+
+@mcp.tool()
+def search_engineering_resources(query: str, collection: str = "all", limit: int = 8) -> dict:
+    """Search the full Cosmon SOLIDWORKS knowledge payload, including its large
+    feature/function JSON databases and the bundled programming guides. Use
+    this before writing unfamiliar geometry, drawing, selection, or API code.
+    collection: all, guides, quickrefs, feature_docs, function_docs, service,
+    or code_execution."""
+    return cosmon_resources.search(query, collection, limit)
+
+
+@mcp.tool()
+def get_engineering_resource(path: str, max_chars: int = 30000) -> dict:
+    """Read a resource returned by list/search_engineering_resources. Paths are
+    containment checked. Large files are capped; narrow them with search first."""
+    return cosmon_resources.get_resource(path, max_chars)
+
+
+@mcp.tool()
+def list_skills() -> dict:
+    """List the SOLIDWORKS MCP's available Open Skills. These include Cosmon's
+    drawing planning/review, simulation, meshing, Socratic review and document
+    skills. Call get_skill before performing a task that matches one."""
+    return {"skills": skills.list_skills()}
+
+
+@mcp.tool()
+def get_skill(slug: str) -> dict:
+    """Load a skill's full instructions and attachments by slug."""
+    return skills.get_skill(slug)
+
+
+@mcp.tool()
+def create_skill(name: str, description: str, instructions: str,
+                 metadata: Optional[dict] = None) -> dict:
+    """Create a reusable user skill in SW_MCP_SKILLS_DIR. The generated
+    SKILL.md follows the same portable convention used by Cosmon."""
+    return skills.create_skill(name, description, instructions, metadata)
+
+
+@mcp.tool()
+def update_skill(slug: str, name: str = "", description: Optional[str] = None,
+                 instructions: Optional[str] = None, metadata: Optional[dict] = None) -> dict:
+    """Update a skill. Editing a bundled skill creates a safe user override and
+    never modifies the packaged original."""
+    return skills.update_skill(slug, name or None, description, instructions, metadata)
+
+
+@mcp.tool()
+def delete_skill(slug: str, confirm: bool = False) -> dict:
+    """Delete an editable user skill. confirm=True is mandatory. Bundled skills
+    remain read-only and cannot be removed accidentally."""
+    return skills.delete_skill(slug, confirm)
+
+
+@mcp.tool()
+def import_skill(source_path: str) -> dict:
+    """Import a directory containing SKILL.md into the user skills library."""
+    return skills.import_skill(source_path)
 
 
 # === Diagnostics ===========================================================
@@ -158,7 +362,8 @@ def create_extrusion(length_mm: float, width_mm: float, height_mm: float,
     verified. plane: 1=Front, 2=Top, 3=Right. Returns the run_and_verify verdict."""
     log_path = str(new_work_path(".log"))
     code = feature_tools.build_extrusion(length_mm, width_mm, height_mm, plane, log_path)
-    return call(lambda app: executor.run_inline_and_verify(app, code, log_path=log_path))
+    return call(lambda app: executor.run_inline_and_verify(app, code, log_path=log_path,
+                                                           rebuild=False))
 
 
 @mcp.tool()
@@ -168,11 +373,15 @@ def create_cylinder(diameter_mm: float, height_mm: float, plane: int = 2) -> dic
     3=Right. Returns the run_and_verify verdict."""
     log_path = str(new_work_path(".log"))
     code = feature_tools.build_cylinder(diameter_mm, height_mm, plane, log_path)
-    return call(lambda app: executor.run_inline_and_verify(app, code, log_path=log_path))
+    return call(lambda app: executor.run_inline_and_verify(app, code, log_path=log_path,
+                                                           rebuild=False))
 
 
 def _run_generated(code: str, log_path: str) -> dict:
-    return call(lambda app: executor.run_inline_and_verify(app, code, log_path=log_path))
+    # Generated macros already ForceRebuild once in their footer. Avoid a
+    # second full rebuild and verify the resulting tree directly.
+    return call(lambda app: executor.run_inline_and_verify(app, code, log_path=log_path,
+                                                           rebuild=False))
 
 
 @mcp.tool()
@@ -390,19 +599,56 @@ def list_rules(query: str = "") -> dict:
 
 
 # === API documentation pipeline ============================================
+# Local CHM docs are the first-priority source (offline, instant, token-trimmed);
+# the JS web render is the fallback for topics not on disk.
 @mcp.tool()
-def docs_lookup_method(interface: str, method: str, refresh: bool = False) -> dict:
-    """Look up a SolidWorks 2022 API method (renders the JS docs, caches them).
-    e.g. interface='FeatureManager', method='FeatureExtrusion3'. Returns syntax,
-    parameters, return value, remarks and example. Read 'remarks' - it holds the
-    selection-mark/precondition details that separate working from crashing code."""
-    return docs_pipeline.lookup_method(interface, method, refresh=refresh)
+def docs_lookup_method(interface: str, method: str, refresh: bool = False,
+                       prefer: str = "local") -> dict:
+    """Look up a SolidWorks 2022 API method. Reads the installed CHM docs first
+    (offline, instant), falling back to the rendered web docs only if the topic
+    isn't on disk. e.g. interface='FeatureManager', method='FeatureExtrusion3'.
+    Returns syntax, parameters, return value, remarks and example. Read 'remarks'
+    - it holds the selection-mark/precondition details that separate working from
+    crashing code. prefer='web' forces an online render; refresh=True bypasses
+    every cache."""
+    return docs_pipeline.lookup_method(interface, method, refresh=refresh,
+                                       prefer=prefer)
 
 
 @mcp.tool()
-def docs_lookup_enum(enum_name: str, refresh: bool = False) -> dict:
-    """Look up a SolidWorks 2022 enum and its members, e.g. 'swEndConditions_e'."""
-    return docs_pipeline.lookup_enum(enum_name, refresh=refresh)
+def docs_lookup_enum(enum_name: str, refresh: bool = False,
+                     prefer: str = "local") -> dict:
+    """Look up a SolidWorks 2022 enum and its members, e.g. 'swEndConditions_e'.
+    Reads local CHM docs first; falls back to the web render if absent."""
+    return docs_pipeline.lookup_enum(enum_name, refresh=refresh, prefer=prefer)
+
+
+@mcp.tool()
+def docs_search(query: str, limit: int = 8) -> dict:
+    """Full-text search the local SolidWorks API docs (offline, from the CHMs).
+    Use this to find the right interface/method/enum by keyword instead of
+    guessing in a fix loop - e.g. query='circular pattern feature' or
+    'set extrude depth'. Returns lightweight hits (topic stem + title +
+    snippet); follow up with docs_lookup_method to read the full topic."""
+    from . import local_docs
+    return {
+        "query": query,
+        "priority": ["local-solidworks-chm", "bundled-cosmon", "web-fallback"],
+        "local": local_docs.search(query, limit=limit),
+        "cosmon": cosmon_resources.search(query, "all", limit),
+    }
+
+
+@mcp.tool()
+def docs_status(rebuild: bool = False) -> dict:
+    """Report the local CHM docs index (source folder, topic count, readiness)
+    and decompile/index them if needed. Pass rebuild=True to re-decompile the
+    CHMs from scratch (e.g. after a SolidWorks upgrade)."""
+    from . import local_docs
+    status = local_docs.ensure_extracted(force=rebuild)
+    status["api_dir"] = str(local_docs.api_dir()) if local_docs.api_dir() else None
+    status["available"] = local_docs.available()
+    return status
 
 
 @mcp.tool()

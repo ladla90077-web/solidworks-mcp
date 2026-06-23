@@ -1,0 +1,29 @@
+# csc.exe response file for CosmonSWServiceSample (test harness)
+# No SolidWorks dependencies - just core .NET + pipe server infrastructure.
+
+/nowarn:1701,1702
+/nostdlib+
+/warn:4
+/define:DEBUG;TRACE
+/highentropyva-
+/debug+
+/debug:full
+/optimize-
+/deterministic+
+/filealign:512
+/langversion:7.3
+/target:exe
+/utf8output
+
+# Assembly name and output
+/out:"__OUTPUT_PATH__"
+
+# Reference assemblies (.NET Framework 4.7.2)
+/reference:"__REF_ASSEMBLIES__\mscorlib.dll"
+/reference:"__REF_ASSEMBLIES__\System.dll"
+/reference:"__REF_ASSEMBLIES__\System.Core.dll"
+/reference:"__REF_ASSEMBLIES__\System.Web.Extensions.dll"
+/reference:"__REF_ASSEMBLIES__\Microsoft.CSharp.dll"
+
+# Source files (injected by Python from conftest.py file lists)
+__SOURCE_FILES__

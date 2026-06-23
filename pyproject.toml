@@ -27,4 +27,17 @@ solidworks-mcp = "sw_mcp.server:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-sw_mcp = ["resources/*", "vba/*.vba"]
+sw_mcp = [
+    "resources/*",
+    "resources/skills/*/SKILL.md",
+    "resources/cosmon/code_execution/*",
+    "resources/cosmon/documentation_data/programming_guides/*/*.md",
+    "resources/cosmon/documentation_data/quickrefs/*/*.md",
+    "resources/cosmon/documentation_data/feature_documentation_db/*",
+    "resources/cosmon/documentation_data/feature_documentation_db/.gitattributes",
+    "resources/cosmon/documentation_data/function_documentation_db/*",
+    "resources/cosmon/documentation_data/function_documentation_db/.gitattributes",
+    "resources/cosmon/persistent_service/*",
+    "resources/cosmon/persistent_service/*/*",
+    "vba/*.vba",
+]

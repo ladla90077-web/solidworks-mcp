@@ -80,11 +80,13 @@ def walk_feature_tree(model: Any, include_ok: bool = True) -> list[dict]:
     return feats
 
 
-def rebuild(model: Any, force: bool = True) -> dict:
+def rebuild(model: Any, force: bool = True, inspect: bool = True) -> dict:
     """Rebuild the model. ForceRebuild3(False) rebuilds the whole tree top-down.
     Returns success plus the post-rebuild error/warning feature lists."""
     ok = bool(_safe(lambda: model.ForceRebuild3(False) if force else model.EditRebuild3(),
                     default=False))
+    if not inspect:
+        return {"rebuilt": ok}
     errs = get_build_errors(model)
     return {"rebuilt": ok, **errs}
 

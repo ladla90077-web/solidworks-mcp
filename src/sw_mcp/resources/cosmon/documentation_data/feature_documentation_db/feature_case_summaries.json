@@ -1,0 +1,987 @@
+[
+  {
+    "id": "10c7723cbdfee3a4f033fa03e568359c7d37853037f7ab174329f1e777e14a09",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Simple hole with through-all end condition"
+  },
+  {
+    "id": "c8b19581ba5cf028617fd1095e70bf91641937054e8294ff0872d53028c3a7ab",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Simple hole with blind end condition"
+  },
+  {
+    "id": "c7c4460ea92fabe59fbae18b58cfbe81cfbf3e5ff832ce05f47c4df5828bd923",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Tapered hole"
+  },
+  {
+    "id": "fd605d990b63781e524aa8dc00731d6da516c45aa1a51f6fa8631929c11a701f",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Counterbored hole or slot"
+  },
+  {
+    "id": "a29b8fc9df83874a608d99a362496db6f981d7c7036d9b36c8d28f62e344c39f",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Countersunk hole or slot"
+  },
+  {
+    "id": "290028f92dc7d7b84a420e614a1bfbcb0f9e6d9b7f0f5e4dfd245d964a8503cb",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Counterdrilled hole"
+  },
+  {
+    "id": "930463550e4d84b20ecae2a1d2450effb3fe2e4036d5d438012c04b4789de104",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Tapped blind hole with thread depth"
+  },
+  {
+    "id": "de1a40013d1f7571897d43b513dc5aeeadba66b9e68a0881a75e03d86d37074a",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Tapped through hole with thread depth"
+  },
+  {
+    "id": "a7db8a941fb889969a5a2ce8ed8703b1a12c323997d40732ed80644450900c18",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Pipe-tapped hole (NPT/NPTF)"
+  },
+  {
+    "id": "9d5f905b6192ed8469bab35d0b6ad08571c63a195e5dc394b5f944edd9bb4462",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Tapped hole with cosmetic thread representation"
+  },
+  {
+    "id": "0eab95f3b0652f01767b0b01e19f1e67e9914e077afd037472698d7bb4c16f2f",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Countersink hole without head clearance"
+  },
+  {
+    "id": "9096fffe3bf02306370ed45f7dd1c0834538f7dc79676eca7b5d00e74cc1f2e0",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Hole with up-to-surface end condition"
+  },
+  {
+    "id": "623fa4b190d0861abf635008fdd541d7e05ce01fb138c53d7f1e90648a47033b",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Hole with up-to-vertex end condition"
+  },
+  {
+    "id": "d74995960548a9077f6116141cf2266b417a106bcd4a4b5dc6f070cff55e92ba",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Simple slot (straight hole slot)"
+  },
+  {
+    "id": "d2ffc2e287cc29f89f2d4ebf8c7bfe668a1b825476d900a64435e7f7b79e957e",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Counterbored slot"
+  },
+  {
+    "id": "4dfd68fd410f5c0a9d0d1ade4453a3796d7f3ecbc2d3cfd0c3f37dc6939f6e58",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Countersunk slot"
+  },
+  {
+    "id": "c18ca7ffef30f39cd11bc0c85d66f404c520616c044c6e0e8bd5b68897b39b6a",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Hole with offset from surface end condition"
+  },
+  {
+    "id": "7b6145561eac8c1b53ff54c9231cace13482689cfb6507ae1dd03be0dc303ff3",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Counterbored hole with near-side countersink"
+  },
+  {
+    "id": "a2403d131cf7621e38cd5f97d5df2eef563c9e923137dc6d88e73c29c2044f9b",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Counterbored hole with far-side countersink"
+  },
+  {
+    "id": "94cd50b3ca0f84dbd6b7d9fecd02710d9de7f2306720fca79426aed0cee6c320",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Tapped hole with near-side countersink"
+  },
+  {
+    "id": "a5ff837820aff7e43d14a760c9d9d7729e67a0f286e01e60806e2a07a4040292",
+    "creation_method_id": "9da19708656be1a8b0a966aa7c0f001412b3ba09d0b15ab24cea1adcfd2c88b7",
+    "feature_case_title": "Tapped hole with thread-through end condition"
+  },
+  {
+    "id": "2cfe8dd1bd88b1a54205504004f8b82c8d6866a3460113c7e503ab8b2c126d82",
+    "creation_method_id": "c666e39831332013aa2cf24c1ff6eed1a29473d6b3e1accdccb84bbf15727b91",
+    "feature_case_title": "Modify existing hole wizard hole properties"
+  },
+  {
+    "id": "c1337f95fe2c7edbe8fff0f123174b58e3124d53af06d580a2c578edc67d6b3f",
+    "creation_method_id": "80bc04647aec89d8397a0b16d44186dadd007c8e507199b1756f9b8fba22f573",
+    "feature_case_title": "Split feature that consumes selected bodies and saves them to separate part documents"
+  },
+  {
+    "id": "88d0ca3ab63040e9e51b93a9154396c4642ab0eb2f2eb04a6b4cc851c4d508aa",
+    "creation_method_id": "80bc04647aec89d8397a0b16d44186dadd007c8e507199b1756f9b8fba22f573",
+    "feature_case_title": "Split feature that keeps selected bodies in the original part without saving to separate documents"
+  },
+  {
+    "id": "0307146c9db9b84d655c096f653bdefdba9cc59e94ddbae5e79c8b31aae3787a",
+    "creation_method_id": "cf1ed2f704082d1196c8165cbd147946304e229cd6cd12137c9373f1af202bf1",
+    "feature_case_title": "Modification of Split feature properties including consume flag, template path, and trim tools"
+  },
+  {
+    "id": "6be9c5f874cec8109130df2176f4dca408761d4db4878207548489168449825e",
+    "creation_method_id": "cf1ed2f704082d1196c8165cbd147946304e229cd6cd12137c9373f1af202bf1",
+    "feature_case_title": "Modification of split bodies included in an existing Split feature"
+  },
+  {
+    "id": "b1b2be7c8f2966ac9f3e3ab9765285f39b44a57c593eb554e3d19bd70fd3189a",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Solid boss/base revolve feature with single-direction blind end condition"
+  },
+  {
+    "id": "054a88507796d4284c117485d7270350f6fa386f5fb4edf33fe26fc6746d0e17",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Solid boss/base revolve feature with mid-plane end condition"
+  },
+  {
+    "id": "f9060b393028ea74246902270943ad9a9253e51615b5ad3cb0a9c999e8c52b50",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Solid boss/base revolve feature with 360-degree revolution"
+  },
+  {
+    "id": "a40658334487521201174b5d293e77b57fb3d6acea73dc1c4d32f7e979be91ae",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Solid boss/base revolve feature with dual-direction end conditions"
+  },
+  {
+    "id": "f620a768bfe06de052d4a71a28ac06165fffd8efea95b01d0db45ea0bb2277fa",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Solid boss/base revolve feature with up-to surface or up-to vertex end condition"
+  },
+  {
+    "id": "48fa772aca0b8e301a15e5433a310393260ee62a96b7beb9faf6c068431a0583",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Solid boss/base revolve feature with offset from surface end condition"
+  },
+  {
+    "id": "dbcd89bb70568a5eae807a54c0abd7e8d8587e31b619dcf2e9c8930dfb81e8b3",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Thin revolve feature with one direction"
+  },
+  {
+    "id": "8450e6e9c137387599667941d01bc0dd9573163a9c8f8d9fe4c12371dd6700b9",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Thin revolve feature with mid-plane wall type"
+  },
+  {
+    "id": "47192167b8e9fcf5ca54d3ce9660c067f5c2174d39a1fc85ad6262546c6a9110",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Thin revolve feature with two-direction wall type"
+  },
+  {
+    "id": "c5d6a274a4df356fd1e831f698058a0d12438ee7462dff814fa69d8520d86007",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Cut revolve feature with single direction"
+  },
+  {
+    "id": "7d4c874c0f7efb0f59133c7c0f61e0c96b5e44f6796ab3b6b7a819b0c364df06",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Cut revolve feature with dual direction"
+  },
+  {
+    "id": "2375e382c780e08c823cd8992c1fcef3ee01896da8e7df377d9161a8ca9ee206",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Thin cut revolve feature"
+  },
+  {
+    "id": "acee86cfa0db9fa01acb0179281c4df72031d98607b92c76494f659a9a563613",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Revolve feature affecting specific bodies in multibody part"
+  },
+  {
+    "id": "481be0246ca985f2524d98703b4c94c5711ecbf5ce928e5fd4c1a80ffbf35bd5",
+    "creation_method_id": "57d3f447035099fde756ba4812661cc3761560cde688fb1c85fcdc68144235f7",
+    "feature_case_title": "Assembly revolve feature with component scope"
+  },
+  {
+    "id": "4c8990d81ca5f30c255a5571a6e3218615444b7d4fbfc9d79c8bb465e97d7c36",
+    "creation_method_id": "0373aa5d85368626673d7c50b51dde871fbd15e05e15dc3e663c4786f0683f03",
+    "feature_case_title": "Modify revolve type and revolution angle"
+  },
+  {
+    "id": "b54acd381fcfa1b29c73cd65064ec846707fe8bc63dfa8baeb2b4d0a77743932",
+    "creation_method_id": "0373aa5d85368626673d7c50b51dde871fbd15e05e15dc3e663c4786f0683f03",
+    "feature_case_title": "Modify revolve axis and contours"
+  },
+  {
+    "id": "6c0590edbff033774a31de54489ea0c6283345f12c8df45642e8b66d60e939d7",
+    "creation_method_id": "0373aa5d85368626673d7c50b51dde871fbd15e05e15dc3e663c4786f0683f03",
+    "feature_case_title": "Modify thin revolve wall thickness and type"
+  },
+  {
+    "id": "4e156fe794bbb2d710f8d146073b7fd26cf97250b0ef56f0fab937902171631f",
+    "creation_method_id": "7e5e7203000b30604a30c079fd612ece6f5bf1567e6131f639248b343f902cec",
+    "feature_case_title": "Uniform thickness shell with inward direction"
+  },
+  {
+    "id": "6eaeffb9c147eb8bde2b46d18c0af776179a6966cbbe217fdf0608beedddfad4",
+    "creation_method_id": "7e5e7203000b30604a30c079fd612ece6f5bf1567e6131f639248b343f902cec",
+    "feature_case_title": "Uniform thickness shell with outward direction"
+  },
+  {
+    "id": "c85282c258f24c3fd0fed311652d0d0c8eadd9583bad2470ad319f5cb1d5984e",
+    "creation_method_id": "b36a77f1e8c652c266188f94f160cb46e71e9cd6cb703ebe63f9b13ad0fbbdd6",
+    "feature_case_title": "Multi-thickness shell with different thicknesses on multiple selected faces"
+  },
+  {
+    "id": "b6f6ad1f69ee260e9ef8f31e438a394ca75acfe3bdb5d82404c97a03d7749766",
+    "creation_method_id": "51fcbe35525f9097ec7751949179cfddcbf441759b6fa96c6e3771cc93a44140",
+    "feature_case_title": "Shell feature modification via IShellFeatureData properties and ModifyDefinition"
+  },
+  {
+    "id": "1b81bffe45c5bf1b1c45a7a6e60a079a3b6acfd1230cafa8f6b24af83383a702",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Constant radius fillet with single-ended symmetric profile (circular, conic rho, or conic radius)."
+  },
+  {
+    "id": "975cd60286a9af8007cad413298ff3ededf8e82992c81a8eb62560a9506ad8cd",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Constant radius fillet with asymmetric profile (two independent radii on opposite sides)."
+  },
+  {
+    "id": "54a1fa44d348d96c17bbd4bcd38ee1b568344454e00d26a2406c361d96905236",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Constant radius fillet with multiple edge radii (different radius values per edge)."
+  },
+  {
+    "id": "dd00362f9e4c6382e54bc950ab9ea24a9a468be866ea730a64091d38cf3435f2",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Face fillet with symmetric profile between two face sets."
+  },
+  {
+    "id": "373425c3a838183dcba0b387bc558f35c701f7e67f20052b765188788612f029",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Face fillet with asymmetric profile between two face sets."
+  },
+  {
+    "id": "de707ca08a8bbb56bcfbfb39382d1d67b155a6c15e8568a6e5d44b7439ac2597",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Face fillet with chord width profile."
+  },
+  {
+    "id": "6b72f374f8fb9af36b08cfa38f87eb487229a3be18b0af8a994522a13543c80d",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Face fillet with hold line (boundary) constraint."
+  },
+  {
+    "id": "7c21e862ab603cb08830ae197cd009161eb080c84ae99cbf712444a49d35d5fb",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Face fillet with curvature continuous profile."
+  },
+  {
+    "id": "d683fe0bc56d077311bf7aef51995b79d72bad7dd9816e3ba6aafa67de65f8fa",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Full round fillet between three face sets (Face Set 1, Center Face, Face Set 2)."
+  },
+  {
+    "id": "a6c75f6c364fc024c719ce3465227342850e79b7c652de48e227dbaa98db05da",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Offset face chamfer with symmetric profile."
+  },
+  {
+    "id": "96bd312f198f50f74b767d4377d977df5e4cc5c5688bbe2254038c767235446f",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Offset face chamfer with asymmetric profile."
+  },
+  {
+    "id": "79897b656c943e61bcb3d1837df154120dacd8f8df6a0f867f2ce18263dbfc72",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Face-face chamfer between two face sets."
+  },
+  {
+    "id": "4116ce49eef15a87cf5d871e9e1736b6bc2de1fc58b35dfbc0af57682f7bd1ef",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Setback fillet with variable setback distances at corner vertices."
+  },
+  {
+    "id": "caef0e972a1a979e674b1174d639952e0b648df3ae874ab1d07e43a0b2a51ec8",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Partial edge fillet applied to portions of specified edges."
+  },
+  {
+    "id": "c2a390cce753497e505f2de96e11529e4f819fd669e0d745184d221da131e668",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Round corners fillet applied to edges with corner rounding enabled."
+  },
+  {
+    "id": "71f85587bc939881edcf8bb8bf8a22e9e052edcb1c3ac1e7eb1f039b8a385590",
+    "creation_method_id": "96c24b82390d82d12ae59640733eaa1da6b836d97f919896aac40dad871bbd75",
+    "feature_case_title": "Constant width fillet with constant width property enabled."
+  },
+  {
+    "id": "0a17fe7a0a438be07cce3040912c058bdfd72035d4e2d2be0db4bdd4169db3fa",
+    "creation_method_id": "089fdb3dd5847a2548cd1d6987dfbcdf82f1e021e5bc6a7219c4ee00586aed60",
+    "feature_case_title": "Mirror pattern of selected features with a specified mirror plane or face"
+  },
+  {
+    "id": "4c5a81264fddb60ff11b64d97ee1f1040fae8def9ee7802f7fc24ee579e0fb8f",
+    "creation_method_id": "089fdb3dd5847a2548cd1d6987dfbcdf82f1e021e5bc6a7219c4ee00586aed60",
+    "feature_case_title": "Mirror pattern with geometry pattern mode (mirror only geometry, not solve entire feature)"
+  },
+  {
+    "id": "a39c3aa637954f194b3db7a5f5a860e3072108a2498e00b6ac536fff56a04fb2",
+    "creation_method_id": "089fdb3dd5847a2548cd1d6987dfbcdf82f1e021e5bc6a7219c4ee00586aed60",
+    "feature_case_title": "Mirror pattern with merge option for mirrored solid bodies"
+  },
+  {
+    "id": "bbf2c3c29085fbf839d9d83f9070d0dd1b9cdf160a4385d6b03b86fc5a0dba12",
+    "creation_method_id": "089fdb3dd5847a2548cd1d6987dfbcdf82f1e021e5bc6a7219c4ee00586aed60",
+    "feature_case_title": "Mirror pattern with knit option for mirrored surfaces"
+  },
+  {
+    "id": "67468eda572d99a1b0cff47b38a7ab67342ac8bbe11db7c56d9e1572ee38be79",
+    "creation_method_id": "089fdb3dd5847a2548cd1d6987dfbcdf82f1e021e5bc6a7219c4ee00586aed60",
+    "feature_case_title": "Mirror pattern with feature scope for multibody parts"
+  },
+  {
+    "id": "f725a458fa699f11dfed73af6b27321e797f8cd07c54d87be975a1f51260daeb",
+    "creation_method_id": "c0b05947f45d7b5e823e76ac31ce0c37627247fce409b662d2dd60102ff62992",
+    "feature_case_title": "Mirror pattern modification with updated feature selections and mirror plane"
+  },
+  {
+    "id": "4f0be2036c857c7a0fcb66367b6076fef3771de65357111991218fb2a814f52d",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft with multiple profiles only (no guide curves or centerline)"
+  },
+  {
+    "id": "b0760923c46ac61821a033fe25ef56d4d241caa879215bac914a6a8e42ed131b",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft with profiles and guide curves"
+  },
+  {
+    "id": "a9575a470984604934a9c810383f3b4d50aa2789762c83a5aa8e017cf18f919a",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft with profiles, guide curves, and centerline"
+  },
+  {
+    "id": "f5fd2e2ad2dfefa84857b1af0f44c4acc136d0793338107f1c69965de0df4fc5",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Closed boss loft (Close=true) with multiple profiles"
+  },
+  {
+    "id": "8a56be63dce1b704d52899ef89e6b2593082d1d3e11f725575400345d23dd6a7",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft with tangency constraints at start and/or end profile (StartTangencyType/EndTangencyType tangent to normal, vector, or faces)"
+  },
+  {
+    "id": "c23eef9ab56155df044e5c11202bffc131d85022d296f3c1da940eccf1607e7f",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft with thin wall (IsThinBody=true), one direction"
+  },
+  {
+    "id": "69624feaf04afbbae196a065e471d12ae3b42a36c55440c90e283ca55a9b7263",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft with thin wall (IsThinBody=true), one direction reverse"
+  },
+  {
+    "id": "cd376cb74117ba99e5f7b499a7bbe3aee340e0020a4ebba24514d2ddbbe603c2",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft with thin wall (IsThinBody=true), mid-plane"
+  },
+  {
+    "id": "47b0eed7b441ccd62ede86b0873afeca7ed60adf46881061e4a3317f9be5467c",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft with thin wall (IsThinBody=true), two direction"
+  },
+  {
+    "id": "9023d1ffdfa654672d338beedd333b9fe80a901949670e331af0eb7dc9a0beb1",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft with feature scope for multibody part (UseFeatScope=true)"
+  },
+  {
+    "id": "d22780ebc20236ae2c2cc0093f5558f3960b498f5d798401d9b62e001b0c31ca",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft merging results in multibody part (Merge=true)"
+  },
+  {
+    "id": "6e3d381cefeee68e2f0af69015d0f35128321c1b447173cf9e31a39e913e54f0",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft with advanced smoothing (AdvancedSmoothing=true)"
+  },
+  {
+    "id": "02c49377c5a5a8fdfc4aeea27f8cac365492d52be19c9aa13ab29821af00d06b",
+    "creation_method_id": "e7565f7f51b447569305f4573602e09d094ecc7aa02fede49563594fab613a9f",
+    "feature_case_title": "Boss loft with guide curve influence control (GuideCurveInfluence parameter)"
+  },
+  {
+    "id": "f2dc5f3c50f9f07dd9be18146732a2ef837b7b2da302c8c17f2562b8c11ca567",
+    "creation_method_id": "96276073234a8f5c94f4c45d1ac93c62491913d6d1cddedb082bd6cabfcff5ae",
+    "feature_case_title": "Cut loft with multiple profiles only (no guide curves or centerline)"
+  },
+  {
+    "id": "78e1cae6f54a41e3394c6c1451ab4077840e9391d131c2b247f7f7ece8e2948f",
+    "creation_method_id": "96276073234a8f5c94f4c45d1ac93c62491913d6d1cddedb082bd6cabfcff5ae",
+    "feature_case_title": "Cut loft with profiles and guide curves"
+  },
+  {
+    "id": "d6dc1a789c418480978f3dc44934d60c4563a187f858cd29a056eb4f1974906f",
+    "creation_method_id": "96276073234a8f5c94f4c45d1ac93c62491913d6d1cddedb082bd6cabfcff5ae",
+    "feature_case_title": "Cut loft with profiles, guide curves, and centerline"
+  },
+  {
+    "id": "9a951733972141a762078b08a4f357841e8cc2b6d121638ecc3dd65e016d2971",
+    "creation_method_id": "96276073234a8f5c94f4c45d1ac93c62491913d6d1cddedb082bd6cabfcff5ae",
+    "feature_case_title": "Closed cut loft (Close=true) with multiple profiles"
+  },
+  {
+    "id": "15ad2637fd27e56b160ff765478c4fb9acdf2585dae00850951e4ccf577a9440",
+    "creation_method_id": "96276073234a8f5c94f4c45d1ac93c62491913d6d1cddedb082bd6cabfcff5ae",
+    "feature_case_title": "Cut loft with tangency constraints at start and/or end profile"
+  },
+  {
+    "id": "64c7155a6147399291250cf83144bedcaa2fce5aeb64258bd86e90224ba38107",
+    "creation_method_id": "96276073234a8f5c94f4c45d1ac93c62491913d6d1cddedb082bd6cabfcff5ae",
+    "feature_case_title": "Cut loft with thin wall"
+  },
+  {
+    "id": "b9a20b387bf1d31406f20c3d89296d65b05d47350069f58134af0d9f6b58c809",
+    "creation_method_id": "96276073234a8f5c94f4c45d1ac93c62491913d6d1cddedb082bd6cabfcff5ae",
+    "feature_case_title": "Cut loft with feature scope for multibody part"
+  },
+  {
+    "id": "6c9e27349ebbade79698f587a36c588b3da36348b8200913916cd04ace9fddd3",
+    "creation_method_id": "2adacb868b3fd822f1fa07e38e49f43856def0a60f58be37d4d88310b5e88417",
+    "feature_case_title": "Modify loft feature by updating profiles, guide curves, or centerline via PickPoints property"
+  },
+  {
+    "id": "1e7c90ba0789dac26de3930e4abefa89d9174d8556dd511a6e30fe33ba4c8626",
+    "creation_method_id": "2adacb868b3fd822f1fa07e38e49f43856def0a60f58be37d4d88310b5e88417",
+    "feature_case_title": "Modify loft feature by changing tangency type or tangent length properties"
+  },
+  {
+    "id": "8b52dcfd0623ea6916cc02272a7a39195d97b4f1ec4842a7ddf6486da8f72155",
+    "creation_method_id": "2adacb868b3fd822f1fa07e38e49f43856def0a60f58be37d4d88310b5e88417",
+    "feature_case_title": "Modify loft feature by changing thin wall settings or thickness values"
+  },
+  {
+    "id": "a796114d943e386970e2a284432d8e6f9c662f99da7176ca8489e169bf8a06e8",
+    "creation_method_id": "2adacb868b3fd822f1fa07e38e49f43856def0a60f58be37d4d88310b5e88417",
+    "feature_case_title": "Modify loft feature by changing feature scope bodies for multibody parts"
+  },
+  {
+    "id": "6d44cd4ad77e8b581f96fa13fb7d33d1d579d55ba5ff0d31b8d281bbe29e8807",
+    "creation_method_id": "8f850088e51fe164d4e86911f91e07ab0848c567895c92895e45f4f3580b409f",
+    "feature_case_title": "Edge chamfer with angle and distance using InsertFeatureChamfer"
+  },
+  {
+    "id": "d2cd5dc124da003835e7eb3325a1f7a9eb05b9ae437616695a13dfd76e56e3dc",
+    "creation_method_id": "8f850088e51fe164d4e86911f91e07ab0848c567895c92895e45f4f3580b409f",
+    "feature_case_title": "Edge chamfer with two distances (distance-distance) using InsertFeatureChamfer"
+  },
+  {
+    "id": "ec4d9bd88c3dbd9827c9cf93a21bd52eb773c31e4baafbd71427efff192e91eb",
+    "creation_method_id": "8f850088e51fe164d4e86911f91e07ab0848c567895c92895e45f4f3580b409f",
+    "feature_case_title": "Edge chamfer with equal distance using InsertFeatureChamfer"
+  },
+  {
+    "id": "42e0efddffe0aa4a26021484efa69bc367b4e5061ef00add43fc7137596659a3",
+    "creation_method_id": "8f850088e51fe164d4e86911f91e07ab0848c567895c92895e45f4f3580b409f",
+    "feature_case_title": "Vertex chamfer with three distances using InsertFeatureChamfer"
+  },
+  {
+    "id": "f562f5b89742ed152bae60f65ddfb0c9e779347fb36b0d77d73ae24163fac938",
+    "creation_method_id": "5b74cbc90141b6d48d01439f4063b79857cdc82edb421f6469b2eb7358398f6b",
+    "feature_case_title": "Angle-distance edge chamfer using IModelDoc2::FeatureChamfer"
+  },
+  {
+    "id": "869221b39b10a4e1a01337e7daa7cbd6279328e1184cee5d81d0a323eda5803d",
+    "creation_method_id": "df6d0563c90ca5fce1cedf06e67875462c4a8248a888dda08f5fac739c74a2c6",
+    "feature_case_title": "Constant radius chamfer with partial edge parameters using ISimpleFilletFeatureData2"
+  },
+  {
+    "id": "a86d5493b63880e61d643e438ee04a7071128d391207f9434afacad69e79e7c0",
+    "creation_method_id": "a95dd8fab2c1afa5a9ec3cf5e5a51a52099b5aecc7613743dc59a0b784df6909",
+    "feature_case_title": "Modifying chamfer type from angle-distance to distance-distance"
+  },
+  {
+    "id": "9dd757e6121bec31d50c363bb8dee602900ead826a72809b0b423576884639be",
+    "creation_method_id": "a95dd8fab2c1afa5a9ec3cf5e5a51a52099b5aecc7613743dc59a0b784df6909",
+    "feature_case_title": "Modifying chamfer edge distances and angle properties"
+  },
+  {
+    "id": "1f5654b080bf603ddec602ada39690aae0badf20633bd2e41d4780b2cebfd18c",
+    "creation_method_id": "a95dd8fab2c1afa5a9ec3cf5e5a51a52099b5aecc7613743dc59a0b784df6909",
+    "feature_case_title": "Adding or replacing edges/faces/loops on an existing chamfer"
+  },
+  {
+    "id": "fd5ab5e8e3674fa59b24131ac2cc1ad4855ce2dfb086997cf392521e9b99cc5a",
+    "creation_method_id": "016e930ce3c7743aae9286e78bbeae5a8dc64ff27a184781ed21ba94ea0111fa",
+    "feature_case_title": "Single-ended simple hole with blind end condition"
+  },
+  {
+    "id": "788fc47ba16be7eaca3c10d2a0f826aebfcb1cc672b949d99928a20a3634c919",
+    "creation_method_id": "016e930ce3c7743aae9286e78bbeae5a8dc64ff27a184781ed21ba94ea0111fa",
+    "feature_case_title": "Single-ended simple hole with through-all end condition"
+  },
+  {
+    "id": "3a9a064805e50a9bc6d26858ddc69670b3ac90244ba5618e62867a292036acac",
+    "creation_method_id": "016e930ce3c7743aae9286e78bbeae5a8dc64ff27a184781ed21ba94ea0111fa",
+    "feature_case_title": "Single-ended simple hole with up-to-surface end condition"
+  },
+  {
+    "id": "c9c4df15b8d40cd04587fa09a2d2ef857ee37fbeae883f897c6a84a79ed64fb2",
+    "creation_method_id": "016e930ce3c7743aae9286e78bbeae5a8dc64ff27a184781ed21ba94ea0111fa",
+    "feature_case_title": "Single-ended simple hole with offset-from-surface end condition"
+  },
+  {
+    "id": "3229faefc47c9aa524263e25929853fdd74322e86d1955f751dde240b4bdcef0",
+    "creation_method_id": "016e930ce3c7743aae9286e78bbeae5a8dc64ff27a184781ed21ba94ea0111fa",
+    "feature_case_title": "Single-ended simple hole with draft angle"
+  },
+  {
+    "id": "541d5ad776ec5f3a8510847a642202073224d23b6071b566b5baf685fef8ef89",
+    "creation_method_id": "016e930ce3c7743aae9286e78bbeae5a8dc64ff27a184781ed21ba94ea0111fa",
+    "feature_case_title": "Double-ended simple hole with independent end conditions on each end"
+  },
+  {
+    "id": "bb074ed140fad4caca17ec0edfb11a6b6abd847ef5785bc8511329c769f44121",
+    "creation_method_id": "016e930ce3c7743aae9286e78bbeae5a8dc64ff27a184781ed21ba94ea0111fa",
+    "feature_case_title": "Double-ended simple hole with different draft angles on each end"
+  },
+  {
+    "id": "7693f9049cf3341fe7eacffa79fe8e8a8d4a3cc2f2aaa9e04ec462cc2d854d04",
+    "creation_method_id": "016e930ce3c7743aae9286e78bbeae5a8dc64ff27a184781ed21ba94ea0111fa",
+    "feature_case_title": "Simple hole feature in multibody part with feature scope"
+  },
+  {
+    "id": "957643ef9f847713447d331ea38a86b5ddb5437b3a32cb891174e99ed8c260ac",
+    "creation_method_id": "016e930ce3c7743aae9286e78bbeae5a8dc64ff27a184781ed21ba94ea0111fa",
+    "feature_case_title": "Simple hole feature in multibody part with auto-select"
+  },
+  {
+    "id": "f3faaddebc068b0623bed3a6c1b27d355a450c4b004e3108cce1308dd4a964b0",
+    "creation_method_id": "016e930ce3c7743aae9286e78bbeae5a8dc64ff27a184781ed21ba94ea0111fa",
+    "feature_case_title": "Assembly simple hole feature with scope and component selection"
+  },
+  {
+    "id": "56eacff7eb090543ad540d303c028e37c7d8b5947520ae9b75d621ea721c8e80",
+    "creation_method_id": "765be0df2d85f431ee331a16f830e01e8f7f1a6f837c1bda00f0b92e5e319cf6",
+    "feature_case_title": "Modify end condition of existing simple hole feature"
+  },
+  {
+    "id": "a8d53cc10e2532a40bdcadca01c7d6ff3385bbd8f902f925ce10da69ae898f07",
+    "creation_method_id": "765be0df2d85f431ee331a16f830e01e8f7f1a6f837c1bda00f0b92e5e319cf6",
+    "feature_case_title": "Modify diameter of existing simple hole feature"
+  },
+  {
+    "id": "ac1df55df6076772f06417ebe4b0eb6d6c65bad3764e0f54a1dc34bc65cc8816",
+    "creation_method_id": "765be0df2d85f431ee331a16f830e01e8f7f1a6f837c1bda00f0b92e5e319cf6",
+    "feature_case_title": "Modify depth of existing simple hole feature"
+  },
+  {
+    "id": "a4b92d42b504e3bb042092d7b49b7850d112e4e6d4e84902dc6fcd5c97f50571",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane with distance offset from a single reference plane"
+  },
+  {
+    "id": "84670e5c4fa6be463c4feb727dba563b8ab7f45cfb1f977c8b2775488a60023c",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane with angle rotation from a single reference plane"
+  },
+  {
+    "id": "8d5b28e6d11137d26732dc978a8b806ffb8ed52ef82a4bc3a7e0f6ad866d4cf0",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane with parallel constraint"
+  },
+  {
+    "id": "191a799dc603778c2d311e38e57ec96a5b0a79c3abd6a603ffe9a60fd745d486",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane with perpendicular constraint"
+  },
+  {
+    "id": "0dffe5f1ecccfcadce7827afec2ec0b40a6c898d4e0aa04d8337f9bd3aeb1f3b",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane with tangent constraint"
+  },
+  {
+    "id": "c2ba28fbdc4c165bec611beadeb00ac82e3eafe37d308889afb654aa38de48e3",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane with coincident constraint"
+  },
+  {
+    "id": "3ff48060cb4cba55dbb01b0bc5dc094a5649590ace424596a2a598bac5718ddc",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane with mid-plane constraint between two reference entities"
+  },
+  {
+    "id": "9e6cd20b645b9abb49d074996934c7c4e4678a818c448f073ada5c53abf5fdd6",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane with projection option along sketch normal"
+  },
+  {
+    "id": "0793553d9888bfb55f5abe47994ffaa8198b262c45c9f358503dfd68b74726a2",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane with option to project to nearest location"
+  },
+  {
+    "id": "07810bccbc5c83866a90bf5f9b185831ae07efa3a0232941724faafeefdea7c9",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane with origin on curve option"
+  },
+  {
+    "id": "9092eea58d10a274a0162b17831b8c793d014cb22ec2a9f4e4e3ba974e83644f",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane with reference flip option"
+  },
+  {
+    "id": "5f71be555a1bb5ea9c2fcdf88e943ca7e6b5aeed1a77788142b250552bcf48c3",
+    "creation_method_id": "210a158323ac1f1afd6690025579bfc411c6233abe30ff3562a93d582aabca80",
+    "feature_case_title": "Constraint-based reference plane parallel to screen"
+  },
+  {
+    "id": "e1a00bdb72ecc373418d75fd14ac1e7bce269222c38fb23d70656aa106edf541",
+    "creation_method_id": "cc5190b1728764ecc3dd49d67d9edfa3328dafb4fd2df80dcf76e41e69be14e6",
+    "feature_case_title": "Modification of reference plane distance or angle constraints"
+  },
+  {
+    "id": "cae40cf3b1d475e04ff7750e839010bf163972aaeed7aba332b06387712cc142",
+    "creation_method_id": "cc5190b1728764ecc3dd49d67d9edfa3328dafb4fd2df80dcf76e41e69be14e6",
+    "feature_case_title": "Modification of reference plane reference selections"
+  },
+  {
+    "id": "68121eb8e5cf907514caa6975a6a621647087d3e4d2a8a42e0e11c959e12ccc7",
+    "creation_method_id": "98aeed9a2f545277de874ac28d910977733b35a71a94ae66dfc581e5c47e7e1f",
+    "feature_case_title": "Reference axis defined by a single line"
+  },
+  {
+    "id": "7cc5eda05c8970846d72b3c21398e9a71e642b3c2cc9d5f39072f0342c45cfa7",
+    "creation_method_id": "98aeed9a2f545277de874ac28d910977733b35a71a94ae66dfc581e5c47e7e1f",
+    "feature_case_title": "Reference axis defined by two planes intersection"
+  },
+  {
+    "id": "9cd2c82860506371cc110afd7cbc4ebd4811063b1d236cdcf688b47e45a427d0",
+    "creation_method_id": "98aeed9a2f545277de874ac28d910977733b35a71a94ae66dfc581e5c47e7e1f",
+    "feature_case_title": "Reference axis defined by two points"
+  },
+  {
+    "id": "16510830aac1827fac89ac85430407b6350fe6e302660b645d1705d86a74c8ba",
+    "creation_method_id": "98aeed9a2f545277de874ac28d910977733b35a71a94ae66dfc581e5c47e7e1f",
+    "feature_case_title": "Reference axis defined by cylindrical or conical face"
+  },
+  {
+    "id": "bb7703380a97a04b6509de20016aab753f0b0bd25e3552e6083837fc6912f16d",
+    "creation_method_id": "98aeed9a2f545277de874ac28d910977733b35a71a94ae66dfc581e5c47e7e1f",
+    "feature_case_title": "Reference axis defined by a point and a plane"
+  },
+  {
+    "id": "35937368656470d76b9d35a5c691f5d29cc915879b137452ccd2b642903656fc",
+    "creation_method_id": "05c0ef41407006a20d7cdda0adb796c77a9f280c471be6f42d21c1a366026da8",
+    "feature_case_title": "Single direction linear pattern with spacing and instance count in Direction 1"
+  },
+  {
+    "id": "843a84d2eec34adf8f7636a64b57b57e2996dd49c716db8aca2346393246f14f",
+    "creation_method_id": "05c0ef41407006a20d7cdda0adb796c77a9f280c471be6f42d21c1a366026da8",
+    "feature_case_title": "Single direction linear pattern with up-to reference geometry in Direction 1"
+  },
+  {
+    "id": "a174f1023ab8c736282e1575812527754719e69c4aadb2bdd281875cdd3dc1a9",
+    "creation_method_id": "05c0ef41407006a20d7cdda0adb796c77a9f280c471be6f42d21c1a366026da8",
+    "feature_case_title": "Bidirectional linear pattern with spacing and instances in both directions"
+  },
+  {
+    "id": "7a8d86d26b4315a542150e663adada177a552d46a29516605cccd644cb670ca8",
+    "creation_method_id": "05c0ef41407006a20d7cdda0adb796c77a9f280c471be6f42d21c1a366026da8",
+    "feature_case_title": "Bidirectional linear pattern with up-to reference in Direction 1 and spacing/instances in Direction 2"
+  },
+  {
+    "id": "fa6bc908d1d0c5ecf5fec09df1b2805d6733ec3650756bcf3f745782d486be8b",
+    "creation_method_id": "05c0ef41407006a20d7cdda0adb796c77a9f280c471be6f42d21c1a366026da8",
+    "feature_case_title": "Bidirectional linear pattern with spacing/instances in Direction 1 and up-to reference in Direction 2"
+  },
+  {
+    "id": "b883f62e7d4ca93abc78ff133bcaf1c81e204a1584993579e43fe7b35a6320c3",
+    "creation_method_id": "05c0ef41407006a20d7cdda0adb796c77a9f280c471be6f42d21c1a366026da8",
+    "feature_case_title": "Bidirectional linear pattern with up-to reference in both directions"
+  },
+  {
+    "id": "7369572f4fba1123ee23fcbf363752101ec7954d0e9c1ab3168f29903b620d89",
+    "creation_method_id": "05c0ef41407006a20d7cdda0adb796c77a9f280c471be6f42d21c1a366026da8",
+    "feature_case_title": "Bidirectional linear pattern with Direction 2 using seed geometry only"
+  },
+  {
+    "id": "4619f96a229fc4491c81dd162d8337baf08b484ceadd9aa1808d62795564ccb5",
+    "creation_method_id": "05c0ef41407006a20d7cdda0adb796c77a9f280c471be6f42d21c1a366026da8",
+    "feature_case_title": "Linear pattern of bodies and structure systems"
+  },
+  {
+    "id": "27c2a9f68d8a60705cd285ef659e97114b543b314bcd1c64c2084a1749f5e349",
+    "creation_method_id": "05c0ef41407006a20d7cdda0adb796c77a9f280c471be6f42d21c1a366026da8",
+    "feature_case_title": "Linear pattern of features and faces"
+  },
+  {
+    "id": "afa82abf39ba17dd23545fc4ec524d154a801386ea998c3ab494ea3a57a3fad1",
+    "creation_method_id": "3202c67e893caba0b3c0eee833338a40d048bcd17fd6ad759aa354540b720b62",
+    "feature_case_title": "Modify linear pattern feature definition"
+  },
+  {
+    "id": "99838dd670230f4a0200623c646a7af6df998d63437b75b87f7f035b4e26e139",
+    "creation_method_id": "946f444ca74237c3bc454dbc62c0458deda2ce2b1baa6fb184fc0389eeb4d81e",
+    "feature_case_title": "Single-directional circular pattern with equally-spaced instances based on features"
+  },
+  {
+    "id": "99e8350fd60323c349ef5fbdee918e8eab731e5142ed42c1d6c42c8194441d0a",
+    "creation_method_id": "946f444ca74237c3bc454dbc62c0458deda2ce2b1baa6fb184fc0389eeb4d81e",
+    "feature_case_title": "Single-directional circular pattern with unequally-spaced instances based on features"
+  },
+  {
+    "id": "6fb0c11815c884401901b55b031da5447e38a6b95374d5bc382562370b8a51de",
+    "creation_method_id": "946f444ca74237c3bc454dbc62c0458deda2ce2b1baa6fb184fc0389eeb4d81e",
+    "feature_case_title": "Single-directional circular pattern with equally-spaced instances based on faces"
+  },
+  {
+    "id": "aee9fae25185fdb1e0254811f2cf9101fb7b3fee29a9af179cd56fb438cec1ec",
+    "creation_method_id": "946f444ca74237c3bc454dbc62c0458deda2ce2b1baa6fb184fc0389eeb4d81e",
+    "feature_case_title": "Single-directional circular pattern with equally-spaced instances based on bodies"
+  },
+  {
+    "id": "2132ffdc9f034392c49580c30f4dece6fda63a0db8a2016ed8b62d7aff194f99",
+    "creation_method_id": "946f444ca74237c3bc454dbc62c0458deda2ce2b1baa6fb184fc0389eeb4d81e",
+    "feature_case_title": "Bidirectional circular pattern with equal spacing in both directions"
+  },
+  {
+    "id": "afc5b1dd87273c9f3f89d16fd95d51e06c4fd6aa5676382e20eaa908d3f8a66f",
+    "creation_method_id": "946f444ca74237c3bc454dbc62c0458deda2ce2b1baa6fb184fc0389eeb4d81e",
+    "feature_case_title": "Bidirectional circular pattern with symmetric instances in direction 2"
+  },
+  {
+    "id": "3dd4eed56a92f83f814888ed309fc383f8b66bb86f80bae8911a1d69f6f37ab0",
+    "creation_method_id": "946f444ca74237c3bc454dbc62c0458deda2ce2b1baa6fb184fc0389eeb4d81e",
+    "feature_case_title": "Circular pattern with varying dimensions or spacing for specific instances"
+  },
+  {
+    "id": "86aaa52375910b581e9dd90d07a197c1e38bcf569634f02af4e80637cf2f9cc7",
+    "creation_method_id": "946f444ca74237c3bc454dbc62c0458deda2ce2b1baa6fb184fc0389eeb4d81e",
+    "feature_case_title": "Circular pattern using geometry pattern mode (edges and faces only)"
+  },
+  {
+    "id": "57dcc402b065f19922075220a55f0a70095d55138c92a0bd4358ce99940c0ad3",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Swept-boss feature with sketch profile and single-direction sweep"
+  },
+  {
+    "id": "12093a1606a5feec875a8f1147ecfeabb72bc36abaf215b15f11824c3d1e7b04",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Swept-boss feature with sketch profile and bidirectional sweep"
+  },
+  {
+    "id": "960df75e62755484f8a0c06b5cb911e0f1d9a13832a2a74cd2accf6bdf08a84e",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Swept-cut feature with sketch profile"
+  },
+  {
+    "id": "dec6709bc77a5d384739d688675dcab1c0f398fd8aad5c87500b18faedc73ddf",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Swept-cut feature with circular profile"
+  },
+  {
+    "id": "141ec22f51e88b0a0ed02762e5fda68f089fd06ad351db270f941fefeb5c133d",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Swept-cut feature with tool body (solid sweep)"
+  },
+  {
+    "id": "58bb57826071b44a065812555259c8a8ba55fbcf6f830296612fdd00e1f1ec28",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Swept-cut thin-walled feature with 1D wall thickness"
+  },
+  {
+    "id": "7936193e458bad54a594d302434736362db5dc993d970045c2e6a1952e0c1f46",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Swept-cut thin-walled feature with 1D-reverse wall thickness"
+  },
+  {
+    "id": "7d76af04ac496b4d68c8e9ff294bc3966aa004384077db23b095c0f84869772e",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Swept-cut thin-walled feature with mid-plane wall thickness"
+  },
+  {
+    "id": "31c137d40ebfc6d02ce77004e7cff9431711d59175296deb08876782508a6c6f",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Swept-cut thin-walled feature with 2D wall thickness (bidirectional)"
+  },
+  {
+    "id": "3638f0f4b6a8b5ad91cf2bfb5caecb9d5d672a5ff155c7d48fea521670d9bad8",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Swept-surface feature"
+  },
+  {
+    "id": "fe964df43ce3390bb0eae170e3acd931839474f9316c15748540b92ec3f131e1",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Sweep feature with guide curves"
+  },
+  {
+    "id": "ecef0bb6827f9d50a5c0926ddc11dcd73e80849f05d4f225837c556c9df13f06",
+    "creation_method_id": "0831b135fb8e869afcbba5a0139f96d5aef42ab233cf2b38650ef169724c4a1c",
+    "feature_case_title": "Sweep feature with tangency control at start and end of path"
+  },
+  {
+    "id": "67b64df3fcdcb603634e08a971cdcd87999bedce888c1f832d67c862c8160c5a",
+    "creation_method_id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_case_title": "Multiface draft with neutral plane using no propagation"
+  },
+  {
+    "id": "2b1217fcbc9d6069b43bdb8fac131d1ed0dd7d59347e7d8ad3ba6e7b4c41ab45",
+    "creation_method_id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_case_title": "Multiface edge draft with propagation to tangent faces sharing the neutral plane"
+  },
+  {
+    "id": "f927523b64e6c74ef40060630ae4baf5caa676c6ca31b9c91a7af03bea8355fe",
+    "creation_method_id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_case_title": "Multiface draft with propagation to all neighbor faces of the neutral plane"
+  },
+  {
+    "id": "3eb59158abdfc83bbde2f789ae3a3b212dcd3005d93e224d1907b894dea04512",
+    "creation_method_id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_case_title": "Multiface draft with propagation to neighbor faces on all inner loops"
+  },
+  {
+    "id": "3d80b83159763b4e842ea7938eccf6321c3ba8d07a93332b124043a65664274a",
+    "creation_method_id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_case_title": "Multiface draft with propagation to neighbor faces on outer loop"
+  },
+  {
+    "id": "57456dc97601a79fd43b6e8e6edf6a71251777c247f5fba39f3d1bda35081651",
+    "creation_method_id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_case_title": "Multiface step draft feature"
+  },
+  {
+    "id": "c07884031a371aeaa4964355665615cf416e6899a2a76f6c9b6fb3a67c6a5fdd",
+    "creation_method_id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_case_title": "Multiface body draft feature"
+  },
+  {
+    "id": "017c205997e77490e000d3dcc3f4dc0d0e2b373d0e334cf08abef2e13c479f6f",
+    "creation_method_id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_case_title": "Neutral plane draft type"
+  },
+  {
+    "id": "751853bbc427b55aba91d7bb3a77e60702cf701a4125c45070d188cfc182b803",
+    "creation_method_id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_case_title": "Parting line draft type"
+  },
+  {
+    "id": "523d94e1433de5881a0da8ed5f16afaca29e3c80825d2dd77bfcb454dce5a5cc",
+    "creation_method_id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_case_title": "Step draft with perpendicular step type"
+  },
+  {
+    "id": "70ef7efe0873217a0cffd30cba6b9d8e2f47d05a66d918f04c3543ae64c9a8fb",
+    "creation_method_id": "e4e2b9b5cdd7443f1d8a315f1e8938119caefa8ca0b0bd4da1dc5ce4803490fb",
+    "feature_case_title": "Step draft with tapered step type"
+  },
+  {
+    "id": "19970900d1046d97dcef15883a9a8ba0696291db1dd569a05c8e69d114554883",
+    "creation_method_id": "65eba446d9a256f737ca4aafb4b3dbb10a7947a8fe842f2c494518a4b0ac6d4b",
+    "feature_case_title": "Draft feature modification via GetDefinition and ModifyDefinition"
+  },
+  {
+    "id": "a8a7264d6cdc3a9cf37275d0cb2b1e2cb70ba75dff105b9fc33aeecf5d1005a6",
+    "creation_method_id": "355b3937a07aa7ad3bdbfe3b6879c00e709e7526ab2e973645eb586df7f11ce6",
+    "feature_case_title": "Single-ended boss/base extrusion with blind end condition"
+  },
+  {
+    "id": "1fe47ac69a4aafef2e472a29994dd30ef285579188090f0d41df7fcfe61a201a",
+    "creation_method_id": "355b3937a07aa7ad3bdbfe3b6879c00e709e7526ab2e973645eb586df7f11ce6",
+    "feature_case_title": "Single-ended boss/base extrusion with through-all end condition"
+  },
+  {
+    "id": "d6707e8ec48b3cc01ce6e2e5425ca7fff5bd045af5b603a644e1175095cf7cd7",
+    "creation_method_id": "355b3937a07aa7ad3bdbfe3b6879c00e709e7526ab2e973645eb586df7f11ce6",
+    "feature_case_title": "Single-ended boss/base extrusion with up-to-next end condition"
+  },
+  {
+    "id": "b184f64f209f4555522d3a38d3192b76425966e2bb6491bcef6a3aa7ce93cd20",
+    "creation_method_id": "355b3937a07aa7ad3bdbfe3b6879c00e709e7526ab2e973645eb586df7f11ce6",
+    "feature_case_title": "Single-ended boss/base extrusion with offset-from-surface end condition"
+  },
+  {
+    "id": "8d2ff156ad2a590a0fb24c7d3a68ec72622cdde3a56a97be38ff905de30b46e0",
+    "creation_method_id": "355b3937a07aa7ad3bdbfe3b6879c00e709e7526ab2e973645eb586df7f11ce6",
+    "feature_case_title": "Double-ended boss/base extrusion with different end conditions on each end"
+  },
+  {
+    "id": "25c637b637e8ab38ea87b7c8144ca0edfd9232b434ac08dd4b239211ad1a7545",
+    "creation_method_id": "355b3937a07aa7ad3bdbfe3b6879c00e709e7526ab2e973645eb586df7f11ce6",
+    "feature_case_title": "Boss/base extrusion with draft angle applied"
+  },
+  {
+    "id": "037160781e71a01a5dc55840dba801331456c2a4d02f336255515948fa202233",
+    "creation_method_id": "355b3937a07aa7ad3bdbfe3b6879c00e709e7526ab2e973645eb586df7f11ce6",
+    "feature_case_title": "Boss/base extrusion with start offset condition"
+  },
+  {
+    "id": "c5268c1a9b108c7e5624e95aacccb480afb706dbcbfe99dccfe27a10646d8eb8",
+    "creation_method_id": "c240808fa8e84d938c838d7e6fd13b28eabea6e1df332b27bc54589438eb13bb",
+    "feature_case_title": "Single-ended thin boss/base extrusion with wall thickness"
+  },
+  {
+    "id": "53e3cf478cc93a5566903ff57e4792ea3ebf836171ae611105569e798ebc3de2",
+    "creation_method_id": "c240808fa8e84d938c838d7e6fd13b28eabea6e1df332b27bc54589438eb13bb",
+    "feature_case_title": "Double-ended thin boss/base extrusion with mid-plane thickness type"
+  },
+  {
+    "id": "2d2665c32268c8ace0cbf6524611a019ef08d144059aa4499ed7d8b46d89fcb0",
+    "creation_method_id": "c240808fa8e84d938c838d7e6fd13b28eabea6e1df332b27bc54589438eb13bb",
+    "feature_case_title": "Thin base extrusion with capped ends and thickness"
+  },
+  {
+    "id": "44b1f0165133bf711b0aa7ca6218a3c907d021016b285aaf23fdb033317e2fa4",
+    "creation_method_id": "0e15112f7fa26335eef20db0c9aaffb22e2c11535e290cedb4f840af964f7823",
+    "feature_case_title": "Single-ended cut extrusion with blind end condition"
+  },
+  {
+    "id": "8fa6fa45c9d15c5f541f92f568801f3c21aed276b48491818fa168e0e68578b2",
+    "creation_method_id": "0e15112f7fa26335eef20db0c9aaffb22e2c11535e290cedb4f840af964f7823",
+    "feature_case_title": "Single-ended cut extrusion with through-all end condition"
+  },
+  {
+    "id": "2d8aaa01d8f5ee9aacf6d29f35a4a85f7dd1811e54df3d6d6562153ccbaa5d28",
+    "creation_method_id": "0e15112f7fa26335eef20db0c9aaffb22e2c11535e290cedb4f840af964f7823",
+    "feature_case_title": "Double-ended cut extrusion with different end conditions"
+  },
+  {
+    "id": "514c7c6fd10d621b79e69ace9ffc72855050ca8377dc813303341fdb3d475939",
+    "creation_method_id": "0e15112f7fa26335eef20db0c9aaffb22e2c11535e290cedb4f840af964f7823",
+    "feature_case_title": "Cut extrusion with flip side to cut enabled"
+  },
+  {
+    "id": "4b3f0c4577e20a42c42e85df6082b482f26bb5ea3cc2a5036e850ed66740be4c",
+    "creation_method_id": "0e15112f7fa26335eef20db0c9aaffb22e2c11535e290cedb4f840af964f7823",
+    "feature_case_title": "Cut extrusion in sheet metal with normal cut applied"
+  },
+  {
+    "id": "85d1735e7cae8725d506bd75039880ea2162bee1710778de3f3cde59b845be30",
+    "creation_method_id": "0e15112f7fa26335eef20db0c9aaffb22e2c11535e290cedb4f840af964f7823",
+    "feature_case_title": "Cut extrusion with draft angle applied"
+  },
+  {
+    "id": "6df86924a4020e8c7f700b62b3c0da9a856acb1f21904583501bb9a04dc0f38b",
+    "creation_method_id": "0e15112f7fa26335eef20db0c9aaffb22e2c11535e290cedb4f840af964f7823",
+    "feature_case_title": "Assembly cut extrusion with feature scope affecting selected bodies"
+  },
+  {
+    "id": "41776fd4f17ea828203f2093c7637e1a4b0e8d49c54670ff479e08feb8e7cd4e",
+    "creation_method_id": "9cd4af2e00af4396744f43702781feeac1d41d8045e2d201412b6c46094e379d",
+    "feature_case_title": "Single-ended thin cut extrusion with wall thickness"
+  },
+  {
+    "id": "61df90400a5f69183dfbee12dc7092369ac26924670d4c9cce88c3beb90c9a48",
+    "creation_method_id": "9cd4af2e00af4396744f43702781feeac1d41d8045e2d201412b6c46094e379d",
+    "feature_case_title": "Double-ended thin cut extrusion with mid-plane thickness type"
+  },
+  {
+    "id": "19fb70f4ddab1007f99de95b51d53020e5a9ef86c104998e01ab6e6abf4f0834",
+    "creation_method_id": "9cd4af2e00af4396744f43702781feeac1d41d8045e2d201412b6c46094e379d",
+    "feature_case_title": "Thin cut extrusion with flip side to cut and draft angle"
+  },
+  {
+    "id": "8b391427a4a4a941f63a06e006811afde152e3053bf63c18b28dd3764cf40e41",
+    "creation_method_id": "cfe2b70661aaa3a5c135dcb14c7a079357e1ec205d8e8584355fb614b122dc24",
+    "feature_case_title": "Modification of existing extrude feature properties via GetDefinition"
+  }
+]

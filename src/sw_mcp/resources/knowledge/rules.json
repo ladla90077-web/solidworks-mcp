@@ -1,5 +1,5 @@
 {
-  "next_id": 23,
+  "next_id": 37,
   "rules": [
     {
       "id": "r0001",
@@ -186,7 +186,7 @@
       "example_bad": "",
       "example_good": "",
       "created": "2026-06-20",
-      "hits": 0
+      "hits": 2
     },
     {
       "id": "r0012",
@@ -203,7 +203,7 @@
       "example_bad": "",
       "example_good": "",
       "created": "2026-06-20",
-      "hits": 0
+      "hits": 2
     },
     {
       "id": "r0013",
@@ -372,6 +372,248 @@
       "example_bad": "",
       "example_good": "",
       "created": "2026-06-20",
+      "hits": 0
+    },
+    {
+      "id": "r0023",
+      "title": "Plane-mate alignment must be consistent across a component's 3 mates",
+      "applies_to": [
+        "assembly",
+        "mate",
+        "alignment",
+        "AddMate5"
+      ],
+      "error_signature": "over-defined / conflicting",
+      "symptom": "A subsequent component constrained by 3 orthogonal plane mates reports MateDistanceDim / MateCoincident error_code 51 (over-defined / conflicting) on the plane(s) where alignment was flipped.",
+      "cause": "Mixing swMateAlignALIGNED (0) and swMateAlignANTI_ALIGNED (1) inconsistently across a component's three orthogonal plane mates creates a conflicting rotation constraint. Using ANTI on one plane merely to push a component to the opposite side (instead of a signed distance) fights the other two ALIGNED mates.",
+      "fix": "Decide whether the component needs to ROTATE. If it needs NO rotation (same orientation as assembly), use ALIGNED (0) on all three plane mates and place opposite-side components with a NEGATIVE distance offset (flip = offset<0), never anti-align. If it needs a 180-deg rotation about an axis, flip alignment to ANTI (1) on exactly the two planes whose normals reverse under that rotation and keep ALIGNED on the third (e.g. 180 about Z: Right ANTI + Top ANTI + Front ALIGNED). Keep all three mates internally consistent.",
+      "example_bad": "",
+      "example_good": "' Screw mirrored to -X (no rotation): all ALIGNED, negative offset\nPlaneMate cS2, 3, -SCREW_R, 0\n' Arm rotated 180 about Z to point -X: Top ANTI, Front ALIGNED, Right ANTI\nPlaneMate cArm2, 2, 0, 1\nPlaneMate cArm2, 1, COLLAR_MID, 0\nPlaneMate cArm2, 3, COLLAR_R, 1",
+      "created": "2026-06-21",
+      "hits": 0
+    },
+    {
+      "id": "r0024",
+      "title": "Tubular runs: route a 3D sketch, fillet the corners, then sweep",
+      "applies_to": [
+        "design",
+        "sweep",
+        "manifold",
+        "3dsketch"
+      ],
+      "error_signature": "sweep|3d sketch|manifold|pipe|tube path|swept boss",
+      "symptom": "A pipe/manifold/cable run cannot be made from a single 2D sketch and a sweep fails or looks crude.",
+      "cause": "3D routing (out of the flange, then down to the collector) cannot be captured by one planar sketch.",
+      "fix": "Open a 3D Sketch, draw the route pressing Tab to switch the active X/Y/Z plane, fillet the 3D corners (e.g. R60/R80) into a smooth path, then Sweep a circular profile along it. Build rigid flanges first as solids. See get_design_guidance(\"exhaust manifold\").",
+      "example_bad": "",
+      "example_good": "' 3D sketch path + R60/R80 corner fillets, sweep \u00d870 profile",
+      "created": "2026-06-21",
+      "hits": 0
+    },
+    {
+      "id": "r0025",
+      "title": "Hollow multi-body parts: Combine (Add) then a single Shell",
+      "applies_to": [
+        "design",
+        "shell",
+        "combine",
+        "multibody"
+      ],
+      "error_signature": "shell failed|combine|hollow|uniform wall|multibody",
+      "symptom": "Shelling a part made of several bodies (pipes + flanges) gives non-uniform walls or fails.",
+      "cause": "Shell needs one body; separate bodies shell independently.",
+      "fix": "Insert > Features > Combine (Add) all bodies into one solid, THEN Shell removing the open faces - one feature gives a uniform wall (the manifold shells 1 mm removing its 5 flange faces). See get_design_guidance(\"manifold\").",
+      "example_bad": "",
+      "example_good": "' Combine Add all bodies; Shell 0.001 remove flange faces",
+      "created": "2026-06-21",
+      "hits": 0
+    },
+    {
+      "id": "r0026",
+      "title": "Layered/stacked parts: extrude base-first, grow with From Surface / Selected Contours",
+      "applies_to": [
+        "design",
+        "extrude",
+        "stacked",
+        "contour"
+      ],
+      "error_signature": "selected contour|from surface|stacked|layer|start condition",
+      "symptom": "A part with several thickness layers ends up as one dull block, or depths break when a dimension changes.",
+      "cause": "Typed absolute depths and a single closed profile cannot express a layered, datum-driven stack.",
+      "fix": "Draw concentric loops in ONE sketch and extrude different Selected Contours to different depths; use Start=From Surface so a layer grows off the previous face (rebuild-robust). See get_design_guidance(\"mounting base plate\").",
+      "example_bad": "",
+      "example_good": "' Extrude inner contour, Start = From Surface (net stack height)",
+      "created": "2026-06-21",
+      "hits": 0
+    },
+    {
+      "id": "r0027",
+      "title": "Bolt circles: seed one hole on a construction PCD, then circular-pattern",
+      "applies_to": [
+        "design",
+        "pattern",
+        "hole",
+        "bolt circle"
+      ],
+      "error_signature": "bolt circle|pcd|pitch circle|hole pattern|circular pattern",
+      "symptom": "Multiple bolt holes drawn one-by-one are misplaced or hard to edit.",
+      "cause": "Hand-placing N holes is error-prone and not parametric.",
+      "fix": "Draw a construction PCD circle + a centerline, place ONE seed hole coincident at a start angle, then circular-pattern it (equal spacing, 360; pitch = 360/N). Carry the PCD as a toleranced dimension. See get_design_guidance(\"bolt circle\").",
+      "example_bad": "",
+      "example_good": "' seed hole on construction PCD \u00d880; circular pattern 3x equal",
+      "created": "2026-06-21",
+      "hits": 0
+    },
+    {
+      "id": "r0028",
+      "title": "Exploit symmetry: model half then mirror (entities/feature/component)",
+      "applies_to": [
+        "design",
+        "mirror",
+        "symmetry"
+      ],
+      "error_signature": "mirror|symmetry|symmetric|half model",
+      "symptom": "Symmetric features modeled twice drift out of symmetry or double the work.",
+      "cause": "Duplicating symmetric geometry by hand is wasteful and error-prone.",
+      "fix": "Model one side and use Mirror Entities (sketch), Mirror feature (solid), or Mirror Component (assembly). Guarantees symmetry and halves the work. See get_design_guidance for the bottle/piston/manifold examples.",
+      "example_bad": "",
+      "example_good": "' InsertMirrorFeature about the Right plane",
+      "created": "2026-06-21",
+      "hits": 0
+    },
+    {
+      "id": "r0029",
+      "title": "Finish like a real part: base-first order, then break every edge",
+      "applies_to": [
+        "design",
+        "fillet",
+        "chamfer",
+        "manufacturability"
+      ],
+      "error_signature": "sharp edge|no fillet|manufacturab|raw block|simple shape",
+      "symptom": "The model is a raw prism/cylinder with sharp edges - not a professional component.",
+      "cause": "Defaulting to the simplest shape that rebuilds clean, with no design intent or edge treatment.",
+      "fix": "Build base mass first, then bosses, then cuts/holes, then fillets+chamfers LAST. Break every edge (fillets at stress corners, chamfers on outer edges; unspecified radii often R2). Call get_design_guidance(<part>) first to pick the right archetype.",
+      "example_bad": "",
+      "example_good": "' fillets at corners + 45x1 chamfer on outer edges, applied last",
+      "created": "2026-06-21",
+      "hits": 0
+    },
+    {
+      "id": "r0030",
+      "title": "Flat link/bar with two pin holes: one nested sketch (rectangle + 2 circles) \u2192 single boss extrude",
+      "applies_to": [
+        "design",
+        "vba",
+        "extrude"
+      ],
+      "error_signature": "",
+      "symptom": "Need a flat linkage bar (crank/coupler/rocker/ground) with two through-holes at a given pin-to-pin spacing L, color-coded, saved as its own part.",
+      "cause": "Separate boss-then-cut works but is two features; a single nested-contour boss is simpler and verified to produce the holes.",
+      "fix": "On the Front plane, ONE sketch: CreateCornerRectangle spanning (-W/2,-W/2)..(L+W/2,+W/2) [capture as Variant, NOT Set - see r0002], plus two CreateCircle at (0,0) and (L,0). Exit sketch, re-select it (SelectLatestSketch), FeatureExtrusion3 thickness T. The nested inner circles become holes -> verify with Surface.IsCylinder count == 2. Colour via swModel.MaterialPropertyValues (9-double array; 0..2 = R,G,B in 0..1). Save via swModelExt.SaveAs(path, 0, swSaveAsOptions_Silent, Nothing, errs, warns). Holes end up at local (0,0) and (L,0) - reuse those centres later for assembly mates.",
+      "example_bad": "",
+      "example_good": "vRect = swSketchMgr.CreateCornerRectangle(-W/2#,-W/2#,0#, L+W/2#,W/2#,0#) ' Variant\nswSketchMgr.CreateCircle 0#,0#,0#, HR,0#,0# : swSketchMgr.CreateCircle L,0#,0#, L+HR,0#,0#",
+      "created": "2026-06-23",
+      "hits": 0
+    },
+    {
+      "id": "r0031",
+      "title": "Select a component's hole/planar face by LOCAL geometry \u2014 Component2.GetBody returns part-local coords",
+      "applies_to": [
+        "assembly",
+        "vba",
+        "mates"
+      ],
+      "error_signature": "",
+      "symptom": "Need to select a specific hole's cylindrical face (or top/bottom planar face) of an inserted component for a mate or a motor axis, but face names are unstable and several holes share the same radius.",
+      "cause": "Picking faces by assembly-space coordinate is fragile because the mate solver moves parts after each mate.",
+      "fix": "comp.GetBody returns the body with geometry in the PART's LOCAL coordinate system (independent of where the solver placed the component). Iterate GetFirstFace/GetNextFace: for a hole use Surface.CylinderParams (index 0..2 = axis origin xyz, 3..5 = axis dir, 6 = radius) and match on radius AND local centre cp(0),cp(1); for a face use Face2.Normal Z-sign (+Z = top, -Z = bottom). Select for AddMate5 with a SelectData whose Mark=1 (Face2.Select4 with append=True on the 2nd entity).",
+      "example_bad": "",
+      "example_good": "If Abs(cp(6)-HR)<2E-5 And Abs(cp(0)-localCx)<3E-4 And Abs(cp(1))<3E-4 Then Set faceOut = fc",
+      "created": "2026-06-23",
+      "hits": 0
+    },
+    {
+      "id": "r0032",
+      "title": "Match inserted components by InStr on Name2 (instance-suffixed); AssemblyDoc has no GetMateCount",
+      "applies_to": [
+        "assembly",
+        "vba"
+      ],
+      "error_signature": "",
+      "symptom": "Looking up a component by the plain name you set via Component2.Name2 fails (returns Nothing); or swAsm.GetMateCount() / swAsm.GetMates aborts an inline .swb with no log (ran=False).",
+      "cause": "Component2.Name2 reports the instance form e.g. \"Crank_216-1\" (the rename to \"Crank\" does not round-trip to a plain-equality match), and IAssemblyDoc exposes no GetMateCount method, so calling it raises a runtime error that silently kills the macro.",
+      "fix": "Match with InStr(1, comp.Name2, \"Crank\", vbTextCompare) > 0 over swAsm.GetComponents(True). Do not call GetMateCount; judge mate creation by AddMate5 returning non-Nothing plus a post-rebuild GetErrorCode2 scan.",
+      "example_bad": "",
+      "example_good": "If InStr(1, c.Name2, \"Rocker\", vbTextCompare) > 0 Then Set rockerC = c",
+      "created": "2026-06-23",
+      "hits": 0
+    },
+    {
+      "id": "r0033",
+      "title": "AddMate5 ByRef ErrorStatus = 1 means SUCCESS (swAddMateError_NoError)",
+      "applies_to": [
+        "assembly",
+        "vba",
+        "mates"
+      ],
+      "error_signature": "",
+      "symptom": "AddMate5 returns ByRef err=1 for every mate and you conclude the mates failed.",
+      "cause": "swAddMateError_e: 1 = NoError (success). The error values are 0 = unknown error, 2 = bad mate type, 3 = bad alignment, 4 = IncorrectSelections, 5 = OverDefinedAssembly, 6 = bad gear ratios.",
+      "fix": "Treat err=1 together with a non-Nothing return as SUCCESS. Only 0/4/5 indicate real failure. (Clarifies r0013.)",
+      "example_bad": "",
+      "example_good": "",
+      "created": "2026-06-23",
+      "hits": 0
+    },
+    {
+      "id": "r0034",
+      "title": "Motion Analysis study with result plots \u2014 verified end-to-end API workflow",
+      "applies_to": [
+        "motion",
+        "vba",
+        "assembly",
+        "plots"
+      ],
+      "error_signature": "",
+      "symptom": "Need a SOLIDWORKS Motion (Motion Analysis) study on an assembly with a driving motor and angular/linear result plots, created entirely from VBA.",
+      "cause": "The motion-study API spans add-in loading, study type, motor definition, calculate, results and plot-feature-data objects across two type libraries.",
+      "fix": "1) Load the solver add-in: swApp.LoadAddIn(\\\"C:\\\\Program Files\\\\SOLIDWORKS Corp\\\\SOLIDWORKS\\\\cmotionsw.dll\\\") (returns 2 when loaded). 2) Set mgr = swModelDocExt.GetMotionStudyManager(); Set study = mgr.GetMotionStudy(\\\"Motion Study 1\\\"); study.Activate. 3) study.StudyType = 4 (swMotionStudyTypeCosmosMotion = Motion Analysis; requires Premium). 4) Motor: Set motor = study.CreateDefinition(swFmAEMRotationalMotor); motor.DirectionReference = <cyl/planar/conical face, circular edge, axis or plane>; motor.ConstantSpeedMotor <rpm>; Set f = study.CreateFeature(motor). 5) study.SetDuration secs; study.Calculate. 6) Set res = study.GetResults(4); build pfd=res.CreatePlotFeatureData(), xfd=res.CreatePlotXAxisFeatureData(), yfd=res.CreatePlotYAxisFeatureData(); yfd.Type=swMotionPlotAxisType (ANGULAR_DISP=9, ANGULAR_VELOCITY=10, ANGULAR_ACCEL=11, TRANS_DISP=6, TRANS_VELOCITY=7, time X-axis=0); yfd.Component (X=1,Y=2,Z=3); yfd.Entities=Array(face); res.InsertPlotFeature pfd,xfd,yfd. For raw numbers: po=res.GetValues(pfd,xfd,(yArray)); po.GetXAxis(); po.GetYAxis(yfd). BINDING: late-bind MotionStudyManager / MotionStudy / CosmosMotionStudyResults / MotionPlotFeatureOutput As Object (SwMotionStudy lib is NOT auto-referenced in an inline .swb); SimulationMotorFeatureData / MotionPlotFeatureData / MotionPlotAxisFeatureData are in the sldworks lib so early-binding is fine.",
+      "example_bad": "",
+      "example_good": "",
+      "created": "2026-06-23",
+      "hits": 0
+    },
+    {
+      "id": "r0035",
+      "title": "Motor produces zero motion unless you call ConstantSpeedMotor (RPM) \u2014 not MotionType/Velocity",
+      "applies_to": [
+        "motion",
+        "vba"
+      ],
+      "error_signature": "",
+      "symptom": "Motor feature is created and study.Calculate returns True, but the mechanism does not move \u2014 the driven part's angular displacement is constant across the whole run (swing = 0).",
+      "cause": "Setting SimulationMotorFeatureData.MotionType + .Velocity properties alone does NOT define the drive magnitude, so the motor runs at zero speed and the assembly stays in its assembled pose.",
+      "fix": "Call the drive METHOD on the motor feature data: motor.ConstantSpeedMotor(rpm) for constant speed (Speed argument is in RPM), or OscillatingMotor / DistanceMotor / InterpolatedMotor for those types. Set motor.DirectionReference to the rotation-axis entity before study.CreateFeature. Verify by extracting GetYAxis(angular-disp) min/max and confirming a non-zero swing.",
+      "example_bad": "motor.MotionType = 0 : motor.Velocity = 3.14159   ' no drive set -> zero motion",
+      "example_good": "motor.DirectionReference = crankAxisFace : motor.ConstantSpeedMotor 30#   ' 30 RPM = 1 rev / 2 s",
+      "created": "2026-06-23",
+      "hits": 0
+    },
+    {
+      "id": "r0036",
+      "title": "Never delete the default Motion Study 1 \u2014 CreateMotionStudy returns Nothing when zero studies exist",
+      "applies_to": [
+        "motion",
+        "vba"
+      ],
+      "error_signature": "",
+      "symptom": "After DeleteMotionStudy on every study, mgr.CreateMotionStudy() returns Nothing; GetMotionStudyCount=0 and GetMotionStudyNames is empty, leaving the assembly with no usable motion study.",
+      "cause": "The default \\\"Motion Study 1\\\" is created by the MotionManager UI, and the API cannot bootstrap a study from a count of zero \u2014 CreateMotionStudy only adds reliably when at least one study already exists.",
+      "fix": "Keep the default study and reuse mgr.GetMotionStudy(\\\"Motion Study 1\\\"). To reset, replace/edit its motor and plot features rather than deleting the study. If a study was already deleted to zero, recover it by opening the assembly once in the SOLIDWORKS UI (which recreates Motion Study 1).",
+      "example_bad": "",
+      "example_good": "",
+      "created": "2026-06-23",
       "hits": 0
     }
   ]

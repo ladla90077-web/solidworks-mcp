@@ -64,7 +64,10 @@ class ComWorker:
                     break
                 try:
                     if task.needs_app:
-                        app = SWConnection.get().ensure()
+                        # Session-first contract: never silently launch or bind to
+                        # an arbitrary process. A sole session is auto-selected;
+                        # multiple sessions require sw_select_session.
+                        app = SWConnection.get().ensure(launch=False)
                         task.result = task.fn(app)
                     else:
                         task.result = task.fn()

@@ -1,0 +1,34 @@
+# csc.exe response file for CosmonSWService (main service)
+# This file is the source of truth for main service compilation flags.
+# Placeholder tokens are replaced at runtime by Python.
+
+/nowarn:1701,1702
+/nostdlib+
+/warn:4
+/define:DEBUG;TRACE
+/highentropyva-
+/debug+
+/debug:full
+/optimize-
+/deterministic+
+/filealign:512
+/langversion:7.3
+/target:exe
+/utf8output
+
+# Assembly name and output
+/out:"__OUTPUT_PATH__"
+
+# Reference assemblies (.NET Framework 4.7.2)
+/reference:"__REF_ASSEMBLIES__\mscorlib.dll"
+/reference:"__REF_ASSEMBLIES__\System.dll"
+/reference:"__REF_ASSEMBLIES__\System.Core.dll"
+/reference:"__REF_ASSEMBLIES__\System.Web.Extensions.dll"
+/reference:"__REF_ASSEMBLIES__\Microsoft.CSharp.dll"
+
+# SolidWorks API references
+/reference:"__SOLIDWORKS_API_PATH__\SolidWorks.Interop.sldworks.dll"
+/reference:"__SOLIDWORKS_API_PATH__\SolidWorks.Interop.swconst.dll"
+
+# Source files (injected by Python from service_compiler.py file lists)
+__SOURCE_FILES__

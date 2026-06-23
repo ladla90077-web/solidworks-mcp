@@ -17,6 +17,9 @@ src/sw_mcp/resources/cache/
 # Session artifacts
 .claude/
 
+# Separate "Solid Gen" desktop/web app (own project, node_modules, builds) - not part of the MCP server
+Solid Gen/
+
 # Third-party reference material used during development - NOT republished
 # (YouTube tutorial captions, reference VBA, skill package)
 transcripts.txt

@@ -33,6 +33,23 @@ Claude (+ solidworks-vba skill)
   macro can never deadlock the server.
 - The server never edits your VBA. It returns rich errors; Claude fixes them.
 
+## Session-first fast workflow
+
+Every modeling request should begin with `prepare_modeling_context(request)`.
+It performs the complete preflight in one round trip:
+
+1. Detect running SOLIDWORKS processes through their exact ROT monikers.
+2. Auto-select the only session, or return the process list when a choice is required.
+3. Stop with `action=start_solidworks` when no session is running—nothing is launched silently.
+4. Return matching skills, professional design guidance, bundled Cosmon references,
+   and local SOLIDWORKS CHM results before any code is generated.
+5. Bind every subsequent modeling tool to the selected process.
+
+`sw_list_sessions`, `sw_select_session(process_id)`, and `sw_disconnect_session`
+provide explicit control. Execution suppresses graphics/tree churn reversibly,
+generated macros rebuild once, verification scans the feature tree once, and
+repeated Cosmon searches are served from memory.
+
 ## Requirements
 
 - Windows + **SolidWorks 2022** (COM ProgID `SldWorks.Application`).
@@ -61,7 +78,19 @@ root (see [install/register-mcp.md](install/register-mcp.md)). Confirm with
 
 ## Tools
 
-**Connection** — `sw_status`
+**Session and preflight** — `prepare_modeling_context`, `sw_status`,
+`sw_list_sessions`, `sw_select_session`, `sw_disconnect_session`
+
+**Professional design knowledge (proactive)**
+- `get_design_guidance(query)` — **call this BEFORE modeling.** Returns the
+  matching professional *archetype recipe* (ordered feature sequence,
+  design-intent practices, key dimensions), the relevant universal design
+  principles, and — for tolerancing queries — a GD&T reference. Distilled from
+  real SolidWorks tutorials (`transcripts.txt`) so the build tools produce a real
+  engineered component instead of a bare block or cylinder.
+- `list_design_recipes()` — the available archetypes (bearing, engine, bottle,
+  manifold, revolved housing, mounting plate).
+  See [`DESIGN_PLAYBOOK.md`](src/sw_mcp/resources/knowledge/DESIGN_PLAYBOOK.md).
 
 **Execute & verify**
 - `run_macro(path, module, procedure)` — run an existing `.swp`/`.swb`.
@@ -75,7 +104,10 @@ root (see [install/register-mcp.md](install/register-mcp.md)). Confirm with
 **Documents** — `new_document`, `open_model`, `save_model`, `close_model`,
 `export_file` (STEP/IGES/STL/X_T/PDF/PNG by extension)
 
-**Feature generators** (verified-style VBA, each built → run → rebuilt → error-scanned):
+**Feature generators** — single-feature *primitives* (verified-style VBA, each
+built → run → rebuilt → error-scanned). These are building blocks and smoke
+tests, **not** finished parts; a professional component is composed from them
+(plus inline `run_vba`) following the recipe from `get_design_guidance`:
 `create_extrusion`, `create_cylinder`, `create_fillet`, `create_chamfer`,
 `create_shell`, `create_draft`, `create_rib` (L-bracket + gusset),
 `create_revolve` (tube), `create_sweep` (swept groove), `create_loft` (lofted cut),
@@ -100,6 +132,16 @@ past rules, so the same mistake is never solved twice.
 holds the selection-mark/precondition details that separate working from
 crashing code.
 
+**Cosmon-compatible resources and skills** —
+`engineering_resources_status`, `list_engineering_resources`,
+`search_engineering_resources`, `get_engineering_resource`, `list_skills`,
+`get_skill`, `create_skill`, `update_skill`, `delete_skill`, `import_skill`.
+The server bundles Cosmon's complete SOLIDWORKS documentation payload—including
+the large feature/function databases—plus C# templates, persistent-service
+source, and all 12 packaged skills. The installed Cosmon resources remain a
+fallback source. Set `COSMON_RESOURCES_DIR` for a non-default Cosmon location
+and `SW_MCP_SKILLS_DIR` for editable skill overrides.
+
 ## The auto-fix loop
 
 1. Claude writes a macro (via the `solidworks-vba` skill) and calls
@@ -109,6 +151,30 @@ crashing code.
 3. If `success == false`, Claude reads `log_errors`/`errors` (and looks up the
    exact API via `docs_lookup_method`), regenerates the corrected VBA, and calls
    `run_and_verify` again — until `success == true`.
+
+## Designing professional parts (not bare blocks)
+
+The build loop only checks that geometry *rebuilds* — left alone, the simplest
+shape that builds clean is a block or a cylinder. To get a real engineered
+component, design intent has to come from somewhere. That is the
+`get_design_guidance` layer (`design_library.py`, surfaced from the tutorial
+transcripts):
+
+1. Call `get_design_guidance("<part description>")` (e.g. `"deep-groove ball
+   bearing"`, `"mounting base plate with bolt circle"`, `"hollow exhaust
+   manifold"`, `"shaft tolerance / GD&T"`).
+2. Follow the returned **feature sequence** and **design-intent** notes — revolve
+   about a centerline, fully-define sketches, locate holes on a construction PCD
+   and circular-pattern them, break every edge, surface-then-thicken for
+   thin-wall parts, combine-then-shell for hollow ones, fix-first then
+   fully-constrain for assemblies, apply GD&T to functional features.
+3. Emit the VBA (the feature primitives below, or inline `run_vba`) and drive it
+   through `run_and_verify` until `success == true`.
+
+The recipes are an *index of archetypes*; the **principles** apply to every part.
+The same knowledge is mirrored as reactive rules in `rules.json`, so a related
+build error also surfaces the relevant professional practice as a
+`suggested_fix`.
 
 ## Writing more feature generators
 

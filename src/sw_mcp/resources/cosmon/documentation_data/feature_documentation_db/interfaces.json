@@ -1,0 +1,50 @@
+[
+  {
+    "name": "IWizardHoleFeatureData2"
+  },
+  {
+    "name": "ISplitBodyFeatureData"
+  },
+  {
+    "name": "IRevolveFeatureData2"
+  },
+  {
+    "name": "IShellFeatureData"
+  },
+  {
+    "name": "ISimpleFilletFeatureData2"
+  },
+  {
+    "name": "IMirrorPatternFeatureData"
+  },
+  {
+    "name": "ILoftFeatureData"
+  },
+  {
+    "name": "IChamferFeatureData2"
+  },
+  {
+    "name": "ISimpleHoleFeatureData2"
+  },
+  {
+    "name": "IRefPlaneFeatureData"
+  },
+  {
+    "name": "IRefAxisFeatureData"
+  },
+  {
+    "name": "ILinearPatternFeatureData"
+  },
+  {
+    "name": "ICircularPatternFeatureData"
+  },
+  {
+    "name": "ISweepFeatureData"
+  },
+  {
+    "name": "IDraftFeatureData2"
+  },
+  {
+    "name": "IExtrudeFeatureData2"
+  }
+]

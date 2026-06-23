@@ -41,17 +41,34 @@ _INIT = """Sub main()
     Set swModelExt = swModel.Extension
     Set swSketchMgr = swModel.SketchManager
     Set swFeatMgr = swModel.FeatureManager
+    SWMCP_FastMode True
     SWMCP_Log "init", "OK", "Part created"
 """
 
 _FOOTER = """    swModel.ClearSelection2 True
     swModel.ForceRebuild3 False
+    SWMCP_FastMode False
     swModel.ShowNamedView2 "*Isometric", -1
     swModel.ViewZoomtofit2
     SWMCP_Log "done", "OK", "Macro completed"
     Exit Sub
+SWMCP_Cleanup:
+    SWMCP_FastMode False
+    Exit Sub
 SWMCP_Fail:
     SWMCP_Log "runtime", "ERROR", "VBA error " & Err.Number & ": " & Err.Description
+    SWMCP_FastMode False
+End Sub
+
+Sub SWMCP_FastMode(ByVal enabled As Boolean)
+    On Error Resume Next
+    If swApp Is Nothing Then Exit Sub
+    swApp.CommandInProgress = enabled
+    If swModel Is Nothing Then Exit Sub
+    swModel.ActiveView.EnableGraphicsUpdate = Not enabled
+    swModel.FeatureManager.EnableFeatureTree = Not enabled
+    swModel.SketchManager.DisplayWhenAdded = Not enabled
+    On Error GoTo 0
 End Sub
 """
 
@@ -70,7 +87,7 @@ def assemble_part_macro(log_path: str, consts: list[str], calls: list[str],
     """Compose a full part macro: header + main(init+calls+footer) + subs + helpers."""
     const_block = "\n".join(consts)
     call_block = "".join(
-        f"    Call {c}\n    If buildFailed Then Exit Sub\n" for c in calls
+        f"    Call {c}\n    If buildFailed Then GoTo SWMCP_Cleanup\n" for c in calls
     )
     header = (
         "Option Explicit\n\n"

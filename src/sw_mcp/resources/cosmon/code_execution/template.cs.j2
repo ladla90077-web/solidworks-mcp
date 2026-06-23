@@ -1,0 +1,640 @@
+// This file serves as a template for generating executable C# code
+// Jinja2 template variables: main_impl_code, output_file_path, using_directives
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Serialization;
+using System.Threading;
+using System.Web.Script.Serialization;
+using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.swconst;
+
+// USING_DIRECTIVES_START
+{{ using_directives }}
+// USING_DIRECTIVES_END
+
+// Note: ReportedException and ExecutionTimeoutException are defined in the
+// GlobalCodeLibrary DLL which is always compiled and referenced.
+// This ensures consistent exception handling across all C# scripts.
+
+/// <summary>
+/// Win32 API helpers for window manipulation.
+/// Used by PerformanceOptimizationScope and available for user code.
+/// </summary>
+public static class Win32Helpers
+{
+    [DllImport("user32.dll")]
+    public static extern bool EnableWindow(IntPtr hWnd, bool bEnable);
+
+    [DllImport("user32.dll")]
+    public static extern bool IsWindowEnabled(IntPtr hWnd);
+}
+
+/// <summary>
+/// Manages graceful interrupt handling for timeout scenarios.
+/// Detects when Python process sends SIGTERM and converts to managed exception.
+/// </summary>
+public static class InterruptHandler
+{
+    private static volatile bool _isInterrupted = false;
+
+    public static bool IsInterrupted => _isInterrupted;
+
+    public static void Setup()
+    {
+        // Set up handler for process termination signal (SIGTERM from parent)
+        // When Python calls process.terminate(), this handler will be invoked
+        Console.CancelKeyPress += (sender, e) =>
+        {
+            _isInterrupted = true;
+            e.Cancel = true; // Don't terminate immediately, allow graceful shutdown
+        };
+
+        // Also handle AppDomain unload events
+        AppDomain.CurrentDomain.ProcessExit += (sender, e) =>
+        {
+            _isInterrupted = true;
+        };
+    }
+
+    public static void CheckForInterrupt()
+    {
+        if (_isInterrupted)
+        {
+            throw new ExecutionTimeoutException(
+                "Execution timeout: Process received termination signal from Python"
+            );
+        }
+    }
+
+    /// <summary>
+    /// Context manager pattern: enables/disables graphics updates during execution.
+    /// Call within using statement to ensure graphics are re-enabled even on exception.
+    ///
+    /// Optimizations applied:
+    /// - CommandInProgress = true: Suppresses all UI updates and background processes
+    /// - EnableGraphicsUpdate = false: Stops graphics window redraws (30% speedup)
+    /// - EnableFeatureTree = false: Skips feature tree updates (25-35% speedup)
+    /// - Sketch optimization: AddToDB = true, DisplayWhenAdded = false (4x speedup for sketches)
+    /// - EnableWindow = false: NUCLEAR - completely disables user input to prevent interference
+    ///
+    /// Can be disabled via CSHARP_DISABLE_PERF_OPTIMIZATION environment variable for testing.
+    /// When disabled, the scope becomes a no-op (does nothing).
+    /// </summary>
+    public sealed class PerformanceOptimizationScope : IDisposable
+    {
+        private readonly ISldWorks _swApp;
+        private readonly IModelView _modelView;
+        private readonly IFeatureManager _featureManager;
+        private readonly ISketchManager _sketchManager;
+        private readonly IntPtr _windowHandle;
+        private readonly bool _isDisabled;
+
+        public PerformanceOptimizationScope(ISldWorks swApp)
+        {
+            _swApp = swApp;
+            _windowHandle = IntPtr.Zero;
+
+            // Check if optimization is disabled via environment variable (for testing)
+            string disableEnv = System.Environment.GetEnvironmentVariable("CSHARP_DISABLE_PERF_OPTIMIZATION") ?? "";
+            _isDisabled = disableEnv.Equals("true", StringComparison.OrdinalIgnoreCase) ||
+                         disableEnv.Equals("1", StringComparison.OrdinalIgnoreCase);
+
+            if (_isDisabled)
+            {
+                // Optimization disabled - no-op
+                _modelView = null;
+                _featureManager = null;
+                _sketchManager = null;
+                return;
+            }
+
+            // Get model and its managers
+            IModelDoc2 swModel = swApp.ActiveDoc as IModelDoc2;
+            if (swModel != null)
+            {
+                _modelView = swModel.ActiveView as IModelView;
+                _featureManager = swModel.FeatureManager as IFeatureManager;
+                _sketchManager = swModel.SketchManager as ISketchManager;
+
+                // Disable graphics and tree updates
+                if (_modelView != null)
+                    _modelView.EnableGraphicsUpdate = false;
+
+                if (_featureManager != null)
+                    _featureManager.EnableFeatureTree = false;
+
+                // Optimize sketch operations (if working with sketches)
+                if (_sketchManager != null)
+                {
+                    _sketchManager.AddToDB = true;
+                    _sketchManager.DisplayWhenAdded = false;
+                }
+
+                // Set command in progress to suppress all UI updates
+                _swApp.CommandInProgress = true;
+
+                // NUCLEAR: Disable window to prevent ALL user input
+                try
+                {
+                    IFrame swFrame = swApp.Frame() as IFrame;
+                    if (swFrame != null)
+                    {
+                        long hwnd = swFrame.GetHWndx64();
+                        _windowHandle = new IntPtr(hwnd);
+                        Win32Helpers.EnableWindow(_windowHandle, false);
+                    }
+                }
+                catch
+                {
+                    // Non-fatal - continue without window disabling
+                    _windowHandle = IntPtr.Zero;
+                }
+            }
+            else
+            {
+                _modelView = null;
+                _featureManager = null;
+                _sketchManager = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_isDisabled)
+            {
+                // Optimization disabled - no-op
+                return;
+            }
+
+            try
+            {
+                // NUCLEAR REVERSAL: Re-enable window FIRST to restore user input
+                if (_windowHandle != IntPtr.Zero)
+                {
+                    Win32Helpers.EnableWindow(_windowHandle, true);
+                }
+
+                // Re-enable sketch updates (before graphics)
+                if (_sketchManager != null)
+                {
+                    _sketchManager.DisplayWhenAdded = true;
+                    _sketchManager.AddToDB = false;
+                }
+
+                // Re-enable all updates in reverse order
+                if (_swApp != null)
+                    _swApp.CommandInProgress = false;
+
+                if (_modelView != null)
+                    _modelView.EnableGraphicsUpdate = true;
+
+                if (_featureManager != null)
+                    _featureManager.EnableFeatureTree = true;
+
+                // // Refresh display without full rebuild
+                // if (_modelView != null)
+                // {
+                //     // Pass empty array to redraw entire graphics window
+                //     _modelView.GraphicsRedraw(new int[] { });
+                // }
+            }
+            catch
+            {
+                // Suppress exceptions during cleanup - we're already exiting
+            }
+        }
+    }
+}
+
+class Program
+{
+    // Static constructor for assembly resolution
+    // SolidWorks API path is baked in at compile time via CompileTimeConfig in the global code library
+    static Program()
+    {
+        AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+        {
+            string swPath = CompileTimeConfig.SolidWorksApiPath;
+            string assemblyName = new AssemblyName(args.Name).Name;
+            string assemblyPath = Path.Combine(swPath, assemblyName + ".dll");
+
+            if (File.Exists(assemblyPath))
+            {
+                return Assembly.LoadFrom(assemblyPath);
+            }
+            return null;
+        };
+    }
+
+    /// <summary>
+    /// Validates that an object can be JSON serialized (contains only basic JSON types).
+    /// Does NOT auto-convert - throws clear errors for invalid types.
+    /// Valid types: string, bool, int, long, float, double, null, Dictionary, List/Array
+    /// Returns (success, error_message).
+    /// </summary>
+    static Tuple<bool, string> ValidateJsonSerializable(object value, string location, HashSet<object> visited)
+    {
+        // Handle null
+        if (value == null)
+        {
+            return Tuple.Create(true, (string)null);
+        }
+
+        Type valueType = value.GetType();
+
+        // Detect circular references for reference types (before checking type)
+        if (!valueType.IsValueType && valueType != typeof(string))
+        {
+            if (visited.Contains(value))
+            {
+                string error = string.Format(
+                    "Invalid value at '{0}': Circular reference detected. " +
+                    "Object of type '{1}' has already been visited in the object graph. " +
+                    "Please restructure your data to avoid circular references.",
+                    location, valueType.FullName
+                );
+                return Tuple.Create(false, error);
+            }
+            visited.Add(value);
+        }
+
+        // Valid JSON primitive types
+        if (value is string || value is bool || value is int || value is long || 
+            value is short || value is byte || value is sbyte || value is uint || 
+            value is ulong || value is ushort || value is float || value is double || 
+            value is decimal)
+        {
+            return Tuple.Create(true, (string)null);
+        }
+
+        // Reject common problematic types with helpful messages
+        if (value is Type)
+        {
+            Type typeObj = (Type)value;
+            string error = string.Format(
+                "Invalid value at '{0}': Cannot serialize System.Type object (type: {1}). " +
+                "Use 'myType.FullName' or 'myType.Name' to get a string instead. " +
+                "Example: result[\"type\"] = myObject.GetType().FullName;",
+                location, typeObj.FullName
+            );
+            return Tuple.Create(false, error);
+        }
+
+        if (value is MemberInfo)
+        {
+            MemberInfo memberInfo = (MemberInfo)value;
+            string error = string.Format(
+                "Invalid value at '{0}': Cannot serialize reflection object {1}.{2}. " +
+                "Use '.Name' or '.ToString()' to get a string representation.",
+                location, 
+                memberInfo.DeclaringType?.FullName ?? "Unknown",
+                memberInfo.Name
+            );
+            return Tuple.Create(false, error);
+        }
+
+        if (Marshal.IsComObject(value))
+        {
+            string error = string.Format(
+                "Invalid value at '{0}': Cannot serialize COM object of type '{1}'. " +
+                "COM objects (like SOLIDWORKS API objects) cannot be serialized. " +
+                "Extract the specific properties/data you need instead. " +
+                "Example: result[\"name\"] = myFeature.Name; result[\"type\"] = myFeature.GetTypeName();",
+                location, valueType.Name
+            );
+            return Tuple.Create(false, error);
+        }
+
+        // Handle dictionaries
+        if (value is Dictionary<string, object>)
+        {
+            Dictionary<string, object> dict = (Dictionary<string, object>)value;
+            
+            foreach (var kvp in dict)
+            {
+                var result = ValidateJsonSerializable(kvp.Value, location + "." + kvp.Key, visited);
+                if (!result.Item1)
+                {
+                    return result; // Propagate error
+                }
+            }
+
+            return Tuple.Create(true, (string)null);
+        }
+
+        // Handle generic IDictionary
+        if (value is System.Collections.IDictionary)
+        {
+            System.Collections.IDictionary dict = (System.Collections.IDictionary)value;
+
+            foreach (System.Collections.DictionaryEntry entry in dict)
+            {
+                // Keys must be strings
+                if (!(entry.Key is string))
+                {
+                    string error = string.Format(
+                        "Invalid dictionary key at '{0}': Key is type '{1}' but must be a string. " +
+                        "JSON objects can only have string keys.",
+                        location, entry.Key.GetType().FullName
+                    );
+                    return Tuple.Create(false, error);
+                }
+
+                string key = (string)entry.Key;
+                var result = ValidateJsonSerializable(entry.Value, location + "." + key, visited);
+                if (!result.Item1)
+                {
+                    return result; // Propagate error
+                }
+            }
+
+            return Tuple.Create(true, (string)null);
+        }
+
+        // Handle arrays and lists
+        if (value is System.Collections.IEnumerable && !(value is string))
+        {
+            int index = 0;
+            foreach (object item in (System.Collections.IEnumerable)value)
+            {
+                var result = ValidateJsonSerializable(item, location + "[" + index + "]", visited);
+                if (!result.Item1)
+                {
+                    return result; // Propagate error
+                }
+                index++;
+            }
+
+            return Tuple.Create(true, (string)null);
+        }
+
+        // Invalid type - provide helpful error
+        string valuePreview;
+        try
+        {
+            string strValue = value.ToString();
+            valuePreview = strValue.Length > 100 ? strValue.Substring(0, 100) + "..." : strValue;
+        }
+        catch
+        {
+            valuePreview = "<unable to get string representation>";
+        }
+
+        string generalError = string.Format(
+            "Invalid value at '{0}': Cannot serialize type '{1}'. " +
+            "Only basic JSON types are allowed: string, number (int/long/float/double), bool, null, " +
+            "dictionaries (with string keys), and arrays/lists. " +
+            "Current value: {2}",
+            location, 
+            valueType.FullName,
+            valuePreview
+        );
+        return Tuple.Create(false, generalError);
+    }
+
+    // P/Invoke for ROT enumeration
+    [DllImport("ole32.dll")]
+    static extern int GetRunningObjectTable(int reserved, out IRunningObjectTable pprot);
+
+    [DllImport("ole32.dll")]
+    static extern int CreateBindCtx(int reserved, out IBindCtx ppbc);
+
+    /// <summary>
+    /// Connect to SOLIDWORKS via the Running Object Table by matching a
+    /// specific moniker display name (e.g. "SolidWorks_PID_12345").
+    /// Returns null if the moniker is not found.
+    /// </summary>
+    static ISldWorks ConnectViaROT(string targetMoniker)
+    {
+        IRunningObjectTable rot;
+        if (GetRunningObjectTable(0, out rot) != 0)
+            return null;
+
+        IBindCtx ctx;
+        if (CreateBindCtx(0, out ctx) != 0)
+            return null;
+
+        IEnumMoniker enumMoniker;
+        rot.EnumRunning(out enumMoniker);
+        enumMoniker.Reset();
+
+        IMoniker[] monikers = new IMoniker[1];
+        IntPtr fetched = IntPtr.Zero;
+        while (enumMoniker.Next(1, monikers, fetched) == 0)
+        {
+            string displayName;
+            monikers[0].GetDisplayName(ctx, null, out displayName);
+
+            if (displayName == targetMoniker)
+            {
+                object comObj;
+                rot.GetObject(monikers[0], out comObj);
+                return comObj as ISldWorks;
+            }
+        }
+
+        return null;
+    }
+
+    // Main implementation
+    static Dictionary<string, object> main_impl(ISldWorks swApp)
+    {
+{{ main_impl_code | indent(8, first=True) }}
+    }
+
+    // Main entry point with error handling and performance optimization
+    static void Main(string[] args)
+    {
+        // Startup canary: Python checks for this line to detect antivirus interference.
+        // If the process exits without printing this, the exe was likely blocked by AV.
+        Console.WriteLine("COSMON_EXE_STARTED");
+        Console.Out.Flush();
+
+        // Set console output encoding to UTF-8 for proper Unicode character display
+        // (e.g., box drawing characters, Greek letters like µ for microseconds)
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+        string outputFilePath = @"{{ output_file_path | replace('\\', '\\\\') }}";
+        Dictionary<string, object> result;
+
+        // OUTPUT SCHEMA CONTRACT:
+        // Success: {"status": "success", "result": Dictionary<string, object>}
+        // Error:   {"status": "error", "error_type": string, "message": string,
+        //           "stack_trace": string?, "source": string?, "help_link": string?}
+        // This schema is validated by Python Pydantic models (CSharpSuccessOutput/CSharpErrorOutput)
+
+        // Set up interrupt handler for graceful timeout handling
+        InterruptHandler.Setup();
+
+        try
+        {
+            // Connect to SOLIDWORKS via ROT (Running Object Table).
+            // The moniker (e.g. "SolidWorks_PID_12345") targets the exact
+            // process that Python detected, which is essential when multiple
+            // SOLIDWORKS versions are installed side-by-side.
+            string rotMoniker = CompileTimeConfig.RotMoniker;
+            ISldWorks swApp = ConnectViaROT(rotMoniker);
+
+            if (swApp == null)
+            {
+                var ex = new InvalidOperationException(
+                    "SOLIDWORKS ROT moniker '" + rotMoniker + "' not found. " +
+                    "The SOLIDWORKS process may have been restarted since detection. " +
+                    "Unexpected. Please re-try.");
+                throw new ReportedException(ex.Message, ex);
+            }
+
+            // Execute user code within performance optimization context
+            // This disables graphics updates, feature tree updates, and UI rendering
+            // for maximum speed during script execution
+            Dictionary<string, object> userResult;
+            using (new InterruptHandler.PerformanceOptimizationScope(swApp))
+            {
+                userResult = main_impl(swApp);
+            }
+
+            // Validate the result contains only JSON-serializable types
+            var visited = new HashSet<object>();
+            var validateResult = ValidateJsonSerializable(userResult, "result", visited);
+
+            if (!validateResult.Item1)
+            {
+                // Validation failed - check how to handle it
+                string validationBehavior = System.Environment.GetEnvironmentVariable("CSHARP_VALIDATION_ERROR_MODE") ?? "propagate";
+                
+                // Assert valid configuration value
+                if (!validationBehavior.Equals("propagate", StringComparison.OrdinalIgnoreCase) &&
+                    !validationBehavior.Equals("handle", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new InvalidOperationException(
+                        "Invalid CSHARP_VALIDATION_ERROR_MODE environment variable value: '" + validationBehavior + "'. " +
+                        "Must be either 'propagate' or 'handle'."
+                    );
+                }
+                
+                if (validationBehavior.Equals("handle", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Return error response directly
+                    result = new Dictionary<string, object>
+                    {
+                        ["status"] = "error",
+                        ["error_type"] = "System.InvalidOperationException",
+                        ["message"] = "Cannot serialize result to JSON. " + validateResult.Item2,
+                        ["stack_trace"] = "",
+                        ["source"] = "",
+                        ["help_link"] = "",
+                        ["stack_frames"] = new List<Dictionary<string, object>>()
+                    };
+                }
+                else
+                {
+                    // Throw exception to be caught by existing error handlers (default)
+                    throw new InvalidOperationException(
+                        "Cannot serialize result to JSON. " + validateResult.Item2
+                    );
+                }
+            }
+            else
+            {
+                // Wrap in success response
+                result = new Dictionary<string, object>
+                {
+                    ["status"] = "success",
+                    ["result"] = userResult
+                };
+            }
+        }
+        catch (ExecutionTimeoutException te)
+        {
+            // ExecutionTimeoutException raised outside user code
+            // (if raised inside user code, it's wrapped in ReportedException)
+            // Return clean error without throwing
+            result = new Dictionary<string, object>
+            {
+                ["status"] = "error",
+                ["error_type"] = typeof(ExecutionTimeoutException).FullName,
+                ["message"] = te.Message,
+                ["stack_trace"] = te.StackTrace ?? "",
+                ["source"] = te.Source ?? "",
+                ["help_link"] = te.HelpLink ?? "",
+                ["stack_frames"] = new List<Dictionary<string, object>>()
+            };
+        }
+        catch (ReportedException re)
+        {
+            // ReportedException is a signal to handle the INNER exception
+            // Extract inner exception details and write to file
+            Exception innerEx = re.InnerException;
+
+            if (innerEx == null)
+            {
+                // Shouldn't happen, but handle gracefully
+                innerEx = re;
+            }
+
+            // Extract structured stack trace information
+            var stackFrames = new List<Dictionary<string, object>>();
+            var stackTrace = new StackTrace(innerEx, true);
+
+            for (int i = 0; i < stackTrace.FrameCount; i++)
+            {
+                var frame = stackTrace.GetFrame(i);
+                if (frame == null) continue;
+
+                var method = frame.GetMethod();
+                if (method == null) continue;
+
+                var frameDict = new Dictionary<string, object>
+                {
+                    ["file_name"] = frame.GetFileName() ?? "",
+                    ["method_name"] = method.Name,
+                    ["declaring_type"] = method.DeclaringType?.FullName ?? "",
+                    ["line_number"] = frame.GetFileLineNumber(),
+                    ["column_number"] = frame.GetFileColumnNumber()
+                };
+
+                stackFrames.Add(frameDict);
+            }
+
+            result = new Dictionary<string, object>
+            {
+                ["status"] = "error",
+                ["error_type"] = innerEx.GetType().FullName,
+                ["message"] = innerEx.Message,
+                ["stack_trace"] = innerEx.StackTrace ?? "",
+                ["source"] = innerEx.Source ?? "",
+                ["help_link"] = innerEx.HelpLink ?? "",
+                ["stack_frames"] = stackFrames
+            };
+        }
+        // All other exceptions: let them crash and be caught via stderr
+
+        // Serialize and write result to file
+        try
+        {
+            var serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = int.MaxValue; // Allow large results
+
+            string jsonOutput = serializer.Serialize(result);
+            File.WriteAllText(outputFilePath, jsonOutput);
+        }
+        catch (Exception ex)
+        {
+            // This should rarely happen after validation, but could occur due to:
+            // - Unexpected serialization edge cases
+            // - File I/O errors (permissions, disk full, invalid path, etc.)
+            Console.Error.WriteLine("FATAL: Failed to serialize or write result.");
+            Console.Error.WriteLine("Error Type: " + ex.GetType().FullName);
+            Console.Error.WriteLine("Error Message: " + ex.Message);
+            Console.Error.WriteLine("Stack Trace: " + (ex.StackTrace ?? "No stack trace available"));
+            throw;
+        }
+    }
+}
