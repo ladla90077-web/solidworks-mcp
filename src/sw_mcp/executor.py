@@ -31,6 +31,22 @@ def read_log(log_path: Optional[str]) -> list[dict]:
     return steps
 
 
+# Verdicts are re-read by the model on every subsequent call of the session,
+# so a success needs almost no log and a failure needs the errors plus just
+# enough tail to show where the macro stopped.
+_LOG_TAIL = 12
+
+
+def _trim_log(log_steps: list[dict], log_errors: list[dict],
+              success: bool) -> list[dict]:
+    if success:
+        return log_steps[-3:]
+    if len(log_steps) <= _LOG_TAIL:
+        return log_steps
+    tail = log_steps[-_LOG_TAIL:]
+    return [s for s in log_errors if s not in tail] + tail
+
+
 def _verdict(run: dict, log_steps: list[dict], model: Any,
              tags: Optional[list] = None) -> dict:
     log_errors = [s for s in log_steps if s["status"].upper() == "ERROR"]
@@ -43,7 +59,8 @@ def _verdict(run: dict, log_steps: list[dict], model: Any,
         "success": success,
         "ran": run["ran"],
         "run_error": None if run["ran"] else run.get("run_error"),
-        "log": log_steps,
+        "log": _trim_log(log_steps, log_errors, success),
+        "log_steps_total": len(log_steps),
         "log_errors": log_errors,
         **diag,
         "macro_path": run.get("macro_path"),

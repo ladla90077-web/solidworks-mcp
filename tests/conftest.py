@@ -24,10 +24,15 @@ def sw():
 
 
 @pytest.fixture(autouse=True)
-def _close_docs(sw):
-    """Close all documents after each test so accumulated open docs don't degrade
-    SolidWorks (stale state caused intermittent selection/build failures)."""
+def _close_docs(request):
+    """Close all documents after each SolidWorks test so accumulated open docs
+    don't degrade SolidWorks (stale state caused intermittent selection/build
+    failures). Pure tests (no `sw` fixture) must not require a connection -
+    depending on `sw` directly here used to skip the whole suite when
+    SolidWorks was unavailable."""
     yield
+    if "sw" not in request.fixturenames:
+        return
     from sw_mcp.com_worker import call
     try:
         call(lambda app: app.CloseAllDocuments(True), timeout=60)

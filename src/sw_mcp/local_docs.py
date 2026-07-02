@@ -60,6 +60,7 @@ EXTRACT_DIR = RESOURCES_DIR / "cache" / "chm"
 KEYS_FILE = EXTRACT_DIR / "keys.json"
 INDEX_DB = EXTRACT_DIR / "index.sqlite"
 READY_MARKER = EXTRACT_DIR / ".extracted"
+MEMBERS_FILE = EXTRACT_DIR / "enum_members.json"
 
 _HH = Path(os.environ.get("WINDIR", r"C:\Windows")) / "hh.exe"
 
@@ -319,6 +320,24 @@ def local_method(interface: str, method: str) -> Optional[dict]:
     return out
 
 
+def _enum_member_table(html: str) -> Optional[str]:
+    """Extract the enum's member table as compact 'name = value | note' lines.
+
+    Enum topics list members in an HTML table; the raw page text repeats them
+    inside a wall of navigation/remarks prose. The table alone is what a
+    macro generator needs, at a fraction of the tokens.
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    lines: list[str] = []
+    for row in soup.find_all("tr"):
+        cells = [_clean(c.get_text(" ")) for c in row.find_all(["td", "th"])]
+        if not cells or not re.match(r"^sw\w+$", cells[0]):
+            continue
+        rest = " | ".join(c for c in cells[1:] if c)[:120]
+        lines.append(f"{cells[0]}" + (f" = {rest}" if rest else ""))
+    return "\n".join(lines) if lines else None
+
+
 def local_enum(enum_name: str) -> Optional[dict]:
     """Resolve an enum topic (and its members) from the local CHMs."""
     if not available():
@@ -328,14 +347,21 @@ def local_enum(enum_name: str) -> Optional[dict]:
     path = _resolve(stem)
     if path is None:
         return None
-    parsed = _parse_topic(path.read_text(encoding="utf-8", errors="replace"))
-    s = parsed["sections"]
+    html = path.read_text(encoding="utf-8", errors="replace")
+    members = _enum_member_table(html)
+    if members is None:
+        parsed = _parse_topic(html)
+        members = parsed["sections"].get("remarks") or parsed.get("text")
+        title = parsed.get("title")
+    else:
+        m = re.search(r"<title[^>]*>(.*?)</title>", html, re.I | re.S)
+        title = _clean(m.group(1)) if m else name
     return {
         "enum": name,
         "url": path.as_uri(),
         "local_path": str(path),
-        "title": parsed.get("title"),
-        "members": s.get("remarks") or parsed.get("text"),
+        "title": title,
+        "members": members,
         "source": "local-chm",
         "cached": True,
         "unrendered": False,
@@ -354,6 +380,76 @@ def get_topic(stem_or_path: str) -> Optional[dict]:
     return {"url": path.as_uri(), "local_path": str(path),
             "title": parsed.get("title"), "sections": parsed["sections"],
             "text": parsed["text"], "source": "local-chm", "cached": True}
+
+
+# --- API-surface name indexes (for the static VBA linter) ------------------
+# Built from the filename key index alone (no HTML parsing), so they are
+# millisecond-cheap after the one-time CHM extraction.
+_api_names: Optional[dict] = None  # {"methods": {lower: [Iface,...]}, "enums": {lower: Name}}
+_member_set: Optional[set] = None  # lowercased swconst member/type tokens
+
+
+def api_name_index() -> dict:
+    """Map every documented member name to the interfaces exposing it, plus
+    every swconst enum type name. Derived purely from topic filenames."""
+    global _api_names
+    if _api_names is not None:
+        return _api_names
+    methods: dict[str, list[str]] = {}
+    enums: dict[str, str] = {}
+    sld_ns = SLDWORKS_NS.lower() + "."
+    const_ns = SWCONST_NS.lower() + "."
+    for stem in _load_keys():
+        parts = stem.split("~")
+        if len(parts) == 3 and parts[1].startswith(sld_ns):
+            iface = parts[1][len(sld_ns):]
+            methods.setdefault(parts[2], []).append(iface)
+        elif len(parts) == 2 and parts[1].startswith(const_ns):
+            name = parts[1][len(const_ns):]
+            if name.endswith("_e"):
+                enums[name] = name
+    _api_names = {"methods": methods, "enums": enums}
+    return _api_names
+
+
+def enum_member_set() -> set:
+    """Set of every lowercased `sw*` token appearing in the swconst topics -
+    i.e. every enum member and type name. Built once (a few seconds over the
+    extracted pages), then persisted next to the FTS index."""
+    global _member_set
+    if _member_set is not None:
+        return _member_set
+    with _lock:
+        if _member_set is not None:
+            return _member_set
+        if MEMBERS_FILE.exists():
+            try:
+                data = json.loads(MEMBERS_FILE.read_text(encoding="utf-8"))
+                _member_set = set(data.get("members", []))
+                return _member_set
+            except (json.JSONDecodeError, OSError):
+                pass
+        token_re = re.compile(r"\bsw[A-Z]\w*\b")
+        members: set[str] = set()
+        const_prefix = f"{SWCONST_NS}~".lower()
+        for stem, rel in _load_keys().items():
+            if not stem.startswith(const_prefix):
+                continue
+            try:
+                html = (EXTRACT_DIR / rel).read_text(encoding="utf-8",
+                                                     errors="replace")
+            except OSError:
+                continue
+            members.update(t.lower() for t in token_re.findall(html))
+        _member_set = members
+        try:
+            MEMBERS_FILE.write_text(
+                json.dumps({"members": sorted(members),
+                            "built": int(time.time())}),
+                encoding="utf-8")
+        except OSError:
+            pass
+        return _member_set
 
 
 # --- Full-text search (lazy FTS5 index) ------------------------------------

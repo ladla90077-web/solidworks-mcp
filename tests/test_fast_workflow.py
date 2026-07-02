@@ -70,12 +70,27 @@ def test_generated_macros_include_reversible_fast_mode(tmp_path):
     assert "If buildFailed Then GoTo SWMCP_Cleanup" in code
 
 
-def test_docs_use_local_and_cosmon_before_web(monkeypatch):
+def test_docs_prefer_local_then_cosmon_and_never_silently_render_web(monkeypatch):
     from sw_mcp import cosmon_resources, local_docs
 
-    monkeypatch.setattr(cosmon_resources, "search", lambda *a, **k: {"hits": [{"path": "cosmon.json"}]})
-    monkeypatch.setattr(local_docs, "local_method", lambda *a, **k: {"syntax": "FeatureExtrusion3(...)"})
     monkeypatch.setattr(docs_pipeline, "fetch", lambda *_a, **_k: pytest.fail("web fallback used"))
+
+    # 1. Local CHM hit wins outright (no cosmon bolt-on, no web).
+    monkeypatch.setattr(local_docs, "local_method", lambda *a, **k: {"syntax": "FeatureExtrusion3(...)"})
     result = docs_pipeline.lookup_method("FeatureManager", "FeatureExtrusion3")
     assert result["syntax"] == "FeatureExtrusion3(...)"
-    assert result["cosmon_references"][0]["path"] == "cosmon.json"
+
+    # 2. Local miss falls back to the keyed Cosmon record.
+    from sw_mcp import cosmon_db
+    monkeypatch.setattr(local_docs, "local_method", lambda *a, **k: None)
+    monkeypatch.setattr(cosmon_db, "member_info",
+                        lambda *a, **k: {"id": "IFeatureManager::FeatureExtrusion3",
+                                         "signature": "IFeature FeatureExtrusion3(...)"})
+    result = docs_pipeline.lookup_method("FeatureManager", "FeatureExtrusion3")
+    assert result["source"] == "bundled-cosmon-db"
+
+    # 3. A complete miss returns fast with a hint - never a silent web render.
+    monkeypatch.setattr(cosmon_db, "member_info", lambda *a, **k: None)
+    result = docs_pipeline.lookup_method("FeatureManager", "MissingXyz")
+    assert result["found"] is False
+    assert "prefer='web'" in result["hint"]

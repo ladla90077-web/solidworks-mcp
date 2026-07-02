@@ -125,6 +125,11 @@ def _search_cached(query: str, collection: str, limit: int, resource_key: str) -
     hits = []
     for source, logical, path in _files(collection):
         try:
+            # The multi-MB function_summaries variants are served by the keyed
+            # cosmon_db indexes; byte-scanning them here cost ~124 MB of I/O
+            # per uncached query for hits the index finds instantly.
+            if path.stat().st_size > 2_000_000:
+                continue
             raw = path.read_bytes()
         except OSError:
             continue

@@ -17,8 +17,9 @@ from typing import Optional
 
 from mcp.server.fastmcp import FastMCP
 
-from . import (cosmon_resources, design_library, diagnostics, docs_pipeline,
-               executor, feature_tools, knowledge, model_ops, skills)
+from . import (cosmon_db, cosmon_resources, design_library, diagnostics,
+               docs_pipeline, executor, feature_tools, knowledge, model_ops,
+               skills, vba_lint)
 from .com_worker import call
 from .sw_connection import SWConnection
 from .util import new_work_path
@@ -30,12 +31,17 @@ mcp = FastMCP(
         "request with prepare_modeling_context. If it reports start_solidworks, ask the user "
         "to open SOLIDWORKS; if it reports select_session, ask them to choose one of the listed "
         "process IDs and call sw_select_session. Never model against an unselected process. "
-        "Use bundled Cosmon references and local CHM documentation before generating code or "
-        "using the web. Load the matched skill and design guidance returned by the context tool. "
-        "Execute through run_and_verify, inspect the structured verdict, correct failures, and "
-        "repeat until success. Record genuinely new "
-        "fixes with learn_rule. Prefer explicit dimensions, design intent, manufacturability, "
-        "and shop-ready drawings over visually plausible but under-defined geometry."
+        "Fetch every API signature you need in ONE docs_lookup_batch call (not one lookup per "
+        "method), generate the complete macro, then execute through run_and_verify - it "
+        "statically validates the code against the real API surface first and returns "
+        "static_check errors in milliseconds when a method/enum is wrong, so fix those before "
+        "any rerun. Inspect the structured verdict, correct failures, and repeat until success. "
+        "Record genuinely new fixes with learn_rule. Every part must be finished like a "
+        "professional component: ALL sharp edges get a fillet or chamfer (fillets on external "
+        "edges, chamfers on hole entries and lead-ins) as a finishing pass before the final "
+        "rebuild - never deliver a bare block or cylinder. Prefer explicit dimensions, design "
+        "intent, manufacturability, and shop-ready drawings over visually plausible but "
+        "under-defined geometry."
     ),
 )
 
@@ -105,6 +111,12 @@ def prepare_modeling_context(request: str, process_id: int = 0,
         }
 
     references = cosmon_resources.search(request, "all", reference_limit)
+    # Excerpts are for scent, not reading: 250 chars is enough to decide
+    # whether to fetch the resource; anything longer just bloats every
+    # subsequent model call in the session.
+    for hit in references.get("hits", []):
+        if len(hit.get("excerpt", "")) > 250:
+            hit["excerpt"] = hit["excerpt"][:250] + " [...]"
     try:
         from . import local_docs
         local = local_docs.search(request, limit=min(reference_limit, 8))
@@ -124,8 +136,13 @@ def prepare_modeling_context(request: str, process_id: int = 0,
         "workflow": [
             "Load the most relevant matched skill with get_skill.",
             "Use the returned design guidance and documentation before writing code.",
-            "Generate the complete feature sequence for the selected session.",
-            "Execute once with run_and_verify; repair only if its verdict fails.",
+            "Fetch every needed API signature in ONE docs_lookup_batch call.",
+            "Generate the complete feature sequence for the selected session, "
+            "ENDING with an edge-finishing pass: fillet/chamfer every remaining "
+            "sharp edge (fillets outside, chamfers on hole entries) - a "
+            "professional part, never a bare primitive.",
+            "Execute once with run_and_verify (it statically validates first); "
+            "repair only if its verdict fails.",
         ],
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 1),
     }
@@ -140,25 +157,69 @@ def run_macro(path: str, module: str = "", procedure: str = "main") -> dict:
     return call(lambda app: executor.run_file_and_verify(app, path, module, procedure))
 
 
+def _static_gate(code: str) -> Optional[dict]:
+    """Lint generated VBA before touching COM. A static error costs
+    milliseconds to report here versus a full run + ForceRebuild (up to a
+    minute) to discover live. Returns a failure verdict, or None when clean."""
+    try:
+        check = vba_lint.validate(code)
+    except Exception:  # noqa: BLE001 - the linter must never block execution
+        return None
+    if check["ok"]:
+        return None
+    return {
+        "success": False,
+        "ran": False,
+        "static_check": check,
+        "hint": ("Static validation failed BEFORE execution - the macro was "
+                 "not run. Fix the listed unknown methods/enums and pitfalls "
+                 "(suggestions included) and call run_and_verify again. "
+                 "Pass skip_lint=True only if you are sure a finding is a "
+                 "false positive."),
+    }
+
+
 @mcp.tool()
-def run_vba(code: str, procedure: str = "main", module: str = "Module1") -> dict:
+def validate_vba(code: str) -> dict:
+    """Statically validate VBA against the real SolidWorks API surface in
+    milliseconds - no SolidWorks required. Checks every called method against
+    the CHM interface index, every sw* token against the swconst enum/member
+    set, and the known VBA/COM pitfall patterns (bitwise 'If Not', Set on
+    Create*Rectangle, MsgBox, hardcoded templates, name-based plane selection).
+    run_and_verify runs this automatically; call it directly to pre-check code
+    or to re-check a fix without executing."""
+    return vba_lint.validate(code)
+
+
+@mcp.tool()
+def run_vba(code: str, procedure: str = "main", module: str = "Module1",
+            skip_lint: bool = False) -> dict:
     """Run an inline VBA macro string. The code is written to a temp .swb and
     executed (SolidWorks compiles .swb on the fly). Returns ran/error info and
     the generated macro path. Prefer run_and_verify for the fix loop.
 
-    Generator rules for reliable inline VBA: declare Option Explicit, use the
-    SWMCP_Log silent-log convention instead of MsgBox, test API booleans with
-    '= False' (never bitwise 'If Not'), and capture Create*Rectangle results as
-    a Variant array (not Set)."""
+    The code is statically validated first (see validate_vba); static errors
+    return instantly without executing. Generator rules for reliable inline
+    VBA: declare Option Explicit, use the SWMCP_Log silent-log convention
+    instead of MsgBox, test API booleans with '= False' (never bitwise
+    'If Not'), and capture Create*Rectangle results as a Variant array (not
+    Set)."""
+    if not skip_lint:
+        gate = _static_gate(code)
+        if gate:
+            return gate
     return call(lambda app: executor.run_inline_and_verify(app, code, proc=procedure,
                                                            module=module, rebuild=True))
 
 
 @mcp.tool()
 def run_and_verify(code: str = "", macro_path: str = "", procedure: str = "main",
-                   module: str = "Module1") -> dict:
-    """THE auto-fix-loop primitive. Run inline `code` OR an existing `macro_path`,
-    rebuild, scan for errors, and return one verdict:
+                   module: str = "Module1", skip_lint: bool = False) -> dict:
+    """THE auto-fix-loop primitive. Inline `code` is first validated statically
+    against the real API surface (milliseconds); unknown methods/enums and
+    known pitfalls come back as `static_check` WITHOUT running SolidWorks -
+    fix and resubmit. Clean code is then run, rebuilt and scanned for errors,
+    returning one verdict:
     {success, ran, run_error, log[], log_errors[], errors[], errored_features[],
      suppressed_features[], feature_count, macro_path}.
     On success==false the verdict also includes `suggested_fixes` (previously
@@ -170,6 +231,10 @@ def run_and_verify(code: str = "", macro_path: str = "", procedure: str = "main"
                                                              module, procedure))
     if not code:
         return {"success": False, "error": "provide either code or macro_path"}
+    if not skip_lint:
+        gate = _static_gate(code)
+        if gate:
+            return gate
     return call(lambda app: executor.run_inline_and_verify(app, code, proc=procedure,
                                                            module=module, rebuild=True))
 
@@ -603,40 +668,130 @@ def list_rules(query: str = "") -> dict:
 # the JS web render is the fallback for topics not on disk.
 @mcp.tool()
 def docs_lookup_method(interface: str, method: str, refresh: bool = False,
-                       prefer: str = "local") -> dict:
-    """Look up a SolidWorks 2022 API method. Reads the installed CHM docs first
-    (offline, instant), falling back to the rendered web docs only if the topic
-    isn't on disk. e.g. interface='FeatureManager', method='FeatureExtrusion3'.
-    Returns syntax, parameters, return value, remarks and example. Read 'remarks'
-    - it holds the selection-mark/precondition details that separate working from
-    crashing code. prefer='web' forces an online render; refresh=True bypasses
-    every cache."""
+                       prefer: str = "local", full: bool = False) -> dict:
+    """Look up ONE SolidWorks 2022 API method (for several, use
+    docs_lookup_batch - one round trip). Reads the installed CHM docs
+    (offline, instant); a local miss returns instantly with a hint instead of
+    silently rendering the web. e.g. interface='FeatureManager',
+    method='FeatureExtrusion3'. Returns syntax, parameters, return value,
+    remarks and example. Read 'remarks' - it holds the selection-mark/
+    precondition details that separate working from crashing code. Long
+    remarks/examples are trimmed; pass full=True for the complete text.
+    prefer='web' forces an online render; refresh=True bypasses every cache."""
     return docs_pipeline.lookup_method(interface, method, refresh=refresh,
-                                       prefer=prefer)
+                                       prefer=prefer, full=full)
+
+
+@mcp.tool()
+def docs_lookup_batch(methods: Optional[list] = None,
+                      enums: Optional[list] = None) -> dict:
+    """Fetch MANY API signatures in ONE round trip - always prefer this over
+    repeated docs_lookup_method/docs_lookup_enum calls before generating a
+    macro. `methods` is a list of 'Interface.Method' (or 'Interface::Method')
+    strings, e.g. ['FeatureManager.FeatureExtrusion3', 'SketchManager.CreateCircleByRadius'];
+    `enums` is a list of enum names, e.g. ['swEndConditions_e'].
+    Each method entry returns compact syntax/parameters/return_value plus a
+    short remarks head; each enum returns its member table. Follow up with
+    docs_lookup_method(full=True) only if one topic needs deeper reading."""
+    out: dict = {"methods": [], "enums": []}
+    for spec in methods or []:
+        parts = re.split(r"::|\.", str(spec).strip(), maxsplit=1)
+        if len(parts) != 2 or not all(parts):
+            out["methods"].append({"spec": spec, "found": False,
+                                   "error": "use 'Interface.Method'"})
+            continue
+        res = docs_pipeline.lookup_method(parts[0], parts[1])
+        remarks, _ = docs_pipeline._cap(res.get("remarks"), 400)
+        out["methods"].append({
+            "interface": res.get("interface"), "method": res.get("method"),
+            "found": res.get("found", True) and bool(res.get("syntax")
+                                                     or res.get("references")),
+            "syntax": res.get("syntax"),
+            "parameters": res.get("parameters"),
+            "return_value": res.get("return_value"),
+            "remarks_head": remarks,
+            **({"note": res["note"]} if res.get("note") else {}),
+            **({"hint": res["hint"]} if res.get("hint") else {}),
+        })
+    for name in enums or []:
+        res = docs_pipeline.lookup_enum(str(name).strip())
+        out["enums"].append({
+            "enum": res.get("enum"),
+            "found": res.get("found", True) and bool(res.get("members")
+                                                     or res.get("references")),
+            "members": res.get("members"),
+            **({"hint": res["hint"]} if res.get("hint") else {}),
+        })
+    return out
+
+
+@mcp.tool()
+def api_map(name: str) -> dict:
+    """Map how a piece of the API mechanism CONNECTS - in one instant, offline
+    call. `name` accepts an interface ('IFeatureManager'), a member
+    ('FeatureManager.FeatureExtrusion3' or 'FeatureExtrusion3'), or an enum
+    ('swEndConditions_e'). Returns the curated Cosmon knowledge: interface
+    description + ACCESSOR CHAIN (which calls yield the object - how links are
+    made), member signature/description with deprecation status and
+    replacements, related members (see-also network), and matching feature
+    creation recipes. Use it to plan correct object chains before writing VBA
+    instead of guessing accessors in the fix loop."""
+    out: dict = {"query": name}
+    n = name.strip()
+    if "." in n or "::" in n:
+        iface, member = re.split(r"::|\.", n, maxsplit=1)
+        out["member"] = cosmon_db.member_info(iface, member)
+        out["interface"] = cosmon_db.interface_info(iface)
+    elif n.lower().endswith("_e"):
+        out["enum"] = cosmon_db.enum_info(n)
+    else:
+        info = cosmon_db.interface_info(n)
+        if info:
+            out["interface"] = info
+        else:
+            out["member"] = cosmon_db.member_info("", n)
+    recipes = cosmon_db.feature_recipes(n)
+    if recipes:
+        out["feature_recipes"] = recipes
+    if not any(out.get(k) for k in ("member", "interface", "enum",
+                                    "feature_recipes")):
+        out["found"] = False
+        out["hint"] = "Nothing matched; try docs_search for free-text search."
+    return out
 
 
 @mcp.tool()
 def docs_lookup_enum(enum_name: str, refresh: bool = False,
                      prefer: str = "local") -> dict:
-    """Look up a SolidWorks 2022 enum and its members, e.g. 'swEndConditions_e'.
-    Reads local CHM docs first; falls back to the web render if absent."""
+    """Look up a SolidWorks 2022 enum and its member table, e.g.
+    'swEndConditions_e' (for several, use docs_lookup_batch). Reads local CHM
+    docs; a local miss returns instantly with a hint instead of silently
+    rendering the web."""
     return docs_pipeline.lookup_enum(enum_name, refresh=refresh, prefer=prefer)
 
 
 @mcp.tool()
-def docs_search(query: str, limit: int = 8) -> dict:
+def docs_search(query: str, limit: int = 8, include_cosmon: bool = False) -> dict:
     """Full-text search the local SolidWorks API docs (offline, from the CHMs).
     Use this to find the right interface/method/enum by keyword instead of
     guessing in a fix loop - e.g. query='circular pattern feature' or
     'set extrude depth'. Returns lightweight hits (topic stem + title +
-    snippet); follow up with docs_lookup_method to read the full topic."""
+    snippet); follow up with docs_lookup_batch to read the topics. Pass
+    include_cosmon=True to also search the bundled Cosmon guides/databases."""
     from . import local_docs
-    return {
+    result = {
         "query": query,
         "priority": ["local-solidworks-chm", "bundled-cosmon", "web-fallback"],
         "local": local_docs.search(query, limit=limit),
-        "cosmon": cosmon_resources.search(query, "all", limit),
     }
+    try:
+        # Keyed in-memory index over 12k curated member records - instant.
+        result["cosmon_members"] = cosmon_db.search_members(query, limit=limit)
+    except Exception:  # noqa: BLE001
+        pass
+    if include_cosmon:
+        result["cosmon"] = cosmon_resources.search(query, "all", limit)
+    return result
 
 
 @mcp.tool()

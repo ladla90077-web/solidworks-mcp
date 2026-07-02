@@ -32,6 +32,38 @@ SWCONST_NS = "SolidWorks.Interop.swconst"
 _SECTION_HEADERS = ["Syntax", "Parameters", "Return Value", "Remarks",
                     "Example", "See Also", "Accessors"]
 
+# Token diet: remarks/example sections in the help topics routinely run to
+# thousands of tokens, and in an agent loop every past tool result is re-read
+# on every subsequent model call. Compact results are the default; callers
+# pass full=True for the rare topic where the prose matters.
+REMARKS_CAP = 1200
+EXAMPLE_CAP = 1500
+
+
+def _cap(text, cap: int):
+    """Trim `text` to ~cap chars at a line boundary. Returns (text, truncated)."""
+    if not text or len(text) <= cap:
+        return text, False
+    cut = text.rfind("\n", 0, cap)
+    if cut < cap // 2:
+        cut = cap
+    return text[:cut].rstrip() + " [...]", True
+
+
+def _compact_method(out: dict, full: bool) -> dict:
+    if full:
+        return out
+    any_trimmed = False
+    for field, cap in (("remarks", REMARKS_CAP), ("example", EXAMPLE_CAP)):
+        trimmed, truncated = _cap(out.get(field), cap)
+        out[field] = trimmed
+        any_trimmed = any_trimmed or truncated
+    if any_trimmed:
+        out["truncated"] = True
+        out["note_truncated"] = ("Long sections trimmed to save tokens; pass "
+                                 "full=True for the complete text.")
+    return out
+
 
 # --- URL builders ----------------------------------------------------------
 def method_url(interface: str, method: str) -> str:
@@ -156,37 +188,64 @@ def fetch(url: str, refresh: bool = False) -> dict:
     return data
 
 
+def _cosmon_enrich(out: dict, interface: str, method: str) -> dict:
+    """Bolt the curated Cosmon knowledge onto a lookup result: one-line
+    description, deprecation warning + replacement, and the accessor chain
+    showing how the owning interface is obtained. A few hundred bytes that
+    encode exactly the linkage knowledge macro generation needs."""
+    try:
+        from . import cosmon_db
+        info = cosmon_db.member_info(interface, method)
+    except Exception:  # noqa: BLE001
+        info = None
+    if not info:
+        return out
+    if info.get("description") and not out.get("description"):
+        out["description"] = info["description"]
+    if info.get("deprecated"):
+        out["deprecated"] = True
+        out["replacements"] = info.get("replacements")
+    if info.get("interface_accessors"):
+        out["interface_accessors"] = info["interface_accessors"]
+    return out
+
+
 def lookup_method(interface: str, method: str, refresh: bool = False,
-                  prefer: str = "local") -> dict:
-    cosmon = None
-    if prefer != "web" and not refresh:
-        try:
-            from . import cosmon_resources
-            cosmon = cosmon_resources.search(
-                f"I{interface.lstrip('I')}::{method}", "function_docs", 3
-            )
-        except Exception:  # noqa: BLE001
-            cosmon = None
+                  prefer: str = "local", full: bool = False) -> dict:
     if prefer != "web" and not refresh:
         try:
             from . import local_docs
             loc = local_docs.local_method(interface, method)
             if loc and loc.get("syntax"):
-                loc["cosmon_references"] = (cosmon or {}).get("hits", [])
-                loc["documentation_priority"] = ["local-solidworks-chm", "bundled-cosmon"]
-                return loc
-        except Exception:  # noqa: BLE001 - never let local issues block web
+                return _cosmon_enrich(_compact_method(loc, full),
+                                      interface, method)
+        except Exception:  # noqa: BLE001 - never let local issues block lookup
             pass
-    if cosmon and cosmon.get("hits"):
+        try:
+            from . import cosmon_db
+            info = cosmon_db.member_info(interface, method)
+        except Exception:  # noqa: BLE001
+            info = None
+        if info:
+            info.update({"source": "bundled-cosmon-db", "cached": True,
+                         "unrendered": False,
+                         "note": ("Local CHM topic was unavailable; this is "
+                                  "the curated Cosmon record (C# signature - "
+                                  "adapt to VBA).")})
+            return info
+        # Fast, explicit miss. The old behaviour silently launched a headless
+        # Chromium render (up to ~50s) in the middle of the fix loop.
         return {
-            "interface": interface, "method": method, "source": "bundled-cosmon",
-            "references": cosmon["hits"], "cached": True, "unrendered": False,
-            "note": "Local CHM topic was unavailable; use these bundled Cosmon references.",
+            "interface": interface, "method": method, "found": False,
+            "source": "none",
+            "hint": ("No local topic for this interface/method. Check the "
+                     "spelling with docs_search, or pass prefer='web' to "
+                     "render help.solidworks.com (slow, ~10-50s)."),
         }
     url = method_url(interface, method)
     data = fetch(url, refresh=refresh)
     s = data.get("sections", {})
-    return {
+    return _compact_method({
         "interface": interface,
         "method": method,
         "url": url,
@@ -198,33 +257,32 @@ def lookup_method(interface: str, method: str, refresh: bool = False,
         "example": s.get("example"),
         "cached": data.get("cached"),
         "unrendered": data.get("unrendered"),
-    }
+    }, full)
 
 
 def lookup_enum(enum_name: str, refresh: bool = False,
                 prefer: str = "local") -> dict:
-    cosmon = None
-    if prefer != "web" and not refresh:
-        try:
-            from . import cosmon_resources
-            cosmon = cosmon_resources.search(enum_name, "function_docs", 3)
-        except Exception:  # noqa: BLE001
-            cosmon = None
     if prefer != "web" and not refresh:
         try:
             from . import local_docs
             loc = local_docs.local_enum(enum_name)
             if loc and loc.get("members"):
-                loc["cosmon_references"] = (cosmon or {}).get("hits", [])
-                loc["documentation_priority"] = ["local-solidworks-chm", "bundled-cosmon"]
                 return loc
         except Exception:  # noqa: BLE001
             pass
-    if cosmon and cosmon.get("hits"):
+        try:
+            from . import cosmon_db
+            info = cosmon_db.enum_info(enum_name)
+        except Exception:  # noqa: BLE001
+            info = None
+        if info and info.get("members"):
+            return {**info, "source": "bundled-cosmon-db", "cached": True,
+                    "unrendered": False}
         return {
-            "enum": enum_name, "source": "bundled-cosmon",
-            "references": cosmon["hits"], "cached": True, "unrendered": False,
-            "note": "Local CHM topic was unavailable; use these bundled Cosmon references.",
+            "enum": enum_name, "found": False, "source": "none",
+            "hint": ("No local topic for this enum. Check the name with "
+                     "docs_search, or pass prefer='web' to render "
+                     "help.solidworks.com (slow, ~10-50s)."),
         }
     url = enum_url(enum_name)
     data = fetch(url, refresh=refresh)

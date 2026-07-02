@@ -6,6 +6,11 @@ from sw_mcp.com_worker import call
 from sw_mcp.util import new_work_path
 
 
+@pytest.fixture(autouse=True)
+def _needs_sw(sw):
+    """These generators run against a live SolidWorks; skip cleanly without one."""
+
+
 def _run(builder, *args):
     lp = str(new_work_path(".log"))
     code = builder(*args, log_path=lp)
